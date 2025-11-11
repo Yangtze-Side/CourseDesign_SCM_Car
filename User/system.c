@@ -1,7 +1,6 @@
 
 #include "system.h"
 #include <stdarg.h>
-#include "user_driver.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/
 
@@ -15,7 +14,7 @@ static void uart_recv_handler(UART_Recv_t *recv);
 
 /*---------------------------------------- User Determine --------------------------------------*/
 
-void sys_init(void)
+void proj_init(void)
 {
 	UART_Recv_SetCB(uart_recv_handler);
 }

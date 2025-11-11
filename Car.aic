@@ -397,13 +397,13 @@
 		<EnableAnalogFilter>0</EnableAnalogFilter>
 	</CMP>
 	<SPI>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>1</EnableInt>
-		<SPIPort>-1</SPIPort>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>0</EnableInt>
+		<SPIPort>0</SPIPort>
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
 		<SPIClockMode>0</SPIClockMode>
-		<SPIClockDivider>1</SPIClockDivider>
+		<SPIClockDivider>0</SPIClockDivider>
 		<IntPriority>0</IntPriority>
 	</SPI>
 	<PCA>
@@ -415,7 +415,7 @@
 		<CounterInitial>0</CounterInitial>
 		<IntPriority>0</IntPriority>
 		<EnableCCFInt_0>0</EnableCCFInt_0>
-		<PCAMode_0>4</PCAMode_0>
+		<PCAMode_0>2</PCAMode_0>
 		<PCAReload_0>0</PCAReload_0>
 		<PCAMatch_0>0</PCAMatch_0>
 		<CAPEdge_0>0</CAPEdge_0>
@@ -483,6 +483,10 @@
 	</EPWM>
 	<PINMAP>
 		<PinCount>256</PinCount>
+		<Pin12Map>2</Pin12Map>
+		<Pin13Map>2</Pin13Map>
+		<Pin14Map>2</Pin14Map>
+		<Pin15Map>2</Pin15Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
 		<Pin35Map>2</Pin35Map>

@@ -3,8 +3,10 @@
 
 #include "config.h"
 
-#define Motor_Speed_MIN                     -100.0f
-#define Motor_Speed_MAX                     100.0f
+/*--------------------------------- Exported Defines ------------------------------*/
+
+#define Car_Speed_MIN                       -100.0f
+#define Car_Speed_MAX                       100.0f
 
 #define MOTORA_DIR1_Pin                     P00
 #define MOTORA_DIR2_Pin                     P00
@@ -17,16 +19,28 @@
 
 #define Motor_State_OFF                     0
 
-typedef struct MotorSpeed_t
+
+/*--------------------------------- Exported TypeDefs ------------------------------*/
+
+/**
+ * @brief Car speed is determined by 3 parameters:
+ *        Vx, Vy and Vw(angle ratio).
+ * @note  Export the type as an interface to set the car speed.
+ * 
+ */
+typedef struct CarSpeed_t
 {
-    float A;        // Motor speed value, range [ Motor_Speed_MIN, Motor_Speed_MAX ]
-    float B;        // Motor speed value, range [ Motor_Speed_MIN, Motor_Speed_MAX ]
-    float C;        // Motor speed value, range [ Motor_Speed_MIN, Motor_Speed_MAX ]
-    float D;        // Motor speed value, range [ Motor_Speed_MIN, Motor_Speed_MAX ]
-} MotorSpeed_t;
+    float x;
+    float y;
+    float w;
+} CarSpeed_t;
+
+
+/*--------------------------------- Exported Vars & Fnucs ------------------------------*/
 
 void Motor_Init(void);
 void Motor_Task(void);
-u8   MotorGetState(void);
+u8   Motor_GetState(void);
+void Motor_SetState(u8 NewState);
 
 #endif // !__MOTOR_H

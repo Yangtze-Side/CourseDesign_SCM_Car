@@ -1,0 +1,70 @@
+C51 COMPILER V9.60.7.0   SYSTEM                                                            11/11/2025 23:18:53 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYSTEM
+OBJECT MODULE PLACED IN .\Objects\system.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE User\system.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.\User;.
+                    -\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\system.lst) OBJECT(.\Objects\system.obj)
+
+line level    source
+
+   1          
+   2          #include "system.h"
+   3          #include <stdarg.h>
+   4          
+   5          /*---------------------------------------- System Variables --------------------------------------*/
+   6          
+   7          u8 xdata UART1_SendBuf[UART1_SendBuf_SIZE];
+   8          u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
+   9          
+  10          UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, 0, 0 };
+  11          UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, 0, 0 };
+  12          
+  13          static void uart_recv_handler(UART_Recv_t *recv);
+  14          
+  15          /*---------------------------------------- User Determine --------------------------------------*/
+  16          
+  17          void proj_init(void)
+  18          {
+  19   1              UART_Recv_SetCB(uart_recv_handler);
+  20   1      }
+  21          
+  22          static void uart_recv_handler(UART_Recv_t *recv)
+  23          {
+  24   1              if (recv->Index == UART1)
+  25   1              {
+  26   2                      ;
+  27   2              }
+  28   1      }
+  29          
+  30          /*---------------------------------------- System Functions --------------------------------------*/
+  31          
+  32          #define PRINTF_BUF                      UART1_SendBuf
+  33          #define PRINTF_HANDLE                   uart1_tx
+  34          
+  35          void user_printf(const char *f, ...)
+  36          {
+  37   1              va_list args;
+  38   1              if (PRINTF_HANDLE.Busy == TRUE) return;
+  39   1              
+  40   1              va_start(args, f);
+  41   1              vsprintf((char*)PRINTF_BUF, f, args);
+  42   1              va_end(args);
+  43   1              UART_Send_Start(&PRINTF_HANDLE, strlen((char*)PRINTF_BUF));
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    135    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    271      49
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.60.7.0   SYSTEM                                                            11/11/2025 23:18:53 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

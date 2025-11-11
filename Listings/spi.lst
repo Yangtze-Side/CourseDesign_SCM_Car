@@ -1,0 +1,106 @@
+C51 COMPILER V9.60.7.0   SPI                                                               11/11/2025 23:18:54 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SPI
+OBJECT MODULE PLACED IN .\Objects\spi.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE Sources\spi.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.\User;.
+                    -\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\spi.lst) OBJECT(.\Objects\spi.obj)
+
+line level    source
+
+   1          //<<AICUBE_USER_HEADER_REMARK_BEGIN>>
+   2          ////////////////////////////////////////
+   3          // 在此添加用户文件头说明信息  
+   4          // 文件名称: spi.c
+   5          // 文件描述: 
+   6          // 文件版本: V1.0
+   7          // 修改记录:
+   8          //   1. (2025-11-11) 创建文件
+   9          ////////////////////////////////////////
+  10          //<<AICUBE_USER_HEADER_REMARK_END>>
+  11          
+  12          
+  13          #include "config.h"
+  14          
+  15          
+  16          //<<AICUBE_USER_INCLUDE_BEGIN>>
+  17          // 在此添加用户头文件包含  
+  18          //<<AICUBE_USER_INCLUDE_END>>
+  19          
+  20          
+  21          //<<AICUBE_USER_GLOBAL_DEFINE_BEGIN>>
+  22          // 在此添加用户全局变量定义、用户宏定义以及函数声明  
+  23          //<<AICUBE_USER_GLOBAL_DEFINE_END>>
+  24          
+  25          
+  26          
+  27          ////////////////////////////////////////
+  28          // SPI初始化函数
+  29          // 入口参数: 无
+  30          // 函数返回: 无
+  31          ////////////////////////////////////////
+  32          void SPI_Init(void)
+  33          {
+  34   1          SPI_SwitchP1n();                    //选择SPI数据口: SS(P1.2), MOSI(P1.3), MISO(P1.4), SCLK(P1.5)
+  35   1      
+  36   1          SPI_MasterMode();                   //设置SPI为主机模式
+  37   1          SPI_IgnoreSS();                     //忽略SS脚
+  38   1          SPI_DataMSB();                      //设置SPI数据顺序为MSB (高位在前)
+  39   1          SPI_SetMode0();                     //设置SPI工作模式0 (CPOL=0, CPHA=0)
+  40   1          SPI_SetClockDivider4();             //设置SPI时钟分频（SYSCLK/4）
+  41   1      
+  42   1          SPI_Enable();                       //使能SPI功能
+  43   1      
+  44   1          //<<AICUBE_USER_SPI_INITIAL_BEGIN>>
+  45   1          // 在此添加用户初始化代码  
+  46   1          //<<AICUBE_USER_SPI_INITIAL_END>>
+  47   1      }
+  48          
+  49          ////////////////////////////////////////
+  50          // SPI主机模式发送字节函数
+  51          // 入口参数: dat (待发送的字节数据)
+  52          // 函数返回: 无
+  53          ////////////////////////////////////////
+  54          void SPI_WriteByte(uint8_t dat)
+C51 COMPILER V9.60.7.0   SPI                                                               11/11/2025 23:18:54 PAGE 2   
+
+  55          {
+  56   1          SPI_SendData(dat);                  //触发主机发送数据
+  57   1          while (!SPI_CheckFlag());           //等待发送完成
+  58   1          SPI_ClearFlag();                    //清除中断标志
+  59   1      }
+  60          
+  61          ////////////////////////////////////////
+  62          // SPI主机模式读取字节函数
+  63          // 入口参数: 无
+  64          // 函数返回: 读取的字节数据
+  65          ////////////////////////////////////////
+  66          uint8_t SPI_ReadByte(void)
+  67          {
+  68   1          SPI_SendData(0xff);                 //触发主机读取数据（主机发送时钟信号）
+  69   1          while (!SPI_CheckFlag());           //等待读取完成
+  70   1          SPI_ClearFlag();                    //清除中断标志
+  71   1          return SPI_ReadData();
+  72   1      }
+  73          
+  74          
+  75          
+  76          //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
+  77          // 在此添加用户函数实现代码  
+  78          //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
+  79          
+  80          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     47    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

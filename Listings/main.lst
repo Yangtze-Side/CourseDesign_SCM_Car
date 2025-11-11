@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 23:18:54 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   3                  CLR_TaskExeFlag();
   53   3                  TaskExe();
   54   3              }
-C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 2   
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 23:18:54 PAGE 2   
 
   55   2              
   56   2              //<<AICUBE_USER_MAIN_LOOP_END>>
@@ -94,60 +94,61 @@ line level    source
   82   1          TIMER0_Init();                      //定时器0初始化
   83   1          TIMER2_Init();                      //定时器2初始化
   84   1          UART1_Init();                       //串口1初始化
-  85   1      
-  86   1          //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
-  87   1          // 在此添加用户初始化代码  
-  88   1          //<<AICUBE_USER_INITIAL_CODE_END>>
-  89   1      
-  90   1          EnableGlobalInt();                  //使能全局中断
-  91   1      }
-  92          
-  93          ////////////////////////////////////////
-  94          // 微秒延时函数
-  95          // 入口参数: us (设置延时的微秒值)
-  96          // 函数返回: 无
-  97          ////////////////////////////////////////
-  98          void delay_us(uint16_t us)
-  99          {
- 100   1          do
- 101   1          {
- 102   2              NOP(14);                        //(MAIN_Fosc + 500000) / 1000000 - 10
- 103   2          } while (--us);
- 104   1      }
- 105          
+  85   1          SPI_Init();                         //SPI初始化
+  86   1      
+  87   1          //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
+  88   1          // 在此添加用户初始化代码  
+  89   1          //<<AICUBE_USER_INITIAL_CODE_END>>
+  90   1      
+  91   1          EnableGlobalInt();                  //使能全局中断
+  92   1      }
+  93          
+  94          ////////////////////////////////////////
+  95          // 微秒延时函数
+  96          // 入口参数: us (设置延时的微秒值)
+  97          // 函数返回: 无
+  98          ////////////////////////////////////////
+  99          void delay_us(uint16_t us)
+ 100          {
+ 101   1          do
+ 102   1          {
+ 103   2              NOP(14);                        //(MAIN_Fosc + 500000) / 1000000 - 10
+ 104   2          } while (--us);
+ 105   1      }
  106          
- 107          ////////////////////////////////////////
- 108          // 毫秒延时函数
- 109          // 入口参数: ms (设置延时的毫秒值)
- 110          // 函数返回: 无
- 111          ////////////////////////////////////////
- 112          void delay_ms(uint16_t ms)
- 113          {
- 114   1          uint16_t i;
- 115   1      
- 116   1          do
-C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 3   
+ 107          
+ 108          ////////////////////////////////////////
+ 109          // 毫秒延时函数
+ 110          // 入口参数: ms (设置延时的毫秒值)
+ 111          // 函数返回: 无
+ 112          ////////////////////////////////////////
+ 113          void delay_ms(uint16_t ms)
+ 114          {
+ 115   1          uint16_t i;
+ 116   1      
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 23:18:54 PAGE 3   
 
- 117   1          {
- 118   2              i = MAIN_Fosc / 10000;
- 119   2              while (--i);
- 120   2          } while (--ms);
- 121   1      }
- 122          
+ 117   1          do
+ 118   1          {
+ 119   2              i = MAIN_Fosc / 10000;
+ 120   2              while (--i);
+ 121   2          } while (--ms);
+ 122   1      }
  123          
- 124          //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
- 125          // 在此添加用户函数实现代码  
- 126          void led_task(void)
- 127          {
- 128   1          P00 ^= 1;
- 129   1      }
- 130          //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
- 131          
+ 124          
+ 125          //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
+ 126          // 在此添加用户函数实现代码  
+ 127          void led_task(void)
+ 128          {
+ 129   1          P00 ^= 1;
+ 130   1      }
+ 131          //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
  132          
+ 133          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    117    ----
+   CODE SIZE        =    120    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

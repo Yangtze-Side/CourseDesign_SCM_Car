@@ -389,6 +389,16 @@
               <FileType>5</FileType>
               <FilePath>.\User\task.h</FilePath>
             </File>
+            <File>
+              <FileName>system.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\system.c</FilePath>
+            </File>
+            <File>
+              <FileName>system.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\system.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -408,6 +418,36 @@
               <FileName>user_pwm.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User_Driver\user_pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_soft_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_soft_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_soft_iic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_soft_iic.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_uart.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -449,6 +489,16 @@
               <FileType>5</FileType>
               <FilePath>.\Motion\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>motion_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Motion\motion_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>motion_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Motion\motion_control.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -468,6 +518,11 @@
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\spi.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -40,6 +40,7 @@
 
 #include "timer.h"
 #include "uart.h"
+#include "spi.h"
 
 void SYS_Init(void);
 void delay_us(uint16_t us);

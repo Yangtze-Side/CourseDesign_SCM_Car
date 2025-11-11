@@ -1,0 +1,137 @@
+C51 COMPILER V9.60.7.0   USER_SOFT_IIC                                                     11/11/2025 23:18:53 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE USER_SOFT_IIC
+OBJECT MODULE PLACED IN .\Objects\user_soft_iic.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE User_Driver\user_soft_iic.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Source
+                    -s\inc;.\User;.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\user_soft_iic.lst) OBJECT(.\Objects\
+                    -user_soft_iic.obj)
+
+line level    source
+
+   1          
+   2          #include "user_soft_iic.h"
+   3          
+   4          #define SCL_High()              (SCL_Pin = 1)
+   5          #define SCL_Low()               (SCL_Pin = 0)
+   6          #define SDA_High()              (SDA_Pin = 1)
+   7          #define SDA_Low()               (SDA_Pin = 0)
+   8          
+   9          #define DELAY_TIME      10
+  10          
+  11          static void IIC_Delay(void)
+  12          {
+  13   1          NOP(1);
+  14   1      }
+  15          
+  16          static void IIC_Start(void)
+  17          {
+  18   1          SDA_High();
+  19   1          SCL_High();
+  20   1              IIC_Delay();
+  21   1          SDA_Low();
+  22   1              IIC_Delay();
+  23   1          SCL_Low();    
+  24   1      }
+  25          
+  26          static void IIC_Stop(void)
+  27          {
+  28   1          SDA_Low();
+  29   1          SCL_High();
+  30   1              IIC_Delay();
+  31   1          SDA_High();
+  32   1              IIC_Delay();
+  33   1      }
+  34          
+  35          static void IIC_SendByte(u8 byte)
+  36          {
+  37   1          u8 i = 0;
+  38   1          for(; i < 8; i++)
+  39   1          {
+  40   2              SCL_Low();
+  41   2                      IIC_Delay();
+  42   2              SDA_Pin = (byte & 0x80);
+  43   2                      IIC_Delay();
+  44   2              SCL_High();
+  45   2              byte <<= 1;
+  46   2                      IIC_Delay();
+  47   2          }
+  48   1          SCL_Low();
+  49   1          SDA_High();
+  50   1      }
+  51          
+  52          static u8 IIC_ReceiveByte(void)
+  53          {
+C51 COMPILER V9.60.7.0   USER_SOFT_IIC                                                     11/11/2025 23:18:53 PAGE 2   
+
+  54   1              u8 byte;
+  55   1              u8 i = 0;
+  56   1              for(; i < 8; i++)
+  57   1          {   
+  58   2                      SCL_High();
+  59   2                      IIC_Delay();
+  60   2                      byte <<= 1;
+  61   2                      if(SDA_Pin)  byte |= 0x01;
+  62   2                      SCL_Low();
+  63   2                      IIC_Delay();
+  64   2              }
+  65   1              return byte;    
+  66   1      }
+  67          
+  68          static u8 IIC_WaitAck(void)
+  69          {
+  70   1              u8 ackbit;
+  71   1              
+  72   1          SCL_High();
+  73   1              IIC_Delay();
+  74   1          ackbit = SDA_Pin; 
+  75   1          SCL_Low();
+  76   1              
+  77   1              return ackbit;
+  78   1      }
+  79          
+  80          static void IIC_SendAck(u8 ackbit)
+  81          {
+  82   1          SCL_Low();
+  83   1          SDA_Pin = ackbit; 
+  84   1              IIC_Delay();
+  85   1          SCL_High();
+  86   1              IIC_Delay();
+  87   1          SCL_Low(); 
+  88   1              SDA_High();
+  89   1      }
+  90          
+  91          void IIC_MemWrite(u8 DevAddr, u8 MemAddr, u8 *pData, u16 Len)
+  92          {
+  93   1          u16 i = 0;
+  94   1      
+  95   1          IIC_Start();
+  96   1          IIC_SendByte(DevAddr);
+  97   1          IIC_WaitAck();
+  98   1          IIC_SendByte(MemAddr);
+  99   1          IIC_WaitAck();
+ 100   1      
+ 101   1          for (; i < Len; i++)
+ 102   1          {
+ 103   2              IIC_SendByte(*(pData + i));
+ 104   2              IIC_WaitAck();
+ 105   2          }
+ 106   1      
+ 107   1          IIC_Stop();
+ 108   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    204    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       7
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   USER_SOFT_IIC                                                     11/11/2025 23:18:53 PAGE 3   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,5 +1,6 @@
 
 #include "task.h"
+#include "motion.h"
 
 void led_task(void);
 
@@ -12,10 +13,11 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      1
+#define TASK_TOTAL      2
 
 Task_t Task[TASK_TOTAL] =
 {
+    { 20/5, 0, Motor_Task },
     { 500/5, 0, led_task },
 };
 

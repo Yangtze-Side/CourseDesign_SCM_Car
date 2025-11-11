@@ -1,0 +1,29 @@
+C51 COMPILER V9.60.7.0   USER_SPI                                                          11/11/2025 23:18:53 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE USER_SPI
+OBJECT MODULE PLACED IN .\Objects\user_spi.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE User_Driver\user_spi.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc
+                    -;.\User;.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\user_spi.lst) OBJECT(.\Objects\user_spi.o
+                    -bj)
+
+line level    source
+
+   1          
+   2          #include "user_spi.h"
+   3          
+   4          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
