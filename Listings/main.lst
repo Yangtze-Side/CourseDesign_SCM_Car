@@ -1,0 +1,160 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE Sources\main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.\User;
+                    -.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          //<<AICUBE_USER_HEADER_REMARK_BEGIN>>
+   2          ////////////////////////////////////////
+   3          // 在此添加用户文件头说明信息  
+   4          // 文件名称: main.c
+   5          // 文件描述: 
+   6          // 文件版本: V1.0
+   7          // 修改记录:
+   8          //   1. (2025-11-10) 创建文件
+   9          ////////////////////////////////////////
+  10          //<<AICUBE_USER_HEADER_REMARK_END>>
+  11          
+  12          
+  13          #include "config.h"                     //默认已包含stdio.h、intrins.h等头文件
+  14          
+  15          
+  16          //<<AICUBE_USER_INCLUDE_BEGIN>>
+  17          // 在此添加用户头文件包含  
+  18          #include "task.h"
+  19          //<<AICUBE_USER_INCLUDE_END>>
+  20          
+  21          
+  22          //<<AICUBE_USER_GLOBAL_DEFINE_BEGIN>>
+  23          // 在此添加用户全局变量定义、用户宏定义以及函数声明  
+  24          //<<AICUBE_USER_GLOBAL_DEFINE_END>>
+  25          
+  26          
+  27          
+  28          ////////////////////////////////////////
+  29          // 项目主函数
+  30          // 入口参数: 无
+  31          // 函数返回: 无
+  32          ////////////////////////////////////////
+  33          void main(void)
+  34          {
+  35   1          //<<AICUBE_USER_MAIN_INITIAL_BEGIN>>
+  36   1          // 在此添加用户主函数初始化代码  
+  37   1          //<<AICUBE_USER_MAIN_INITIAL_END>>
+  38   1      
+  39   1          SYS_Init();
+  40   1      
+  41   1          //<<AICUBE_USER_MAIN_CODE_BEGIN>>
+  42   1          // 在此添加主函数中运行一次的用户代码  
+  43   1          //<<AICUBE_USER_MAIN_CODE_END>>
+  44   1      
+  45   1          while (1)
+  46   1          {
+  47   2              //<<AICUBE_USER_MAIN_LOOP_BEGIN>>
+  48   2              // 在此添加主函数中用户主循环代码  
+  49   2              
+  50   2              if (GET_TaskExeFlag())
+  51   2              {
+  52   3                  CLR_TaskExeFlag();
+  53   3                  TaskExe();
+  54   3              }
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 2   
+
+  55   2              
+  56   2              //<<AICUBE_USER_MAIN_LOOP_END>>
+  57   2          }
+  58   1      }
+  59          
+  60          ////////////////////////////////////////
+  61          // 系统初始化函数
+  62          // 入口参数: 无
+  63          // 函数返回: 无
+  64          ////////////////////////////////////////
+  65          void SYS_Init(void)
+  66          {
+  67   1          EnableAccessXFR();                  //使能访问扩展XFR
+  68   1      
+  69   1          //<<AICUBE_USER_PREINITIAL_CODE_BEGIN>>
+  70   1          // 在此添加用户预初始化代码  
+  71   1          //<<AICUBE_USER_PREINITIAL_CODE_END>>
+  72   1      
+  73   1          P0M0 = 0x00; P0M1 = 0x00;           //初始化P0口为准双向口模式
+  74   1          P1M0 = 0x00; P1M1 = 0x00;           //初始化P1口为准双向口模式
+  75   1          P2M0 = 0x00; P2M1 = 0x00;           //初始化P2口为准双向口模式
+  76   1          P3M0 = 0x00; P3M1 = 0x00;           //初始化P3口为准双向口模式
+  77   1          P4M0 = 0x00; P4M1 = 0x00;           //初始化P4口为准双向口模式
+  78   1          P5M0 = 0x00; P5M1 = 0x00;           //初始化P5口为准双向口模式
+  79   1          P6M0 = 0x00; P6M1 = 0x00;           //初始化P6口为准双向口模式
+  80   1          P7M0 = 0x00; P7M1 = 0x00;           //初始化P7口为准双向口模式
+  81   1      
+  82   1          TIMER0_Init();                      //定时器0初始化
+  83   1          TIMER2_Init();                      //定时器2初始化
+  84   1          UART1_Init();                       //串口1初始化
+  85   1      
+  86   1          //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
+  87   1          // 在此添加用户初始化代码  
+  88   1          //<<AICUBE_USER_INITIAL_CODE_END>>
+  89   1      
+  90   1          EnableGlobalInt();                  //使能全局中断
+  91   1      }
+  92          
+  93          ////////////////////////////////////////
+  94          // 微秒延时函数
+  95          // 入口参数: us (设置延时的微秒值)
+  96          // 函数返回: 无
+  97          ////////////////////////////////////////
+  98          void delay_us(uint16_t us)
+  99          {
+ 100   1          do
+ 101   1          {
+ 102   2              NOP(14);                        //(MAIN_Fosc + 500000) / 1000000 - 10
+ 103   2          } while (--us);
+ 104   1      }
+ 105          
+ 106          
+ 107          ////////////////////////////////////////
+ 108          // 毫秒延时函数
+ 109          // 入口参数: ms (设置延时的毫秒值)
+ 110          // 函数返回: 无
+ 111          ////////////////////////////////////////
+ 112          void delay_ms(uint16_t ms)
+ 113          {
+ 114   1          uint16_t i;
+ 115   1      
+ 116   1          do
+C51 COMPILER V9.60.7.0   MAIN                                                              11/11/2025 20:04:24 PAGE 3   
+
+ 117   1          {
+ 118   2              i = MAIN_Fosc / 10000;
+ 119   2              while (--i);
+ 120   2          } while (--ms);
+ 121   1      }
+ 122          
+ 123          
+ 124          //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
+ 125          // 在此添加用户函数实现代码  
+ 126          void led_task(void)
+ 127          {
+ 128   1          P00 ^= 1;
+ 129   1      }
+ 130          //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
+ 131          
+ 132          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    117    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

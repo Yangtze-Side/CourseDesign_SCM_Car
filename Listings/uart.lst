@@ -1,0 +1,101 @@
+C51 COMPILER V9.60.7.0   UART                                                              11/11/2025 20:04:25 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN .\Objects\uart.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE Sources\uart.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.\User;
+                    -.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\uart.lst) OBJECT(.\Objects\uart.obj)
+
+line level    source
+
+   1          //<<AICUBE_USER_HEADER_REMARK_BEGIN>>
+   2          ////////////////////////////////////////
+   3          // 在此添加用户文件头说明信息  
+   4          // 文件名称: uart.c
+   5          // 文件描述: 
+   6          // 文件版本: V1.0
+   7          // 修改记录:
+   8          //   1. (2025-11-11) 创建文件
+   9          ////////////////////////////////////////
+  10          //<<AICUBE_USER_HEADER_REMARK_END>>
+  11          
+  12          
+  13          #include "config.h"
+  14          
+  15          
+  16          //<<AICUBE_USER_INCLUDE_BEGIN>>
+  17          // 在此添加用户头文件包含  
+  18          //<<AICUBE_USER_INCLUDE_END>>
+  19          
+  20          
+  21          //<<AICUBE_USER_GLOBAL_DEFINE_BEGIN>>
+  22          // 在此添加用户全局变量定义、用户宏定义以及函数声明  
+  23          //<<AICUBE_USER_GLOBAL_DEFINE_END>>
+  24          
+  25          
+  26          
+  27          ////////////////////////////////////////
+  28          // 串口1初始化函数
+  29          // 入口参数: 无
+  30          // 函数返回: 无
+  31          ////////////////////////////////////////
+  32          void UART1_Init(void)
+  33          {
+  34   1          UART1_SwitchP3637();                //设置串口数据端口: RxD (P3.6), TxD (P3.7)
+  35   1      
+  36   1          UART1_Timer2BRT();                  //选择定时器2作为串口1波特率发生器
+  37   1      
+  38   1          UART1_EnableRx();                   //使能串口1接收数据
+  39   1          UART1_Mode1();                      //设置串口1为模式1 (8位数据可变波特率)
+  40   1          UART1_SetIntPriority(0);            //设置中断为低优先级
+  41   1          UART1_EnableInt();                  //使能串口1中断
+  42   1      
+  43   1          //<<AICUBE_USER_UART1_INITIAL_BEGIN>>
+  44   1          // 在此添加用户初始化代码  
+  45   1          //<<AICUBE_USER_UART1_INITIAL_END>>
+  46   1      }
+  47          
+  48          
+  49          ////////////////////////////////////////
+  50          // 串口1中断服务程序
+  51          // 入口参数: 无
+  52          // 函数返回: 无
+  53          ////////////////////////////////////////
+  54          void UART1_ISR(void) interrupt UART1_VECTOR
+C51 COMPILER V9.60.7.0   UART                                                              11/11/2025 20:04:25 PAGE 2   
+
+  55          {
+  56   1          //<<AICUBE_USER_UART1_ISR_CODE1_BEGIN>>
+  57   1          // 在此添加中断函数用户代码  
+  58   1          if (UART1_CheckTxFlag())            //判断串口发送中断
+  59   1          {
+  60   2              UART1_ClearTxFlag();            //清除串口发送中断标志
+  61   2          }
+  62   1      
+  63   1          if (UART1_CheckRxFlag())            //判断串口接收中断
+  64   1          {
+  65   2              UART1_ClearRxFlag();            //清除串口接收中断标志
+  66   2          }
+  67   1          //<<AICUBE_USER_UART1_ISR_CODE1_END>>
+  68   1      }
+  69          
+  70          
+  71          //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
+  72          // 在此添加用户函数实现代码  
+  73          //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
+  74          
+  75          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     37    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

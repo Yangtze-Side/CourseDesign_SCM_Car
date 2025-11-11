@@ -1,0 +1,69 @@
+C51 COMPILER V9.60.7.0   USER_MATH                                                         11/11/2025 20:04:24 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE USER_MATH
+OBJECT MODULE PLACED IN .\Objects\user_math.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE User_Lib\user_math.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.
+                    -\User;.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\user_math.lst) OBJECT(.\Objects\user_math.o
+                    -bj)
+
+line level    source
+
+   1          
+   2          #include "user_math.h"
+   3          #include "math.h"
+   4          
+   5          
+   6          /**
+   7           * @brief 角度加权函数。
+   8           * 
+   9           * @param ang1 角度 1
+  10           * @param ang2 角度 2
+  11           * @param wgh1 角度 1 的权重
+  12           * @return float 加权之后的角度值（限制在 -180 ~ 180 度）
+  13           */
+  14          float Weight_Ang(float ang1, float ang2, float wgh1)
+  15          {
+  16   1          float diff, res;
+  17   1          diff = ABS(ang1 - ang2);
+  18   1      
+  19   1          if (diff > 180.0f)
+  20   1          {
+  21   2              (ang1 < 0.0f) ? (ang1 += 360.0f) : (ang2 += 360.0f);
+  22   2          }
+  23   1      
+  24   1          res = ang1 * wgh1 + ang2 * (1.0f - wgh1);
+  25   1          return Lim_Ang_180(res);
+  26   1      }
+  27          
+  28          /**
+  29           * @brief 计算欧几里得距离。
+  30           * 
+  31           * @param x1 第一个点横坐标
+  32           * @param y1 第一个点纵坐标
+  33           * @param x2 第二个点横坐标
+  34           * @param y2 第二个点纵坐标
+  35           * @return float 欧几里得距离
+  36           */
+  37          float Get_Dist(float x1, float y1, float x2, float y2)
+  38          {
+  39   1              float dx = x2 - x1;
+  40   1              float dy = y2 - y1;
+  41   1              return (sqrt(dx * dx + dy * dy));
+  42   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    565    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----      40
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.60.7.0   USER_MATH                                                         11/11/2025 20:04:24 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

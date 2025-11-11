@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${vcpkgRoot}/x64-mingw-static/include",
+                "D:/Keil5/C51/INC",
+                "D:/Keil5/C51/INC/STC"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "interrupt=",
+                "data=",
+                "pdata=",
+                "xdata=",
+                "idata=",
+                "bdata=",
+                "bit=unsigned char",
+                "sbit=unsigned char",
+                "sfr=unsigned char"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}

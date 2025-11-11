@@ -1,0 +1,160 @@
+C51 COMPILER V9.60.7.0   MOTOR                                                             11/11/2025 20:04:24 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MOTOR
+OBJECT MODULE PLACED IN .\Objects\motor.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE Motion\motor.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc;.\User;
+                    -.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\motor.lst) OBJECT(.\Objects\motor.obj)
+
+line level    source
+
+   1          
+   2          #include "motor.h"
+   3          #include "user_pwm.h"
+   4          #include "user_lib.h"
+   5          
+   6          // transform motor_speed into pulse width
+   7          #define Speed2Width(x)          ( (u16) ((x) / Motor_Speed_MAX * (float)PWM_PERIOD) )
+   8          
+   9          // speed of four motors
+  10          static MotorSpeed_t MotorSpeed = { 0.0f, 0.0f, 0.0f, 0.0f };
+  11          
+  12          // Motor control state, indicate which process is take control of motors.
+  13          static u8 MotorState = Motor_State_OFF;
+  14          
+  15          /**
+  16           * @brief Motor device initialization.
+  17           * 
+  18           */
+  19          void Motor_Init(void)
+  20          {
+  21   1          User_PWM_Init();
+  22   1      }
+  23          
+  24          /**
+  25           * @brief Update the speed from MotorSpeed variable.
+  26           * 
+  27           */
+  28          static void Motor_SpeedUpdate(MotorSpeed_t *ms)
+  29          {
+  30   1          float spdtmp;
+  31   1          
+  32   1          LimAsgn(ms->A, Motor_Speed_MIN, Motor_Speed_MAX);
+  33   1          LimAsgn(ms->B, Motor_Speed_MIN, Motor_Speed_MAX);
+  34   1          LimAsgn(ms->C, Motor_Speed_MIN, Motor_Speed_MAX);
+  35   1          LimAsgn(ms->D, Motor_Speed_MIN, Motor_Speed_MAX);
+  36   1      
+  37   1          if (ms->A < 0.0f)
+  38   1          {
+  39   2              MOTORA_DIR1_Pin = 0;
+  40   2              MOTORA_DIR2_Pin = 1;
+  41   2          }
+  42   1          else if (ms->A > 0.0f)
+  43   1          {
+  44   2              MOTORA_DIR1_Pin = 1;
+  45   2              MOTORA_DIR2_Pin = 0;
+  46   2          }
+  47   1          else
+  48   1          {
+  49   2              MOTORA_DIR1_Pin = 0;
+  50   2              MOTORA_DIR2_Pin = 0;
+  51   2          }
+  52   1          spdtmp = ABS(ms->A);
+  53   1          User_PWMA_SetWidth(Speed2Width(spdtmp));
+  54   1      
+C51 COMPILER V9.60.7.0   MOTOR                                                             11/11/2025 20:04:24 PAGE 2   
+
+  55   1          if (ms->B < 0.0f)
+  56   1          {
+  57   2              MOTORB_DIR1_Pin = 0;
+  58   2              MOTORB_DIR2_Pin = 1;
+  59   2          }
+  60   1          else if (ms->B > 0.0f)
+  61   1          {
+  62   2              MOTORB_DIR1_Pin = 1;
+  63   2              MOTORB_DIR2_Pin = 0;
+  64   2          }
+  65   1          else
+  66   1          {
+  67   2              MOTORB_DIR1_Pin = 0;
+  68   2              MOTORB_DIR2_Pin = 0;
+  69   2          }
+  70   1          spdtmp = ABS(ms->B);
+  71   1          User_PWMB_SetWidth(Speed2Width(spdtmp));
+  72   1      
+  73   1          if (ms->C < 0.0f)
+  74   1          {
+  75   2              MOTORC_DIR1_Pin = 0;
+  76   2              MOTORC_DIR2_Pin = 1;
+  77   2          }
+  78   1          else if (ms->C > 0.0f)
+  79   1          {
+  80   2              MOTORC_DIR1_Pin = 1;
+  81   2              MOTORC_DIR2_Pin = 0;
+  82   2          }
+  83   1          else
+  84   1          {
+  85   2              MOTORC_DIR1_Pin = 0;
+  86   2              MOTORC_DIR2_Pin = 0;
+  87   2          }
+  88   1          spdtmp = ABS(ms->C);
+  89   1          User_PWMC_SetWidth(Speed2Width(spdtmp));
+  90   1      
+  91   1          if (ms->D < 0.0f)
+  92   1          {
+  93   2              MOTORD_DIR1_Pin = 0;
+  94   2              MOTORD_DIR2_Pin = 1;
+  95   2          }
+  96   1          else if (ms->D > 0.0f)
+  97   1          {
+  98   2              MOTORD_DIR1_Pin = 1;
+  99   2              MOTORD_DIR2_Pin = 0;
+ 100   2          }
+ 101   1          else
+ 102   1          {
+ 103   2              MOTORD_DIR1_Pin = 0;
+ 104   2              MOTORD_DIR2_Pin = 0;
+ 105   2          }
+ 106   1          spdtmp = ABS(ms->D);
+ 107   1          User_PWMD_SetWidth(Speed2Width(spdtmp));
+ 108   1      }
+ 109          
+ 110          
+ 111          void Motor_Task(void)
+ 112          {
+ 113   1          // Assign MotorSpeed
+ 114   1          switch (MotorState)
+ 115   1          {
+ 116   2              case Motor_State_OFF:
+C51 COMPILER V9.60.7.0   MOTOR                                                             11/11/2025 20:04:24 PAGE 3   
+
+ 117   2              {
+ 118   3                  MotorSpeed.A = 0.0f;
+ 119   3                  MotorSpeed.B = 0.0f;
+ 120   3                  MotorSpeed.C = 0.0f;
+ 121   3                  MotorSpeed.D = 0.0f;
+ 122   3              } break;
+ 123   2      
+ 124   2              ;
+ 125   2          }
+ 126   1          Motor_SpeedUpdate(&MotorSpeed);
+ 127   1      }
+ 128          
+ 129          u8 MotorGetState(void)
+ 130          {
+ 131   1          return MotorState;
+ 132   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1185    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     17       7
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

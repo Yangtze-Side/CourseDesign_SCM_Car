@@ -1,0 +1,171 @@
+C51 COMPILER V9.60.7.0   USER_PWM                                                          11/11/2025 20:04:23 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE USER_PWM
+OBJECT MODULE PLACED IN .\Objects\user_pwm.obj
+COMPILER INVOKED BY: D:\Keil5\C51\BIN\C51.EXE User_Driver\user_pwm.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Sources\inc
+                    -;.\User;.\User_Driver;.\User_Lib;.\Motion) DEBUG OBJECTEXTEND PRINT(.\Listings\user_pwm.lst) OBJECT(.\Objects\user_pwm.o
+                    -bj)
+
+line level    source
+
+   1          
+   2          #include "user_pwm.h"
+   3          
+   4          /**
+   5           * @brief Initialize PWM periperal. Determined by user.
+   6           * 
+   7           */
+   8          void User_PWM_Init(void)
+   9          {
+  10   1          PWMA_Pin = 0;
+  11   1          PWMB_Pin = 0;
+  12   1          PWMC_Pin = 0;
+  13   1          PWMD_Pin = 0;
+  14   1      
+  15   1          PWM_Disable();
+  16   1      
+  17   1          PWM_CLK_SYSCLK();
+  18   1          PWM_SetClockDivider(PWM_CLK_DIVIDER);       //设置系统时钟的分频值 [SYSCLK/(n+1)]
+  19   1          PWM_SetCounter(PWM_PERIOD);                 //使能PWM周期值
+  20   1      
+  21   1          PWM_C2_SwitchP27();                 //设置PWM2端口: PWM2 (P2.7)
+  22   1          PWM_InitialC2Low();                 //设置PWM2通道初始电平为低电平
+  23   1          PWM_SetC2T1Point(1);                //使能PWM2翻转点1的计数值
+  24   1          PWM_SetC2T2Point(0);                //使能PWM2翻转点2的计数值
+  25   1          PWM_DisableC2Output();              //不使能PWM2通道输出
+  26   1      
+  27   1          PWM_C3_SwitchP21();                 //设置PWM3端口: PWM3 (P2.1)
+  28   1          PWM_InitialC3Low();                 //设置PWM3通道初始电平为低电平
+  29   1          PWM_SetC3T1Point(1);                //使能PWM3翻转点1的计数值
+  30   1          PWM_SetC3T2Point(0);                //使能PWM3翻转点2的计数值
+  31   1          PWM_DisableC3Output();              //不使能PWM3通道输出
+  32   1      
+  33   1          PWM_C4_SwitchP22();                 //设置PWM4端口: PWM4 (P2.2)
+  34   1          PWM_InitialC4Low();                 //设置PWM4通道初始电平为低电平
+  35   1          PWM_SetC4T1Point(1);                //使能PWM4翻转点1的计数值
+  36   1          PWM_SetC4T2Point(0);                //使能PWM4翻转点2的计数值
+  37   1          PWM_DisableC4Output();              //不使能PWM4通道输出
+  38   1      
+  39   1          PWM_C5_SwitchP23();                 //设置PWM5端口: PWM5 (P2.3)
+  40   1          PWM_InitialC5Low();                 //设置PWM5通道初始电平为低电平
+  41   1          PWM_SetC5T1Point(1);                //使能PWM5翻转点1的计数值
+  42   1          PWM_SetC5T2Point(0);                //使能PWM5翻转点2的计数值
+  43   1          PWM_DisableC5Output();              //不使能PWM5通道输出
+  44   1      
+  45   1          PWM_Enable();
+  46   1      }
+  47          
+  48          /**
+  49           * @brief Set PWMA pulse width.
+  50           * 
+  51           * @param Width Pulse width.
+  52           */
+  53          void User_PWMA_SetWidth(u16 Width)
+C51 COMPILER V9.60.7.0   USER_PWM                                                          11/11/2025 20:04:23 PAGE 2   
+
+  54          {
+  55   1          if (Width >= 2000)
+  56   1          {
+  57   2              PWM_DisableC2Output();
+  58   2              PWMA_Pin = 1;
+  59   2          }
+  60   1          else if (Width == 0)
+  61   1          {
+  62   2              PWM_DisableC2Output();
+  63   2              PWMA_Pin = 0;
+  64   2          }
+  65   1          else
+  66   1          {
+  67   2              PWM_SetC2T1Point(Width);
+  68   2              PWM_EnableC2Output();
+  69   2          }
+  70   1      }
+  71          
+  72          /**
+  73           * @brief Set PWMB pulse width.
+  74           * 
+  75           * @param Width Pulse width.
+  76           */
+  77          void User_PWMB_SetWidth(u16 Width)
+  78          {
+  79   1          if (Width >= 2000)
+  80   1          {
+  81   2              PWM_DisableC3Output();
+  82   2              PWMB_Pin = 1;
+  83   2          }
+  84   1          else if (Width == 0)
+  85   1          {
+  86   2              PWM_DisableC3Output();
+  87   2              PWMB_Pin = 0;
+  88   2          }
+  89   1          else
+  90   1          {
+  91   2              PWM_SetC3T1Point(Width);
+  92   2              PWM_EnableC3Output();
+  93   2          }
+  94   1      }
+  95          
+  96          /**
+  97           * @brief Set PWMC pulse width.
+  98           * 
+  99           * @param Width Pulse width.
+ 100           */
+ 101          void User_PWMC_SetWidth(u16 Width)
+ 102          {
+ 103   1          if (Width >= 2000)
+ 104   1          {
+ 105   2              PWM_DisableC4Output();
+ 106   2              PWMC_Pin = 1;
+ 107   2          }
+ 108   1          else if (Width == 0)
+ 109   1          {
+ 110   2              PWM_DisableC4Output();
+ 111   2              PWMC_Pin = 0;
+ 112   2          }
+ 113   1          else
+ 114   1          {
+ 115   2              PWM_SetC4T1Point(Width);
+C51 COMPILER V9.60.7.0   USER_PWM                                                          11/11/2025 20:04:23 PAGE 3   
+
+ 116   2              PWM_EnableC4Output();
+ 117   2          }
+ 118   1      }
+ 119          
+ 120          /**
+ 121           * @brief Set PWMD pulse width.
+ 122           * 
+ 123           * @param Width Pulse width.
+ 124           */
+ 125          void User_PWMD_SetWidth(u16 Width)
+ 126          {
+ 127   1          if (Width >= 2000)
+ 128   1          {
+ 129   2              PWM_DisableC5Output();
+ 130   2              PWMD_Pin = 1;
+ 131   2          }
+ 132   1          else if (Width == 0)
+ 133   1          {
+ 134   2              PWM_DisableC5Output();
+ 135   2              PWMD_Pin = 0;
+ 136   2          }
+ 137   1          else
+ 138   1          {
+ 139   2              PWM_SetC5T1Point(Width);
+ 140   2              PWM_EnableC5Output();
+ 141   2          }
+ 142   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    306    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

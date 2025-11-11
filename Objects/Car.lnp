@@ -1,0 +1,10 @@
+".\Objects\task.obj",
+".\Objects\user_pwm.obj",
+".\Objects\user_math.obj",
+".\Objects\motor.obj",
+".\Objects\main.obj",
+".\Objects\timer.obj",
+".\Objects\uart.obj" 
+TO ".\Objects\Car" 
+PRINT(".\Listings\Car.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 
