@@ -1,18 +1,18 @@
-# # dot files
-# /.vscode
-# /.settings
-# /.eide/log
-# /.eide.usr.ctx.json
-# /*.uvgui.20634
-# /*.uvopt
+# dot files
+/.vscode
+/.settings
+/.eide/log
+/.eide.usr.ctx.json
+/*.uvgui.20634
+/*.uvopt
 
 
-# # project out
-# /build
-# /Listings
-# /Objects
-# /out
+# project out
+/build
+/Listings
+/Objects
+/out
 
-# # eide template
-# *.ept
-# *.eide-template
+# eide template
+*.ept
+*.eide-template
