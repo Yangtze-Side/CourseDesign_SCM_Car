@@ -60,13 +60,13 @@ IAP15W4K61S4 芯片属于 **STC15W4K32S4 系列** 芯片，采用 **8051 架构*
 
 整车供电设计如下：
 
-![image-20251113035949734](E:\personal_project\Yangtze-Side\CourseDesign_SCM_Car\assets\image-20251113035949734.png)
+![image-20251113035949734](assets\image-20251113035949734.png)
 
 ---
 
 ## 四、主控芯片外设分配
 
-![image-20251113040037026](E:\personal_project\Yangtze-Side\CourseDesign_SCM_Car\assets\image-20251113040037026.png)
+![image-20251113040037026](assets\image-20251113040037026.png)
 
 
 ---
