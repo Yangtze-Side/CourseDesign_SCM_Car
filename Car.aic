@@ -279,22 +279,22 @@
 		<IntPriority>0</IntPriority>
 	</TIMER3>
 	<TIMER4>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>100</TimerInterval>
-		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerInterval>1</TimerInterval>
+		<TimerUnit>1</TimerUnit>
+		<TimerReload>2000</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
-		<EnableInt>0</EnableInt>
+		<EnableInt>1</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER4>
 	<UART1>

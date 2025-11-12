@@ -17,7 +17,9 @@
 #define MOTORD_DIR1_Pin                     P00
 #define MOTORD_DIR2_Pin                     P00
 
-#define Motor_State_OFF                     0
+#define Motor_State_OFF                     0       // Motor is off
+#define Motor_State_JOYSTICK                1       // Control by joystick (user implement)
+#define Motor_State_GRAVITY                 2       // Control by gravity  (user implement)
 
 
 /*--------------------------------- Exported TypeDefs ------------------------------*/

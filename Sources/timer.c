@@ -16,6 +16,7 @@
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
 #include "task.h"
+#include "system.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -71,6 +72,26 @@ void TIMER2_Init(void)
     //<<AICUBE_USER_TIMER2_INITIAL_END>>
 }
 
+////////////////////////////////////////
+// 定时器4初始化函数
+// 入口参数: 无
+// 函数返回: 无
+////////////////////////////////////////
+void TIMER4_Init(void)
+{
+#define T4_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000)
+
+    TIMER4_TimerMode();                 //设置定时器4为定时模式
+    TIMER4_12TMode();                   //设置定时器4为12T模式
+    TIMER4_EnableInt();                 //使能定时器4中断
+    TIMER4_SetReload16(T4_RELOAD);      //设置定时器4的16位重载值
+    TIMER4_Run();                       //定时器4开始运行
+
+    //<<AICUBE_USER_TIMER4_INITIAL_BEGIN>>
+    // 在此添加用户初始化代码  
+    //<<AICUBE_USER_TIMER4_INITIAL_END>>
+}
+
 
 ////////////////////////////////////////
 // 定时器0中断服务程序
@@ -83,6 +104,19 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
     // 在此添加中断函数用户代码  
     SET_TaskExeFlag();
     //<<AICUBE_USER_TIMER0_ISR_CODE1_END>>
+}
+
+////////////////////////////////////////
+// 定时器4中断服务程序
+// 入口参数: 无
+// 函数返回: 无
+////////////////////////////////////////
+void TIMER4_ISR(void) interrupt TMR4_VECTOR
+{
+    //<<AICUBE_USER_TIMER4_ISR_CODE1_BEGIN>>
+    // 在此添加中断函数用户代码  
+    Sys_IncTick();
+    //<<AICUBE_USER_TIMER4_ISR_CODE1_END>>
 }
 
 

@@ -8,10 +8,8 @@
 
 
 # project out
-/build
 /Listings
 /Objects
-/out
 
 # eide template
 *.ept

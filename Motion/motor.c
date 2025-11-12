@@ -2,6 +2,7 @@
 #include "motor.h"
 #include "user_pwm.h"
 #include "user_lib.h"
+#include "motion_control.h"
 
 /*--------------------------------- Private Defines & TypeDefs ------------------------------*/
 
@@ -21,7 +22,7 @@ typedef struct MotorSpeed_t
 
 /*--------------------------------- Variables & Funcs ------------------------------*/
 
-// Motor control state, indicate which process is take control of motors.
+// Motor control state, indicate which mode is taken control of motors.
 static u8 MotorState = Motor_State_OFF;
 
 static void Car_SpeedTransform(CarSpeed_t *cs, MotorSpeed_t *ms);
@@ -62,7 +63,7 @@ void Motor_SetState(u8 NewState)
 
 
 /**
- * @brief Update motor speed according to MotorState.
+ * @brief Update motor speed according to MotorState every 10ms.
  * 
  */
 void Motor_Task(void)
@@ -75,8 +76,19 @@ void Motor_Task(void)
     {
         case Motor_State_OFF: break;    // Keep motor speed at 0
 
-        ;
+        case Motor_State_JOYSTICK:
+        {
+            Motion_Control_ByJoystick(&CarSpeed);
+            Car_SpeedTransform(&CarSpeed, &MotorSpeed);
+        } break;
+        
+        case Motor_State_GRAVITY:
+        {
+            Motion_Control_ByGravity(&CarSpeed);
+            Car_SpeedTransform(&CarSpeed, &MotorSpeed);
+        } break;
     }
+
     Motor_SpeedUpdate(&MotorSpeed);
 }
 
