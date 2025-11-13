@@ -17,16 +17,9 @@ EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
  */
 static u8 imu_spi_write(u8 reg, u8 dat)
 {
-    u8 st;
-
     MPU6500_SPI_NSS_Low();      // Chip select
-
-    st = User_SPI_Write(reg, 5);
-    if (st == User_SPI_TIMEOUT) return FAILED;
-
-    st = User_SPI_Write(dat, 5);
-    if (st == User_SPI_TIMEOUT) return FAILED;
-
+    if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
+    if (User_SPI_Write(dat, 5) == User_SPI_TIMEOUT) return FAILED;
     MPU6500_SPI_NSS_High();     // Chip deselect
 
     return SUCCESS;
@@ -42,16 +35,9 @@ static u8 imu_spi_write(u8 reg, u8 dat)
  */
 static u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
 {
-    u8 st;
-
     MPU6500_SPI_NSS_Low();
-
-    st = User_SPI_Write(reg, 5);
-    if (st == User_SPI_TIMEOUT) return FAILED;
-
-    st = User_SPI_Read(buf, len, 10);
-    if (st == User_SPI_TIMEOUT) return FAILED;
-
+    if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
+    if (User_SPI_Read(buf, len, 10) == User_SPI_TIMEOUT) return FAILED;
     MPU6500_SPI_NSS_High();
 
     return SUCCESS;
@@ -100,15 +86,15 @@ void IMU_Update(void)
 {
     if (MPU6500_IsInitialized())
     {
-        MPU6500_ReadData();     // Load data to 'MPU6500_Data'
-
         if (MPU6500_IsDriftSampled())
         {
+            MPU6500_ReadData();                                     // Load data to 'MPU6500_Data'
             EulerAngleUpdate_Quat(&EulerAngle, &MPU6500_Data);      // Work out euler angle.
+            EulerAngle_CalcBias(&EulerAngle);                       // Add bias value.
         }
         else
         {
-            MPU6500_SampleDrift();  // Sample drift upon initialization.
+            MPU6500_SampleDrift();      // Sample drift upon initialization.
         }
     }
 }

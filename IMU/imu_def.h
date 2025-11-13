@@ -26,6 +26,7 @@ typedef struct EulerAngle_t
 } EulerAngle_t;
 
 
+void EulerAngle_CalcBias(EulerAngle_t *e);
 void EulerAngle_ClearYaw(EulerAngle_t *e);
 void EulerAngle_ClearPitch(EulerAngle_t *e);
 

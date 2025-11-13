@@ -4,6 +4,18 @@
 
 
 /**
+ * @brief Add euler angle bias to the final result.
+ * 
+ * @param e EulerAngle structure pionter.
+ */
+void EulerAngle_CalcBias(EulerAngle_t *e)
+{
+    e->yaw = Lim_Ang_180(e->yaw - e->yaw_bias);
+    e->pitch = Lim_Ang_180(e->pitch - e->pitch_bias);
+}
+
+
+/**
  * @brief The Yaw is corrected to 0 degrees according to current yaw.
  * 
  * @param e EulerAngle structure pionter.

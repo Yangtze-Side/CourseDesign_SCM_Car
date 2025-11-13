@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -373,6 +373,26 @@
         </Target51>
       </TargetOption>
       <Groups>
+        <Group>
+          <GroupName>Algorithm</GroupName>
+          <Files>
+            <File>
+              <FileName>algorithm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Algorithm\algorithm.h</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Algorithm\PosPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Algorithm\PosPID.h</FilePath>
+            </File>
+          </Files>
+        </Group>
         <Group>
           <GroupName>User Sources</GroupName>
         </Group>
@@ -469,6 +489,11 @@
               <FileType>5</FileType>
               <FilePath>.\User_Lib\user_math.h</FilePath>
             </File>
+            <File>
+              <FileName>user_def.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Lib\user_def.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -498,6 +523,51 @@
               <FileName>motion_control.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Motion\motion_control.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>IMU</GroupName>
+          <Files>
+            <File>
+              <FileName>imu_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\IMU\imu_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\IMU\imu_app.h</FilePath>
+            </File>
+            <File>
+              <FileName>imu_def.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\IMU\imu_def.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu_def.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\IMU\imu_def.h</FilePath>
+            </File>
+            <File>
+              <FileName>imu_solution_quat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\IMU\imu_solution_quat.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu_solution_quat.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\IMU\imu_solution_quat.h</FilePath>
+            </File>
+            <File>
+              <FileName>MPU6500_SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\IMU\MPU6500_SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>MPU6500_SPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\IMU\MPU6500_SPI.h</FilePath>
             </File>
           </Files>
         </Group>

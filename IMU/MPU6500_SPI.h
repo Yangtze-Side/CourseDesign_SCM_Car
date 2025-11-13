@@ -63,7 +63,7 @@ void MPU6500_SampleDrift(void);
 
 /*---------------------------------------- User Determine -----------------------------------------*/
 
-#define MPU6500_ADDR                    (0x68 << 1)
+// #define MPU6500_ADDR                    (0x68 << 1)
 #define MPU6500_ACCEL_FSR               MPU6500_Accel_8g
 #define MPU6500_GYRO_FSR                MPU6500_Gyro_1000dps
 #define SampleRate_Hz                   200

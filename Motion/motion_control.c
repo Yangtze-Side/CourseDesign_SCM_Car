@@ -9,7 +9,7 @@
 #define G_PI_IntDis                             0.0f
 #define G_PI_UMax                               0.0f
 
-static PosPI_t g_pi;
+static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
 
 
 /**

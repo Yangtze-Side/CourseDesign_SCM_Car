@@ -104,7 +104,4 @@ void EulerAngleUpdate_Quat(EulerAngle_t *euler, IMU_Data_t *dat)
     euler->pitch = RAD_TO_DEG(asin(2.0f * (q_w * q_y - q_z * q_x)));
     euler->roll = RAD_TO_DEG(atan2(2.0f * (q_w * q_x + q_y * q_z), 1.0f - 2.0f * (q_x * q_x + q_y * q_y)));
     euler->yaw = RAD_TO_DEG(atan2(2.0f * (q_w * q_z + q_x * q_y), 1.0f - 2.0f * (q_y * q_y + q_z * q_z)));
-    
-    euler->yaw = Lim_Ang_180(euler->yaw - euler->yaw_bias);
-    euler->pitch = Lim_Ang_180(euler->pitch - euler->pitch_bias);
 }
