@@ -8,7 +8,7 @@
  * 
  * @param e EulerAngle structure pionter.
  */
-void EulerAngle_CalcBias(EulerAngle_t *e)
+void EulerAngle_AddBias(EulerAngle_t *e)
 {
     e->yaw = Lim_Ang_180(e->yaw - e->yaw_bias);
     e->pitch = Lim_Ang_180(e->pitch - e->pitch_bias);

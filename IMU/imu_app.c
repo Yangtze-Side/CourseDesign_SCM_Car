@@ -90,7 +90,7 @@ void IMU_Update(void)
         {
             MPU6500_ReadData();                                     // Load data to 'MPU6500_Data'
             EulerAngleUpdate_Quat(&EulerAngle, &MPU6500_Data);      // Work out euler angle.
-            EulerAngle_CalcBias(&EulerAngle);                       // Add bias value.
+            EulerAngle_AddBias(&EulerAngle);                        // Add bias value.
         }
         else
         {

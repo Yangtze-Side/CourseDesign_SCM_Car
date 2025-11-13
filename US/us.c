@@ -29,7 +29,7 @@ US_TASK_CASE0:
         case 1:
         {
             // If us_state is still 1 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX;
+            US_Data.F = US_DATA_MAX_cm;
             US_Timer_Stop();
             us_state = 2;
         }   // without a break, start next mesurement immediatly
@@ -45,7 +45,7 @@ US_TASK_CASE0:
         case 3:
         {
             // If us_state is still 3 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX;
+            US_Data.F = US_DATA_MAX_cm;
             US_Timer_Stop();
             us_state = 4;
         }   // without a break, start next mesurement immediatly
@@ -61,7 +61,7 @@ US_TASK_CASE0:
         case 5:
         {
             // If us_state is still 5 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX;
+            US_Data.F = US_DATA_MAX_cm;
             US_Timer_Stop();
             us_state = 6;
         }   // without a break, start next mesurement immediatly
@@ -77,7 +77,7 @@ US_TASK_CASE0:
         case 7:
         {
             // If us_state is still 7 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX;
+            US_Data.F = US_DATA_MAX_cm;
             US_Timer_Stop();
             us_state = 0;
             goto US_TASK_CASE0;     // start next mesurement immediatly

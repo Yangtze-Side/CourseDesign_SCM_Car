@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -583,6 +583,26 @@
               <FileName>us.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\US\us.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Communication</GroupName>
+          <Files>
+            <File>
+              <FileName>communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Communication\communication.c</FilePath>
+            </File>
+            <File>
+              <FileName>communication.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Communication\communication.h</FilePath>
+            </File>
+            <File>
+              <FileName>contract.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Communication\contract.h</FilePath>
             </File>
           </Files>
         </Group>

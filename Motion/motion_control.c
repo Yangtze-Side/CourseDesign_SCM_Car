@@ -1,8 +1,19 @@
-
+/**
+ * @file motion_control.c
+ * @author Zach (zachary-yue@qq.com)
+ * 
+ * @brief These control functions are exposed to external data, such as uart data,
+ *        while using motor.h APIs to set motor behavior.
+ * 
+ * @version 0.1
+ * @date 2025-11-13
+ * 
+ */
 #include "motion_control.h"
 #include "algorithm.h"
 #include "imu_app.h"
 #include "us.h"
+#include "communication.h"
 
 #define G_PI_Kp                                 0.0f
 #define G_PI_Ki                                 0.0f
@@ -13,6 +24,8 @@
 static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
 
 
+/*-------------------------------------------- Functions -------------------------------------------*/
+
 /**
  * @brief Do some initialization work.
  * 
@@ -20,6 +33,16 @@ static PosPI_t g_pi;            // yaw loop pi controller of gravity control mod
 void Motion_Control_Init(void)
 {
     PosPI_Init(&g_pi, G_PI_Kp, G_PI_Ki, G_PI_IntMax, G_PI_IntDis, G_PI_UMax);
+}
+
+/**
+ * @brief Set motor state (i.e. mode).
+ * 
+ */
+void Motor_Control_SetState(void)
+{
+    if (Motor_IsEnabled()) Motor_SetState(Comm_MotorMode);
+    else Motor_SetState(Motor_State_OFF);
 }
 
 /*-------------------------------------------- Joystick Mode -------------------------------------------*/
@@ -31,11 +54,9 @@ void Motion_Control_Init(void)
  */
 void Motion_Control_ByJoystick(CarSpeed_t *cs)
 {
-    // 仅表示思路，不是真正代码
-    float target_vx, target_vy, target_vw;  // 这些 target 值来自遥控器串口接收数据解析
-    cs->x = target_vx;
-    cs->y = target_vy;
-    cs->w = target_vw;
+    cs->x = Comm_JoysModeData.vx;
+    cs->y = Comm_JoysModeData.vy;
+    cs->w = Comm_JoysModeData.vw;
 }
 
 /*-------------------------------------------- Gravity Mode -------------------------------------------*/
@@ -47,16 +68,11 @@ void Motion_Control_ByJoystick(CarSpeed_t *cs)
  */
 void Motion_Control_ByGravity(CarSpeed_t *cs)
 {
-    // 仅表示思路，不是真正代码
-    float target_yaw;
-    float target_vx, target_vy, target_vw;      // 其中 vx 和 vy 和 yaw 来自串口数据解析，vw 需要计算
+    PosPI_Update(&g_pi, Comm_GravModeData.target_yaw - EulerAngle.yaw);
 
-    PosPI_Update(&g_pi, target_yaw - EulerAngle.yaw);
-    target_vw = g_pi.u;
-
-    cs->x = target_vx;
-    cs->y = target_vy;
-    cs->w = target_vw;
+    cs->x = Comm_GravModeData.vx;
+    cs->y = Comm_GravModeData.vy;
+    cs->w = g_pi.u;
 }
 
 

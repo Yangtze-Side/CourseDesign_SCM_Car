@@ -21,6 +21,7 @@
 #define Motor_State_JOYSTICK                1       // Control by joystick (user implement)
 #define Motor_State_GRAVITY                 2       // Control by gravity  (user implement)
 #define Motor_State_AUTOCRUISE              3       // Auto cruise mode    (user implement)
+#define Motor_State_AUTOFOLLOW              4       // Auto follow mode    (user implement)
 
 
 /*--------------------------------- Exported TypeDefs ------------------------------*/
@@ -45,5 +46,7 @@ void Motor_Init(void);
 void Motor_Task(void);
 u8   Motor_GetState(void);
 void Motor_SetState(u8 NewState);
+bit  Motor_IsEnabled(void);
+void Motor_Cmd(u8 cmd);
 
 #endif // !__MOTOR_H

@@ -1,6 +1,9 @@
 
 #include "system.h"
 #include <stdarg.h>
+#include "imu_app.h"
+#include "motion_control.h"
+#include "communication.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/
 
@@ -11,7 +14,7 @@ u8 xdata UART1_SendBuf[UART1_SendBuf_SIZE];
 u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
 
 UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, 0, 0 };
-UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, 0, 0 };
+UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 };
 
 static void uart_recv_handler(UART_Recv_t *recv);
 
@@ -24,10 +27,13 @@ static void uart_recv_handler(UART_Recv_t *recv);
 void proj_init(void)
 {
 	UART_Recv_SetCB(uart_recv_handler);
+	Motor_Init();
+	Motion_Control_Init();
+	IMU_Init();
 }
 
 /**
- * @brief UART receive handler.
+ * @brief UART receive handler, when a frame of data has received.
  * 
  * @param recv the handle
  */
@@ -35,8 +41,13 @@ static void uart_recv_handler(UART_Recv_t *recv)
 {
 	if (recv->Index == UART1)
 	{
-		;
+		Comm_StartParse(UART1_RecvBuf, recv->Cnt);
 	}
+}
+
+void sys_uart_recv_task_5ms(void)
+{
+	UART_Recv_Task_5ms(&uart1_rx);
 }
 
 /*---------------------------------------- System Functions --------------------------------------*/

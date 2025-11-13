@@ -16,6 +16,7 @@
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
 #include "task.h"
+#include "communication.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -52,6 +53,8 @@ void main(void)
             CLR_TaskExeFlag();
             TaskExe();
         }
+
+        Comm_ParseTask();
         
         //<<AICUBE_USER_MAIN_LOOP_END>>
     }

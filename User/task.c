@@ -1,6 +1,9 @@
 
 #include "task.h"
 #include "motion.h"
+#include "imu_app.h"
+#include "system.h"
+#include "us.h"
 
 void led_task(void);
 
@@ -13,12 +16,15 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      2
+#define TASK_TOTAL      5
 
 Task_t Task[TASK_TOTAL] =
 {
+    { 30/5, 0, US_Task_30ms },
+    { 5/5, 0, IMU_Update },
     { 20/5, 0, Motor_Task },
     { 500/5, 0, led_task },
+    { 5/5, 0, sys_uart_recv_task_5ms },
 };
 
 void TaskExe(void)

@@ -24,12 +24,16 @@ typedef struct MotorSpeed_t
 
 // Motor control state, indicate which mode is taken control of motors.
 static u8 MotorState = Motor_State_OFF;
+static bit Motor_Enable = FALSE;
 
 static void Car_SpeedTransform(CarSpeed_t *cs, MotorSpeed_t *ms);
 static void Motor_SpeedUpdate(MotorSpeed_t *ms);
 
 
 /*--------------------------------- Function Definitions ------------------------------*/
+
+bit  Motor_IsEnabled(void) { return Motor_Enable; }
+void Motor_Cmd(u8 cmd) { Motor_Enable = cmd; }
 
 /**
  * @brief Motor device initialization.
@@ -70,6 +74,8 @@ void Motor_Task(void)
 {
     MotorSpeed_t MotorSpeed = { 0.0f, 0.0f, 0.0f, 0.0f };
     CarSpeed_t CarSpeed = { 0.0f, 0.0f, 0.0f };
+
+    Motor_Control_SetState();
 
     // Assign MotorSpeed
     switch (MotorState)

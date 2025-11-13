@@ -24,7 +24,7 @@ typedef struct UART_Recv_t
 	u8 Index;
 	u8 Start;
 	u8 *Buf;
-	u8 Size;
+	const u8 Size;
 	u8 Cnt;
 	u8 Timeout;
 } UART_Recv_t;
