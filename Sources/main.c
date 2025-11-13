@@ -91,7 +91,6 @@ void SYS_Init(void)
     TIMER0_Init();                      //定时器0初始化
     TIMER2_Init();                      //定时器2初始化
     TIMER3_Init();                      //定时器3初始化
-    TIMER4_Init();                      //定时器4初始化
     UART1_Init();                       //串口1初始化
     EXTI0_Init();                       //INT0初始化
     EXTI1_Init();                       //INT1初始化
