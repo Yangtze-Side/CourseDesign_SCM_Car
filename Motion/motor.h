@@ -20,6 +20,7 @@
 #define Motor_State_OFF                     0       // Motor is off
 #define Motor_State_JOYSTICK                1       // Control by joystick (user implement)
 #define Motor_State_GRAVITY                 2       // Control by gravity  (user implement)
+#define Motor_State_AUTOCRUISE              3       // Auto cruise mode    (user implement)
 
 
 /*--------------------------------- Exported TypeDefs ------------------------------*/

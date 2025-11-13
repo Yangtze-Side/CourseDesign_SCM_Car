@@ -13,7 +13,7 @@
 #define US_Timer_Clear()                (T3H = 0, T3L = 0)
 #define US_Timer_ReadCounter()          MAKEWORD(T3L, T3H)
 
-#define US_DATA_MAX                     5.0f        // distance max
+#define US_DATA_MAX_cm                  520.0f        // distance max (cm)
 
 typedef struct US_Data_t
 {

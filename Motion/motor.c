@@ -87,6 +87,12 @@ void Motor_Task(void)
             Motion_Control_ByGravity(&CarSpeed);
             Car_SpeedTransform(&CarSpeed, &MotorSpeed);
         } break;
+        
+        case Motor_State_AUTOCRUISE:
+        {
+            Motion_Control_AutoCruise(&CarSpeed);
+            Car_SpeedTransform(&CarSpeed, &MotorSpeed);
+        } break;
     }
 
     Motor_SpeedUpdate(&MotorSpeed);
