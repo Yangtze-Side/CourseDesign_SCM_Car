@@ -33,7 +33,7 @@
 ////////////////////////////////////////
 void UART1_Init(void)
 {
-    UART1_SwitchP3637();                //设置串口数据端口: RxD (P3.6), TxD (P3.7)
+    UART1_SwitchP1617();                //设置串口数据端口: RxD (P1.6), TxD (P1.7)
 
     UART1_Timer2BRT();                  //选择定时器2作为串口1波特率发生器
 

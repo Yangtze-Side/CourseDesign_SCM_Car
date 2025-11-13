@@ -43,7 +43,7 @@
 		<IAPOffset>0x8000</IAPOffset>
 	</IAP>
 	<PORT0>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
@@ -63,35 +63,35 @@
 		<PortLevel_7>1</PortLevel_7>
 	</PORT0>
 	<PORT1>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
 		<PortMD_1>0</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>0</PortMD_2>
+		<PortMD_2>1</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
-		<PortMD_3>0</PortMD_3>
+		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
+		<PortMD_4>2</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
-		<PortMD_5>0</PortMD_5>
+		<PortMD_5>1</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
-		<PortMD_7>0</PortMD_7>
+		<PortMD_7>1</PortMD_7>
 		<PortLevel_7>1</PortLevel_7>
 	</PORT1>
 	<PORT2>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
-		<PortMD_1>0</PortMD_1>
+		<PortMD_1>1</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>0</PortMD_2>
+		<PortMD_2>1</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
-		<PortMD_3>0</PortMD_3>
+		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
 		<PortMD_4>0</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
@@ -99,11 +99,11 @@
 		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
-		<PortMD_7>0</PortMD_7>
+		<PortMD_7>1</PortMD_7>
 		<PortLevel_7>1</PortLevel_7>
 	</PORT2>
 	<PORT3>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
@@ -123,7 +123,7 @@
 		<PortLevel_7>1</PortLevel_7>
 	</PORT3>
 	<PORT4>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
@@ -143,7 +143,7 @@
 		<PortLevel_7>1</PortLevel_7>
 	</PORT4>
 	<PORT5>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
@@ -260,19 +260,19 @@
 		<IntPriority>0</IntPriority>
 	</TIMER2>
 	<TIMER3>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>100</TimerInterval>
+		<TimerInterval>0</TimerInterval>
 		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerReload>0</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
 		<EnableInt>0</EnableInt>
@@ -306,7 +306,7 @@
 		<BaudGenerator>1</BaudGenerator>
 		<UartBit>0</UartBit>
 		<UartBaudrate>115200</UartBaudrate>
-		<UartPort>1</UartPort>
+		<UartPort>2</UartPort>
 		<IntPriority>0</IntPriority>
 	</UART1>
 	<UART2>
@@ -346,33 +346,33 @@
 		<IntPriority>0</IntPriority>
 	</UART4>
 	<EXTI0>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>0</EnableInt>
-		<IntType>1</IntType>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>1</EnableInt>
+		<IntType>0</IntType>
 		<IntPriority>0</IntPriority>
 	</EXTI0>
 	<EXTI1>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>0</EnableInt>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>1</EnableInt>
 		<IntType>1</IntType>
 		<IntPriority>0</IntPriority>
 	</EXTI1>
 	<EXTI2>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>0</EnableInt>
-		<IntType>1</IntType>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>1</EnableInt>
+		<IntType>0</IntType>
 		<IntPriority>0</IntPriority>
 	</EXTI2>
 	<EXTI3>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>0</EnableInt>
-		<IntType>1</IntType>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>1</EnableInt>
+		<IntType>0</IntType>
 		<IntPriority>0</IntPriority>
 	</EXTI3>
 	<EXTI4>
-		<PeriEnable>0</PeriEnable>
-		<EnableInt>0</EnableInt>
-		<IntType>1</IntType>
+		<PeriEnable>1</PeriEnable>
+		<EnableInt>1</EnableInt>
+		<IntType>0</IntType>
 		<IntPriority>0</IntPriority>
 	</EXTI4>
 	<ADC>
@@ -487,10 +487,15 @@
 		<Pin13Map>2</Pin13Map>
 		<Pin14Map>2</Pin14Map>
 		<Pin15Map>2</Pin15Map>
+		<Pin16Map>2</Pin16Map>
+		<Pin17Map>2</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
-		<Pin35Map>2</Pin35Map>
-		<Pin36Map>2</Pin36Map>
+		<Pin27Map>2</Pin27Map>
+		<Pin29Map>1</Pin29Map>
+		<Pin30Map>1</Pin30Map>
+		<Pin35Map>1</Pin35Map>
+		<Pin36Map>1</Pin36Map>
 		<Pin46Map>2</Pin46Map>
 		<Pin47Map>2</Pin47Map>
 		<Pin48Map>2</Pin48Map>

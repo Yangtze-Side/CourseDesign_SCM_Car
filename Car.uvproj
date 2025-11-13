@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -572,12 +572,32 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>US</GroupName>
+          <Files>
+            <File>
+              <FileName>us.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\US\us.c</FilePath>
+            </File>
+            <File>
+              <FileName>us.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\US\us.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>AiCube</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\port.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
@@ -588,6 +608,11 @@
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\exti.c</FilePath>
             </File>
             <File>
               <FileName>spi.c</FileName>

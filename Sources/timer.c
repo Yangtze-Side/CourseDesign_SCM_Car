@@ -73,6 +73,27 @@ void TIMER2_Init(void)
 }
 
 ////////////////////////////////////////
+// 定时器3初始化函数
+// 入口参数: 无
+// 函数返回: 无
+////////////////////////////////////////
+void TIMER3_Init(void)
+{
+#define T3_RELOAD               (65536 - (float)SYSCLK / 12 * 0 / 1000000)
+
+    TIMER3_TimerMode();                 //设置定时器3为定时模式
+    TIMER3_12TMode();                   //设置定时器3为12T模式
+    TIMER3_SetReload16(T3_RELOAD);      //设置定时器3的16位重载值
+    TIMER3_Run();                       //定时器3开始运行
+
+    //<<AICUBE_USER_TIMER3_INITIAL_BEGIN>>
+    // 在此添加用户初始化代码  
+    TIMER3_Stop();
+    TIMER3_SetReload16(0);
+    //<<AICUBE_USER_TIMER3_INITIAL_END>>
+}
+
+////////////////////////////////////////
 // 定时器4初始化函数
 // 入口参数: 无
 // 函数返回: 无
