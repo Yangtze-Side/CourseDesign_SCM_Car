@@ -21,8 +21,8 @@ void US_Task_30ms(void)
         {
 US_TASK_CASE0:
             US_Timer_Clear();
-            US_Timer_Start();
             US_F_StartSignal();
+            US_Timer_Start();
             us_state = 1;       // state1: is measuring
         } break;
 
@@ -37,8 +37,8 @@ US_TASK_CASE0:
         case 2:
         {
             US_Timer_Clear();
-            US_Timer_Start();
             US_B_StartSignal();
+            US_Timer_Start();
             us_state = 3;       // state3: is measuring
         } break;
 
@@ -53,8 +53,8 @@ US_TASK_CASE0:
         case 4:
         {
             US_Timer_Clear();
-            US_Timer_Start();
             US_L_StartSignal();
+            US_Timer_Start();
             us_state = 5;       // state5: is measuring
         } break;
 
@@ -69,8 +69,8 @@ US_TASK_CASE0:
         case 6:
         {
             US_Timer_Clear();
-            US_Timer_Start();
             US_R_StartSignal();
+            US_Timer_Start();
             us_state = 7;       // state7: is measuring
         } break;
 

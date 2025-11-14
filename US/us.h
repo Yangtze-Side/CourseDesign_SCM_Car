@@ -3,10 +3,16 @@
 
 #include "config.h"
 
-#define US_F_StartSignal()              { P00 = 0; delay_us(10); P00 = 1; }
-#define US_B_StartSignal()              { P00 = 0; delay_us(10); P00 = 1; }
-#define US_L_StartSignal()              { P00 = 0; delay_us(10); P00 = 1; }
-#define US_R_StartSignal()              { P00 = 0; delay_us(10); P00 = 1; }
+// 这些引脚初始化的时候要给 0
+#define US_F_Pin                        P00
+#define US_B_Pin                        P00
+#define US_L_Pin                        P00
+#define US_R_Pin                        P00
+
+#define US_F_StartSignal()              { US_F_Pin = 1; delay_us(12); US_F_Pin = 0; }
+#define US_B_StartSignal()              { US_B_Pin = 1; delay_us(12); US_B_Pin = 0; }
+#define US_L_StartSignal()              { US_L_Pin = 1; delay_us(12); US_L_Pin = 0; }
+#define US_R_StartSignal()              { US_R_Pin = 1; delay_us(12); US_R_Pin = 0; }
 
 #define US_Timer_Start()                TIMER3_Run()
 #define US_Timer_Stop()                 TIMER3_Stop()
