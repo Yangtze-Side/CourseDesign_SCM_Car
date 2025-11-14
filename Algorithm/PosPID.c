@@ -1,23 +1,25 @@
 
 #include "PosPID.h"
 
-#if 0
+
 /*------------------------------------------- PID ------------------------------------------*/
 
 /**
-  * @brief 位置式 PID 控制器初始化。
-  * 
-  * @param pid PID 结构体变量
-  * @param kp 比例系数
-  * @param ki 积分系数
-  * @param kd 微分系数（微分项不除以时间因子）
-  * @param intMax 积分限幅，传入正数最大值即可，会正负两头限幅
-  * @param intDis 积分失能，传入正数最大值即可，会正负两头判断
-  * @param uMax 总输出限幅，传入正数最大值即可，会正负两头限幅
-  */
-void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, float intDis, float uMax)
+ * @brief 位置式 PID 控制器初始化。
+ * 
+ * @param pid PID 结构体变量
+ * @param kp 比例系数
+ * @param ki 积分系数
+ * @param kd 微分系数（微分项不除以时间因子）
+ * @param intMax 积分限幅，传入正数最大值即可，会正负两头限幅
+ * @param intDis 积分失能，传入正数最大值即可，会正负两头判断
+ * @param delta_e_Max 微分最大值，传入正数最大值即可，会正负两头判断
+ * @param uMax 总输出限幅，传入正数最大值即可，会正负两头限幅
+ */
+void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, float intDis, float DeMax, float uMax)
 {
     pid->e = 0.0f;
+    pid->e_last = 0.0f;
     pid->e_int = 0.0f;
     pid->u = 0.0f;
 
@@ -27,6 +29,7 @@ void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, floa
 
     pid->e_int_max = ABS(intMax);
     pid->e_int_dis = ABS(intDis);
+    pid->delta_e_max = ABS(DeMax);
     pid->u_max = ABS(uMax);
 }
 
@@ -36,24 +39,42 @@ void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, floa
  * @note  先给 PID 的 e 赋值之后，再将 PID 结构体变量传入函数来更新。
  * 
  * @param pid PID 结构体变量
- * @param delta_e 微分项，为了微分先行而设计的
  */
-void PosPID_Update(PosPID_t *pid, float ek, float delta_e)
+void PosPID_Update(PosPID_t *pid, float ek)
 {
+    float delta_e;
     pid->e = ek;
+    delta_e = pid->e - pid->e_last;
 
     if (ABS(pid->e) > pid->e_int_dis) {
-        pid->e_int = 0.0f;  // 积分失能
+        pid->e_int = 0.0f;                          // 积分失能
     } else {
-        pid->e_int += pid->e;   // 积分
-        LimAbsAsgn(pid->e_int, pid->e_int_max);    // 积分限幅
+        pid->e_int += pid->e;                       // 积分
+        LimAbsAsgn(pid->e_int, pid->e_int_max);     // 积分限幅
     }
 
+    LimAbsAsgn(delta_e, pid->delta_e_max);          // 限制微分最大值
+
     pid->u = pid->Kp * pid->e + pid->Ki * pid->e_int + pid->Kd * delta_e;
-    LimAbsAsgn(pid->u, pid->u_max);    // 输出限幅
+    LimAbsAsgn(pid->u, pid->u_max);                 // 输出限幅
+
+    pid->e_last = pid->e;
 }
 
 
+/**
+ * @brief Clear internal data to reset the pid controller.
+ * 
+ * @param pid The pid controller
+ */
+void PosPID_Clear(PosPID_t *pid)
+{
+    pid->e = 0.0f;
+    pid->e_last = 0.0f;
+    pid->e_int = 0.0f;
+}
+
+#if 0
 /*------------------------------------------- PD ------------------------------------------*/
 
 /**

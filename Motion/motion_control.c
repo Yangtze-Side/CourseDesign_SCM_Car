@@ -21,8 +21,16 @@
 #define G_PI_IntDis                             0.0f
 #define G_PI_UMax                               0.0f
 
-static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
+#define AF_PID_Kp                               0.0f
+#define AF_PID_Ki                               0.0f
+#define AF_PID_Kd                               0.0f
+#define AF_PID_IntMax                           0.0f
+#define AF_PID_IntDis                           0.0f
+#define AF_PID_DeMax                            0.0f
+#define AF_PID_UMax                             0.0f
 
+static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
+static PosPID_t af_pid;         // auto follow mode pid controller
 
 /*-------------------------------------------- Functions -------------------------------------------*/
 
@@ -33,13 +41,14 @@ static PosPI_t g_pi;            // yaw loop pi controller of gravity control mod
 void Motion_Control_Init(void)
 {
     PosPI_Init(&g_pi, G_PI_Kp, G_PI_Ki, G_PI_IntMax, G_PI_IntDis, G_PI_UMax);
+    PosPID_Init(&af_pid, AF_PID_Kp, AF_PID_Ki, AF_PID_Kd, AF_PID_IntMax, AF_PID_IntDis, AF_PID_DeMax, AF_PID_UMax);
 }
 
 /**
  * @brief Set motor state (i.e. mode).
  * 
  */
-void Motor_Control_SetState(void)
+void Motion_Control_SetState(void)
 {
     if (Motor_IsEnabled()) Motor_SetState(Comm_MotorMode);
     else Motor_SetState(Motor_State_OFF);
@@ -73,6 +82,15 @@ void Motion_Control_ByGravity(CarSpeed_t *cs)
     cs->x = Comm_GravModeData.vx;
     cs->y = Comm_GravModeData.vy;
     cs->w = g_pi.u;
+}
+
+/**
+ * @brief Clear data of gravity mode pi controller.
+ * 
+ */
+void Motion_Control_GravPIClear(void)
+{
+    PosPI_Clear(&g_pi);
 }
 
 
@@ -126,4 +144,38 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
         // Or keep stucked and self-spinning if all directions are not distance-enough
         else Motion_Auto_Go(cs, AC_CarDir_None);
     }
+}
+
+
+/*-------------------------------------------- Auto Follow -------------------------------------------*/
+
+#define AF_EffectiveDist_cm                 100.0f
+#define AF_CenterDist_cm                    30.0f
+
+void Motion_Control_AutoFollow(CarSpeed_t *cs)
+{
+    // Effective only when distance of front sensor is in [0, AF_EffectiveDist_cm]
+    // And will keep the object from AF_CenterDist_cm
+    if (US_Data.F < AF_EffectiveDist_cm)
+    {
+        PosPID_Update(&af_pid, US_Data.F - AF_CenterDist_cm);
+        cs->y = af_pid.u;
+        cs->x = 0;
+        cs->w = 0;
+    }
+    else
+    {
+        cs->y = 0;
+        cs->x = 0;
+        cs->w = 0;
+    }
+}
+
+/**
+ * @brief Clear data of auto follow mode pid controller.
+ * 
+ */
+void Motion_Control_AFPIDClear(void)
+{
+    PosPID_Clear(&af_pid);
 }

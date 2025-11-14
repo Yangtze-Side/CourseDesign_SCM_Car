@@ -13,6 +13,7 @@
 #define COMM_CMD_ACMode             ((u8)3)
 #define COMM_CMD_AFMode             ((u8)4)
 
+#define COMM_CMD_DHT11Data          ((u8)51)
 
 // Helper macros
 #define COMM_IsFrameHeadCorrect(p)  (p[0] == COMM_BYTE0 && p[1] == COMM_BYTE1)

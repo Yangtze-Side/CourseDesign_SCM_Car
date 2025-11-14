@@ -75,7 +75,7 @@ void Motor_Task(void)
     MotorSpeed_t MotorSpeed = { 0.0f, 0.0f, 0.0f, 0.0f };
     CarSpeed_t CarSpeed = { 0.0f, 0.0f, 0.0f };
 
-    Motor_Control_SetState();
+    Motion_Control_SetState();
 
     // Assign MotorSpeed
     switch (MotorState)
@@ -97,6 +97,12 @@ void Motor_Task(void)
         case Motor_State_AUTOCRUISE:
         {
             Motion_Control_AutoCruise(&CarSpeed);
+            Car_SpeedTransform(&CarSpeed, &MotorSpeed);
+        } break;
+
+        case Motor_State_AUTOFOLLOW:
+        {
+            Motion_Control_AutoFollow(&CarSpeed);
             Car_SpeedTransform(&CarSpeed, &MotorSpeed);
         } break;
     }

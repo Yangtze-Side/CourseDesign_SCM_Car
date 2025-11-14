@@ -71,7 +71,7 @@ void user_printf(const char *f, ...)
 	va_start(args, f);
 	vsprintf((char*)PRINTF_BUF, f, args);
 	va_end(args);
-	UART_Send_Start(&PRINTF_HANDLE, strlen((char*)PRINTF_BUF));
+	UART_Send_Start(&PRINTF_HANDLE, NULL, strlen((char*)PRINTF_BUF));
 }
 
 

@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication;.\DHT11</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -603,6 +603,21 @@
               <FileName>contract.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Communication\contract.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DHT11</GroupName>
+          <Files>
+            <File>
+              <FileName>dht11.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\DHT11\dht11.c</FilePath>
+            </File>
+            <File>
+              <FileName>dht11.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\DHT11\dht11.h</FilePath>
             </File>
           </Files>
         </Group>
