@@ -17,6 +17,7 @@
 // 在此添加用户头文件包含  
 #include "task.h"
 #include "communication.h"
+#include "system.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -101,6 +102,7 @@ void SYS_Init(void)
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
     // 在此添加用户初始化代码  
+    proj_init();
     //<<AICUBE_USER_INITIAL_CODE_END>>
 
     EnableGlobalInt();                  //使能全局中断

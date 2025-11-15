@@ -4,10 +4,10 @@
 #include "config.h"
 
 // 这些引脚初始化的时候要给 0
-#define US_F_Pin                        P00
-#define US_B_Pin                        P00
-#define US_L_Pin                        P00
-#define US_R_Pin                        P00
+#define US_F_Pin                        P41
+#define US_B_Pin                        P42
+#define US_L_Pin                        P44
+#define US_R_Pin                        P45
 
 #define US_F_StartSignal()              { US_F_Pin = 1; delay_us(12); US_F_Pin = 0; }
 #define US_B_StartSignal()              { US_B_Pin = 1; delay_us(12); US_B_Pin = 0; }

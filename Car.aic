@@ -45,22 +45,22 @@
 	<PORT0>
 		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
-		<PortMD_0>0</PortMD_0>
+		<PortMD_0>1</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
-		<PortMD_1>0</PortMD_1>
+		<PortMD_1>1</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>0</PortMD_2>
+		<PortMD_2>1</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
-		<PortMD_3>0</PortMD_3>
+		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
+		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
-		<PortMD_5>0</PortMD_5>
+		<PortMD_5>1</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
-		<PortMD_6>0</PortMD_6>
-		<PortLevel_6>1</PortLevel_6>
-		<PortMD_7>0</PortMD_7>
-		<PortLevel_7>1</PortLevel_7>
+		<PortMD_6>1</PortMD_6>
+		<PortLevel_6>0</PortLevel_6>
+		<PortMD_7>1</PortMD_7>
+		<PortLevel_7>0</PortLevel_7>
 	</PORT0>
 	<PORT1>
 		<PeriEnable>1</PeriEnable>
@@ -88,19 +88,19 @@
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
 		<PortMD_1>1</PortMD_1>
-		<PortLevel_1>1</PortLevel_1>
+		<PortLevel_1>0</PortLevel_1>
 		<PortMD_2>1</PortMD_2>
-		<PortLevel_2>1</PortLevel_2>
+		<PortLevel_2>0</PortLevel_2>
 		<PortMD_3>1</PortMD_3>
-		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
+		<PortLevel_3>0</PortLevel_3>
+		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
-		<PortMD_5>0</PortMD_5>
+		<PortMD_5>1</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>1</PortMD_7>
-		<PortLevel_7>1</PortLevel_7>
+		<PortLevel_7>0</PortLevel_7>
 	</PORT2>
 	<PORT3>
 		<PeriEnable>1</PeriEnable>
@@ -127,15 +127,15 @@
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
-		<PortMD_1>0</PortMD_1>
+		<PortMD_1>1</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>0</PortMD_2>
+		<PortMD_2>1</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
 		<PortMD_3>0</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
+		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
-		<PortMD_5>0</PortMD_5>
+		<PortMD_5>1</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
@@ -403,7 +403,7 @@
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
 		<SPIClockMode>0</SPIClockMode>
-		<SPIClockDivider>0</SPIClockDivider>
+		<SPIClockDivider>3</SPIClockDivider>
 		<IntPriority>0</IntPriority>
 	</SPI>
 	<PCA>
@@ -469,13 +469,13 @@
 		<PWMT2Point_5>500</PWMT2Point_5>
 		<PWMIntMode_5>0</PWMIntMode_5>
 		<EnablePWMOutput_6>0</EnablePWMOutput_6>
-		<PWMPort_6>-1</PWMPort_6>
+		<PWMPort_6>1</PWMPort_6>
 		<PWMInitLevel_6>0</PWMInitLevel_6>
 		<PWMT1Point_6>200</PWMT1Point_6>
 		<PWMT2Point_6>500</PWMT2Point_6>
 		<PWMIntMode_6>0</PWMIntMode_6>
 		<EnablePWMOutput_7>0</EnablePWMOutput_7>
-		<PWMPort_7>-1</PWMPort_7>
+		<PWMPort_7>1</PWMPort_7>
 		<PWMInitLevel_7>0</PWMInitLevel_7>
 		<PWMT1Point_7>200</PWMT1Point_7>
 		<PWMT2Point_7>500</PWMT2Point_7>
@@ -483,6 +483,8 @@
 	</EPWM>
 	<PINMAP>
 		<PinCount>256</PinCount>
+		<Pin03Map>2</Pin03Map>
+		<Pin04Map>2</Pin04Map>
 		<Pin12Map>2</Pin12Map>
 		<Pin13Map>2</Pin13Map>
 		<Pin14Map>2</Pin14Map>
@@ -501,5 +503,20 @@
 		<Pin48Map>2</Pin48Map>
 		<Pin52Map>1</Pin52Map>
 	</PINMAP>
-	<PINALIAS></PINALIAS>
+	<PINALIAS>
+		<Pin02Alias>MT5</Pin02Alias>
+		<Pin41Alias>UST0</Pin41Alias>
+		<Pin42Alias>UST1</Pin42Alias>
+		<Pin44Alias>UST2</Pin44Alias>
+		<Pin45Alias>KEY</Pin45Alias>
+		<Pin49Alias>MT6</Pin49Alias>
+		<Pin50Alias>MT7</Pin50Alias>
+		<Pin51Alias>DHT11</Pin51Alias>
+		<Pin57Alias>UST3</Pin57Alias>
+		<Pin59Alias>MT0</Pin59Alias>
+		<Pin60Alias>MT1</Pin60Alias>
+		<Pin61Alias>MT2</Pin61Alias>
+		<Pin62Alias>MT3</Pin62Alias>
+		<Pin63Alias>MT4</Pin63Alias>
+	</PINALIAS>
 </Project>

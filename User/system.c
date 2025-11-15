@@ -27,8 +27,8 @@ static void uart_recv_handler(UART_Recv_t *recv);
 void proj_init(void)
 {
 	UART_Recv_SetCB(uart_recv_handler);
-	Motor_Init();
 	Motion_Control_Init();
+	User_PWM_Init();
 	IMU_Init();
 }
 

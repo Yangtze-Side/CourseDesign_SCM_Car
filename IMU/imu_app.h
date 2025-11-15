@@ -5,8 +5,10 @@
 #include "MPU6500_SPI.h"
 #include "imu_solution_quat.h"
 
-#define MPU6500_SPI_NSS_High()              (P00 = 1)
-#define MPU6500_SPI_NSS_Low()               (P00 = 0)
+#define MPU6500_SPI_NSS_PIN                 P12
+
+#define MPU6500_SPI_NSS_High()              (MPU6500_SPI_NSS_PIN = 1)
+#define MPU6500_SPI_NSS_Low()               (MPU6500_SPI_NSS_PIN = 0)
 
 extern EulerAngle_t EulerAngle;
 

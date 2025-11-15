@@ -9,13 +9,13 @@
 #define Car_Speed_MAX                       100.0f
 
 #define MOTORA_DIR1_Pin                     P00
-#define MOTORA_DIR2_Pin                     P00
-#define MOTORB_DIR1_Pin                     P00
-#define MOTORB_DIR2_Pin                     P00
-#define MOTORC_DIR1_Pin                     P00
-#define MOTORC_DIR2_Pin                     P00
-#define MOTORD_DIR1_Pin                     P00
-#define MOTORD_DIR2_Pin                     P00
+#define MOTORA_DIR2_Pin                     P01
+#define MOTORB_DIR1_Pin                     P02
+#define MOTORB_DIR2_Pin                     P03
+#define MOTORC_DIR1_Pin                     P04
+#define MOTORC_DIR2_Pin                     P05
+#define MOTORD_DIR1_Pin                     P24
+#define MOTORD_DIR2_Pin                     P25
 
 #define Motor_State_OFF                     0       // Motor is off
 #define Motor_State_JOYSTICK                1       // Control by joystick (user implement)
@@ -42,7 +42,6 @@ typedef struct CarSpeed_t
 
 /*--------------------------------- Exported Vars & Fnucs ------------------------------*/
 
-void Motor_Init(void);
 void Motor_Task(void);
 
 u8   Motor_GetState(void);

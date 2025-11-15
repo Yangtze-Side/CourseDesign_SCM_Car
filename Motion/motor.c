@@ -35,15 +35,6 @@ static void Motor_SpeedUpdate(MotorSpeed_t *ms);
 BOOL Motor_IsEnabled(void) { return Motor_Enable; }
 void Motor_Cmd(BOOL cmd) { Motor_Enable = cmd; }
 
-/**
- * @brief Motor device initialization.
- * 
- */
-void Motor_Init(void)
-{
-    User_PWM_Init();
-}
-
 
 /**
  * @brief Get motion state.
