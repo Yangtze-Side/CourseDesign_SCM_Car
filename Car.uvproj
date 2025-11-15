@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication;.\DHT11</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication;.\DHT11;.\Key;.\LED</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -618,6 +618,36 @@
               <FileName>dht11.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\DHT11\dht11.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Key</GroupName>
+          <Files>
+            <File>
+              <FileName>key_SLD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Key\key_SLD.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_SLD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Key\key_SLD.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LED</GroupName>
+          <Files>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LED\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LED\led.h</FilePath>
             </File>
           </Files>
         </Group>

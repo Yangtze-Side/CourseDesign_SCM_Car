@@ -37,6 +37,7 @@
 #define Get_Angle(x2, y2, x1, y1)	(RAD_TO_DEG(atan2((y2) - (y1), (x2) - (x1))))
 
 
+extern u8 code SineTable[40];
 
 /*------------------------------------- Exported Functions ----------------------------------*/
 

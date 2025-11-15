@@ -2,7 +2,7 @@
 #include "system.h"
 #include <stdarg.h>
 #include "imu_app.h"
-#include "motion_control.h"
+#include "motion.h"
 #include "communication.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/

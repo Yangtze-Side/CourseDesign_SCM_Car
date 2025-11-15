@@ -3,18 +3,24 @@
 
 #include "config.h"
 
-#define PWMA_Pin                            P27
-#define PWMB_Pin                            P21
-#define PWMC_Pin                            P22
-#define PWMD_Pin                            P23
+#define PWMA_Pin                            P27     // Motor
+#define PWMB_Pin                            P21     // Motor
+#define PWMC_Pin                            P22     // Motor
+#define PWMD_Pin                            P23     // Motor
 
-#define PWM_CLK_DIVIDER                     12          // PWM clock divider (0 ~ 15)
-#define PWM_PERIOD                          2000        // PWM period (0 ~ 32767)
+#define PWME_Pin                            P07     // LED
+#define PWMF_Pin                            P06     // LED
+
+#define PWM_CLK_DIVIDER                     12      // PWM clock divider (0 ~ 15)
+#define PWM_PERIOD                          2000    // PWM period (0 ~ 32767)
+#define PWM_PulseWidth_MAX                  PWM_PERIOD
 
 void User_PWM_Init(void);
 void User_PWMA_SetWidth(u16 Width);
 void User_PWMB_SetWidth(u16 Width);
 void User_PWMC_SetWidth(u16 Width);
 void User_PWMD_SetWidth(u16 Width);
+void User_PWME_SetWidth(u16 Width);
+void User_PWMF_SetWidth(u16 Width);
 
 #endif // !__USER_PWM_H

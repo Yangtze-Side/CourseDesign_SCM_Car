@@ -44,9 +44,11 @@ typedef struct CarSpeed_t
 
 void Motor_Init(void);
 void Motor_Task(void);
+
 u8   Motor_GetState(void);
 void Motor_SetState(u8 NewState);
-bit  Motor_IsEnabled(void);
-void Motor_Cmd(u8 cmd);
+
+BOOL Motor_IsEnabled(void);
+void Motor_Cmd(BOOL cmd);
 
 #endif // !__MOTOR_H

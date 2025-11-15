@@ -7,10 +7,13 @@
  */
 void User_PWM_Init(void)
 {
-    PWMA_Pin = 0;
-    PWMB_Pin = 0;
-    PWMC_Pin = 0;
-    PWMD_Pin = 0;
+    // 初始电平均已在 AICube 里设置过
+    // PWMA_Pin = 0;
+    // PWMB_Pin = 0;
+    // PWMC_Pin = 0;
+    // PWMD_Pin = 0;
+    // PWME_Pin = 0;
+    // PWMF_Pin = 0;
 
     PWM_Disable();
 
@@ -42,17 +45,29 @@ void User_PWM_Init(void)
     PWM_SetC5T2Point(0);                //使能PWM5翻转点2的计数值
     PWM_DisableC5Output();              //不使能PWM5通道输出
 
+    PWM_C6_SwitchP07();                 //设置PWM6端口: PWM6 (P0.7)
+    PWM_InitialC6Low();                 //设置PWM6通道初始电平为低电平
+    PWM_SetC6T1Point(1);                //使能PWM6翻转点1的计数值
+    PWM_SetC6T2Point(0);                //使能PWM6翻转点2的计数值
+    PWM_DisableC6Output();              //不使能PWM6通道输出
+
+    PWM_C7_SwitchP06();                 //设置PWM7端口: PWM7 (P0.6)
+    PWM_InitialC7Low();                 //设置PWM7通道初始电平为低电平
+    PWM_SetC7T1Point(1);                //使能PWM7翻转点1的计数值
+    PWM_SetC7T2Point(0);                //使能PWM7翻转点2的计数值
+    PWM_DisableC7Output();              //不使能PWM7通道输出
+
     PWM_Enable();
 }
 
 /**
  * @brief Set PWMA pulse width.
  * 
- * @param Width Pulse width.
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
  */
 void User_PWMA_SetWidth(u16 Width)
 {
-    if (Width >= 2000)
+    if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC2Output();
         PWMA_Pin = 1;
@@ -72,11 +87,11 @@ void User_PWMA_SetWidth(u16 Width)
 /**
  * @brief Set PWMB pulse width.
  * 
- * @param Width Pulse width.
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
  */
 void User_PWMB_SetWidth(u16 Width)
 {
-    if (Width >= 2000)
+    if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC3Output();
         PWMB_Pin = 1;
@@ -96,11 +111,11 @@ void User_PWMB_SetWidth(u16 Width)
 /**
  * @brief Set PWMC pulse width.
  * 
- * @param Width Pulse width.
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
  */
 void User_PWMC_SetWidth(u16 Width)
 {
-    if (Width >= 2000)
+    if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC4Output();
         PWMC_Pin = 1;
@@ -120,11 +135,11 @@ void User_PWMC_SetWidth(u16 Width)
 /**
  * @brief Set PWMD pulse width.
  * 
- * @param Width Pulse width.
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
  */
 void User_PWMD_SetWidth(u16 Width)
 {
-    if (Width >= 2000)
+    if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC5Output();
         PWMD_Pin = 1;
@@ -138,5 +153,53 @@ void User_PWMD_SetWidth(u16 Width)
     {
         PWM_SetC5T1Point(Width);
         PWM_EnableC5Output();
+    }
+}
+
+/**
+ * @brief Set PWME pulse width.
+ * 
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
+ */
+void User_PWME_SetWidth(u16 Width)
+{
+    if (Width >= PWM_PulseWidth_MAX)
+    {
+        PWM_DisableC6Output();
+        PWME_Pin = 1;
+    }
+    else if (Width == 0)
+    {
+        PWM_DisableC6Output();
+        PWME_Pin = 0;
+    }
+    else
+    {
+        PWM_SetC6T1Point(Width);
+        PWM_EnableC6Output();
+    }
+}
+
+/**
+ * @brief Set PWMF pulse width.
+ * 
+ * @param Width Pulse width. (0 ~ PWM_PulseWidth_MAX)
+ */
+void User_PWMF_SetWidth(u16 Width)
+{
+    if (Width >= PWM_PulseWidth_MAX)
+    {
+        PWM_DisableC7Output();
+        PWMF_Pin = 1;
+    }
+    else if (Width == 0)
+    {
+        PWM_DisableC7Output();
+        PWMF_Pin = 0;
+    }
+    else
+    {
+        PWM_SetC7T1Point(Width);
+        PWM_EnableC7Output();
     }
 }

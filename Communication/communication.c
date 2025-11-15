@@ -1,7 +1,7 @@
 
 #include "communication.h"
 #include "contract.h"
-#include "motion_control.h"
+#include "motion.h"
 #include "user_driver.h"
 #include "us.h"
 #include "system.h"
@@ -10,12 +10,35 @@
 
 #define COMM_DATBUF_SIZE        64
 
-static bit Comm_ParseFlag = FALSE;
+static BOOL Comm_ParseFlag = FALSE;
 static u8  Comm_DatBuf[64];
+static BOOL Comm_Linked = FALSE;
 
 Comm_JoysModeData_t Comm_JoysModeData = { 0.0f, 0.0f, 0.0f };
 Comm_GravModeData_t Comm_GravModeData = { 0.0f, 0.0f, 0.0f };
 u8 Comm_MotorMode = Motor_State_OFF;
+
+
+/**
+ * @brief Change BT link status when the LINKED pin level changes.
+ * 
+ * @param status new satus (TRUE/FALSE)
+ */
+void Comm_SetLinkStatus(BOOL status)
+{
+    Comm_Linked = status;
+}
+
+
+/**
+ * @brief Get BT link status.
+ * 
+ * @return BOOL status (TRUE for linked and FALSE vice versa).
+ */
+BOOL Comm_GetLinkStatus(void)
+{
+    return Comm_Linked;
+}
 
 /**
  * @brief Start parse uart data
@@ -36,6 +59,8 @@ void Comm_StartParse(u8 DatBuf[64], u8 len)
  */
 void Comm_ParseTask(void)
 {
+    if (Comm_Linked == FALSE) return;
+
     if (Comm_ParseFlag)
     {
         Comm_ParseFlag = 0;
@@ -82,7 +107,12 @@ void Comm_ParseTask(void)
  */
 void Comm_SendTask(void)
 {
-    u8 dat[23] = { COMM_BYTE0, COMM_BYTE1, COMM_CMD_DHT11Data };
+	u8 dat[23];
+    if (Comm_Linked == FALSE) return;
+
+	dat[0] = COMM_BYTE0;
+	dat[1] = COMM_BYTE1;
+	dat[2] = COMM_CMD_DHT11Data;
     dat[3] = DHT11_Data.temp_int;
     dat[4] = DHT11_Data.temp_deci;
     dat[5] = DHT11_Data.humi_int;

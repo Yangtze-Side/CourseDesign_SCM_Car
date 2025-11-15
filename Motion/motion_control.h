@@ -14,4 +14,7 @@ void Motion_Control_AutoFollow(CarSpeed_t *cs);
 void Motion_Control_GravPIClear(void);
 void Motion_Control_AFPIDClear(void);
 
+BOOL Motion_IsACStucked(void);
+BOOL Motion_IsAFAlone(void);
+
 #endif // !__MOTION_CONTROL_H

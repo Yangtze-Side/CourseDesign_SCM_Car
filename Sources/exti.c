@@ -16,6 +16,7 @@
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
 #include "us.h"
+#include "communication.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -109,6 +110,7 @@ void EXTI0_ISR(void) interrupt INT0_VECTOR
 {
     //<<AICUBE_USER_EXTI0_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
+    Comm_SetLinkStatus(Comm_GetLinkStatusPinLevel());
     //<<AICUBE_USER_EXTI0_ISR_CODE1_END>>
 }
 

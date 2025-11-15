@@ -6,10 +6,10 @@
 #include "us.h"
 #include "communication.h"
 #include "dht11.h"
+#include "key_SLD.h"
+#include "led.h"
 
-void led_task(void);
-
-volatile u8 TaskExeFlag = 0;
+volatile BOOL TaskExeFlag = 0;
 
 typedef struct
 {
@@ -18,11 +18,12 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      8
 
 Task_t Task[TASK_TOTAL] =
 {
     { 30/5, 0, US_Task_30ms },
+    { 20/5, 0, KeySLD_Task },
     { 5/5, 0, IMU_Update },
 
     { 20/5, 0, Motor_Task },
@@ -30,7 +31,7 @@ Task_t Task[TASK_TOTAL] =
     { 60/5, 0, Comm_SendTask },
     { 5/5, 0, sys_uart_recv_task_5ms },
 
-    { 500/5, 0, led_task },
+    { 500/5, 0, led_task_50ms },
 };
 
 void TaskExe(void)

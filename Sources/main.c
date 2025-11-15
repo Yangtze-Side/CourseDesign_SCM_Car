@@ -139,10 +139,6 @@ void delay_ms(uint16_t ms)
 
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
 // 在此添加用户函数实现代码  
-void led_task(void)
-{
-    P00 ^= 1;
-}
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
 
 

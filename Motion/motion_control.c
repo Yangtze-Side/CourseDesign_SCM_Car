@@ -31,6 +31,8 @@
 
 static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
 static PosPID_t af_pid;         // auto follow mode pid controller
+static BOOL Motion_AC_Stuck = FALSE;
+static BOOL Motion_AF_Alone = FALSE;
 
 /*-------------------------------------------- Functions -------------------------------------------*/
 
@@ -137,13 +139,43 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
         (AC_CarDir == AC_CarDir_None))
     {
         // Go to direction where distance is sufficient
-        if (US_Data.F > AC_DistThres_cm) Motion_Auto_Go(cs, AC_CarDir_Front);
-        else if (US_Data.R > AC_DistThres_cm) Motion_Auto_Go(cs, AC_CarDir_Right);
-        else if (US_Data.B > AC_DistThres_cm) Motion_Auto_Go(cs, AC_CarDir_Back);
-        else if (US_Data.L > AC_DistThres_cm) Motion_Auto_Go(cs, AC_CarDir_Left);
+        if (US_Data.F > AC_DistThres_cm)
+        {
+            Motion_Auto_Go(cs, AC_CarDir_Front);
+            Motion_AC_Stuck = FALSE;
+        }
+        else if (US_Data.R > AC_DistThres_cm)
+        {
+            Motion_Auto_Go(cs, AC_CarDir_Right);
+            Motion_AC_Stuck = FALSE;
+        }
+        else if (US_Data.B > AC_DistThres_cm)
+        {
+            Motion_Auto_Go(cs, AC_CarDir_Back);
+            Motion_AC_Stuck = FALSE;
+        }
+        else if (US_Data.L > AC_DistThres_cm)
+        {
+            Motion_Auto_Go(cs, AC_CarDir_Left);
+            Motion_AC_Stuck = FALSE;
+        }
         // Or keep stucked and self-spinning if all directions are not distance-enough
-        else Motion_Auto_Go(cs, AC_CarDir_None);
+        else
+        {
+            Motion_Auto_Go(cs, AC_CarDir_None);
+            Motion_AC_Stuck = TRUE;
+        }
     }
+}
+
+/**
+ * @brief Get status that if the car has stucked.
+ * 
+ * @return BOOL If the car has stucked.
+ */
+BOOL Motion_IsACStucked(void)
+{
+    return Motion_AC_Stuck;
 }
 
 
@@ -162,12 +194,14 @@ void Motion_Control_AutoFollow(CarSpeed_t *cs)
         cs->y = af_pid.u;
         cs->x = 0;
         cs->w = 0;
+        Motion_AF_Alone = FALSE;
     }
     else
     {
         cs->y = 0;
         cs->x = 0;
         cs->w = 0;
+        Motion_AF_Alone = TRUE;
     }
 }
 
@@ -178,4 +212,14 @@ void Motion_Control_AutoFollow(CarSpeed_t *cs)
 void Motion_Control_AFPIDClear(void)
 {
     PosPID_Clear(&af_pid);
+}
+
+/**
+ * @brief Get the status that if the car is alone.
+ * 
+ * @return BOOL If the car is alone
+ */
+BOOL Motion_IsAFAlone(void)
+{
+    return Motion_AF_Alone;
 }
