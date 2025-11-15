@@ -3,7 +3,7 @@
 
 #include "config.h"
 
-#define Comm_LinkStatus_PIN             P00
+#define Comm_LinkStatus_PIN             P32
 #define Comm_GetLinkStatusPinLevel()    (Comm_LinkStatus_PIN)
 
 typedef struct Comm_JoysModeData_t
@@ -24,11 +24,11 @@ extern Comm_JoysModeData_t Comm_JoysModeData;
 extern Comm_GravModeData_t Comm_GravModeData;
 extern u8 Comm_MotorMode;
 
-void Comm_SetLinkStatus(BOOL status);
-BOOL Comm_GetLinkStatus(void);
-
 void Comm_StartParse(u8 DatBuf[64], u8 len);
 void Comm_ParseTask(void);
 void Comm_SendTask(void);
+
+void Comm_SetLinkStatus(BOOL status);
+BOOL Comm_GetLinkStatus(void);
 
 #endif // !__COMMUNICATION_H
