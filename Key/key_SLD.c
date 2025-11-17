@@ -57,9 +57,9 @@ static void Key_DoublePress(void)
  */
 void KeySLD_Task(void)
 {
-    static bit keyLast = Bit_RESET;
+    static BOOL keyLast = Bit_RESET;
     static u8 keyState = 0, keyCount = 0;
-    u32 keyNow = GET_KEY_NOW();
+    BOOL keyNow = GET_KEY_NOW();
 
     switch (keyState)
     {

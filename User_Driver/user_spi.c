@@ -38,7 +38,7 @@ u8 User_SPI_Write(u8 Byte, u32 Timeout)
  * @param Timeout   timeout of the whole receiving process, in ms
  * @return u8       User_SPI_Status (in user_spi.h)
  */
-u8 User_SPI_Read(u8 *Buf, u16 Len, u32 Timeout)
+u8 User_SPI_Read(u8 __INDIRECT_CALL_PARAMETER_TYPE *Buf, u16 Len, u32 Timeout)
 {
     u32 tick_start;
     u16 read_index = 0;

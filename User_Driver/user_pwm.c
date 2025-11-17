@@ -7,14 +7,6 @@
  */
 void User_PWM_Init(void)
 {
-    // 初始电平均已在 AICube 里设置过
-    // PWMA_Pin = 0;
-    // PWMB_Pin = 0;
-    // PWMC_Pin = 0;
-    // PWMD_Pin = 0;
-    // PWME_Pin = 0;
-    // PWMF_Pin = 0;
-
     PWM_Disable();
 
     PWM_CLK_SYSCLK();
@@ -23,39 +15,46 @@ void User_PWM_Init(void)
 
     PWM_C2_SwitchP27();                 //设置PWM2端口: PWM2 (P2.7)
     PWM_InitialC2Low();                 //设置PWM2通道初始电平为低电平
-    PWM_SetC2T1Point(1);                //使能PWM2翻转点1的计数值
-    PWM_SetC2T2Point(0);                //使能PWM2翻转点2的计数值
+    PWM_SetC2T1Point(0);                //使能PWM2翻转点1的计数值
+    PWM_SetC2T2Point(1);                //使能PWM2翻转点2的计数值
     PWM_DisableC2Output();              //不使能PWM2通道输出
 
     PWM_C3_SwitchP21();                 //设置PWM3端口: PWM3 (P2.1)
     PWM_InitialC3Low();                 //设置PWM3通道初始电平为低电平
-    PWM_SetC3T1Point(1);                //使能PWM3翻转点1的计数值
-    PWM_SetC3T2Point(0);                //使能PWM3翻转点2的计数值
+    PWM_SetC3T1Point(0);                //使能PWM3翻转点1的计数值
+    PWM_SetC3T2Point(1);                //使能PWM3翻转点2的计数值
     PWM_DisableC3Output();              //不使能PWM3通道输出
 
     PWM_C4_SwitchP22();                 //设置PWM4端口: PWM4 (P2.2)
     PWM_InitialC4Low();                 //设置PWM4通道初始电平为低电平
-    PWM_SetC4T1Point(1);                //使能PWM4翻转点1的计数值
-    PWM_SetC4T2Point(0);                //使能PWM4翻转点2的计数值
+    PWM_SetC4T1Point(0);                //使能PWM4翻转点1的计数值
+    PWM_SetC4T2Point(1);                //使能PWM4翻转点2的计数值
     PWM_DisableC4Output();              //不使能PWM4通道输出
 
     PWM_C5_SwitchP23();                 //设置PWM5端口: PWM5 (P2.3)
     PWM_InitialC5Low();                 //设置PWM5通道初始电平为低电平
-    PWM_SetC5T1Point(1);                //使能PWM5翻转点1的计数值
-    PWM_SetC5T2Point(0);                //使能PWM5翻转点2的计数值
+    PWM_SetC5T1Point(0);                //使能PWM5翻转点1的计数值
+    PWM_SetC5T2Point(1);                //使能PWM5翻转点2的计数值
     PWM_DisableC5Output();              //不使能PWM5通道输出
 
     PWM_C6_SwitchP07();                 //设置PWM6端口: PWM6 (P0.7)
     PWM_InitialC6Low();                 //设置PWM6通道初始电平为低电平
-    PWM_SetC6T1Point(1);                //使能PWM6翻转点1的计数值
-    PWM_SetC6T2Point(0);                //使能PWM6翻转点2的计数值
+    PWM_SetC6T1Point(0);                //使能PWM6翻转点1的计数值
+    PWM_SetC6T2Point(1);                //使能PWM6翻转点2的计数值
     PWM_DisableC6Output();              //不使能PWM6通道输出
 
     PWM_C7_SwitchP06();                 //设置PWM7端口: PWM7 (P0.6)
     PWM_InitialC7Low();                 //设置PWM7通道初始电平为低电平
-    PWM_SetC7T1Point(1);                //使能PWM7翻转点1的计数值
-    PWM_SetC7T2Point(0);                //使能PWM7翻转点2的计数值
+    PWM_SetC7T1Point(0);                //使能PWM7翻转点1的计数值
+    PWM_SetC7T2Point(1);                //使能PWM7翻转点2的计数值
     PWM_DisableC7Output();              //不使能PWM7通道输出
+
+    PWMA_Pin = 0;
+    PWMB_Pin = 0;
+    PWMC_Pin = 0;
+    PWMD_Pin = 0;
+    PWME_Pin = 0;
+    PWMF_Pin = 0;
 
     PWM_Enable();
 }
@@ -79,7 +78,7 @@ void User_PWMA_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC2T1Point(Width);
+        PWM_SetC2T2Point(Width);
         PWM_EnableC2Output();
     }
 }
@@ -103,7 +102,7 @@ void User_PWMB_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC3T1Point(Width);
+        PWM_SetC3T2Point(Width);
         PWM_EnableC3Output();
     }
 }
@@ -127,7 +126,7 @@ void User_PWMC_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC4T1Point(Width);
+        PWM_SetC4T2Point(Width);
         PWM_EnableC4Output();
     }
 }
@@ -151,7 +150,7 @@ void User_PWMD_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC5T1Point(Width);
+        PWM_SetC5T2Point(Width);
         PWM_EnableC5Output();
     }
 }
@@ -175,7 +174,7 @@ void User_PWME_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC6T1Point(Width);
+        PWM_SetC6T2Point(Width);
         PWM_EnableC6Output();
     }
 }
@@ -199,7 +198,7 @@ void User_PWMF_SetWidth(u16 Width)
     }
     else
     {
-        PWM_SetC7T1Point(Width);
+        PWM_SetC7T2Point(Width);
         PWM_EnableC7Output();
     }
 }

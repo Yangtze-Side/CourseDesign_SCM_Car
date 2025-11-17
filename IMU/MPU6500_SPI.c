@@ -110,17 +110,19 @@ typedef struct Drift_t
 
 /*-------------------------------- Variables ---------------------------------*/
 
-static MPU6500_Func_t mpu6500_func = { NULL, NULL };
+// static MPU6500_Func_t mpu6500_func = { NULL, NULL };            // nmlgbd C51 这样写有问题
 u8 MPU6500_State = 0x00;
 IMU_Data_t MPU6500_Data = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 static float acc_trans_factor = ACCEL_8G_TRANSFACTOR, gyro_trans_factor = GYRO_1000DPS_TRANSFACTOR;
+// static MPU6500_SPI_WriteFunc_t mpu6500_write;
+// static MPU6500_SPI_ReadFunc_t mpu6500_read;
 
 /*-------------------------------- Private Functions ---------------------------------*/
 
 static u8 mpu_set_accel_fsr(MPU6500_AccelFsr fsr)
 {
     u8 regval = ((u8)fsr << 3);
-    if (mpu6500_func.write(ACCEL_CONFIG, regval) == FAILED) return FAILED;
+    if (mpu6500_write(ACCEL_CONFIG, regval) == FAILED) return FAILED;
 
     switch (fsr)
     {
@@ -137,7 +139,7 @@ static u8 mpu_set_accel_fsr(MPU6500_AccelFsr fsr)
 static u8 mpu_set_gyro_fsr(MPU6500_GyroFsr fsr)
 {
     u8 regval = ((u8)fsr << 3);
-    if (mpu6500_func.write(GYRO_CONFIG, regval) == FAILED) return FAILED;
+    if (mpu6500_write(GYRO_CONFIG, regval) == FAILED) return FAILED;
 
     switch (fsr)
     {
@@ -172,7 +174,7 @@ static u8 mpu_set_dlpf(u16 lpf)
     else
         dat = MPU_FILTER_5HZ;
 
-    return mpu6500_func.write(CONFIG, dat);
+    return mpu6500_write(CONFIG, dat);
 }
 
 
@@ -183,27 +185,32 @@ static u8 mpu_set_dlpf(u16 lpf)
  * 
  * @param sFunc MPU6500_Func_t structure.
  */
-u8 MPU6500_Init(MPU6500_Func_t *sFunc)
+// u8 MPU6500_Init(MPU6500_Func_t *sFunc)
+// u8 MPU6500_Init(MPU6500_SPI_WriteFunc_t write, MPU6500_SPI_ReadFunc_t read)
+u8 MPU6500_Init(void)
 {
-    u8 res;
-    mpu6500_func = *sFunc;
+    u8 __INDIRECT_CALL_PARAMETER_TYPE res;
+    // mpu6500_func = *sFunc;
+    // mpu6500_write = write;       // nmlgbd 写函数指针也报错
+    // mpu6500_read = read;
 
-    if (mpu6500_func.write(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
+    if (mpu6500_write(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
 
-    mpu6500_func.read(WHO_AM_I, &res, 1);
+    // mpu6500_read(WHO_AM_I, &res, 1);
     if (res != WHO_AM_I_VAL) return FAILED;
     MPU6500_SET_BIT(MPU6500_State, MPU6500_CommunicationOK_BIT);
 
-    if (mpu6500_func.write(PWR_MGMT_1, PWR_MGMT_1_VAL) == FAILED) return FAILED;
-    if (mpu6500_func.write(PWR_MGMT_2, PWR_MGMT_2_VAL) == FAILED) return FAILED;
-    if (mpu6500_func.write(SMPLRT_DIV, SMPLRT_DIV_VAL) == FAILED) return FAILED;
+    if (mpu6500_write(PWR_MGMT_1, PWR_MGMT_1_VAL) == FAILED) return FAILED;
+    if (mpu6500_write(PWR_MGMT_2, PWR_MGMT_2_VAL) == FAILED) return FAILED;
+    if (mpu6500_write(SMPLRT_DIV, SMPLRT_DIV_VAL) == FAILED) return FAILED;
 
     if (mpu_set_accel_fsr(MPU6500_ACCEL_FSR) == FAILED) return FAILED;
     if (mpu_set_gyro_fsr(MPU6500_GYRO_FSR) == FAILED) return FAILED;
     if (mpu_set_dlpf(SampleRate_Hz >> 1) == FAILED) return FAILED;
+    // if (mpu_set_dlpf(200) == FAILED) return FAILED;
 
-    // if (mpu6500_func.write(INT_PIN_CONFIG, INT_PIN_CONFIG_VAL) == FAILED) return FAILED;
-    // if (mpu6500_func.write(INT_ENABLE, INT_ENABLE_VAL) == FAILED) return FAILED;
+    // if (mpu6500_write(INT_PIN_CONFIG, INT_PIN_CONFIG_VAL) == FAILED) return FAILED;
+    // if (mpu6500_write(INT_ENABLE, INT_ENABLE_VAL) == FAILED) return FAILED;
 
     MPU6500_SET_BIT(MPU6500_State, MPU6500_Initialized_BIT);
     return SUCCESS;
@@ -216,9 +223,9 @@ u8 MPU6500_Init(MPU6500_Func_t *sFunc)
  */
 void MPU6500_ReadData(void)
 {
-    u8 buf[14];
+    u8 __INDIRECT_CALL_PARAMETER_TYPE buf[14];
     s16 tmp;
-    mpu6500_func.read(ACCEL_XOUT_H, buf, sizeof(buf));
+    mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
 
     tmp = (s16)MAKEWORD(buf[0], buf[1]);
     MPU6500_Data.accx = ACCEL_Trans(tmp);
@@ -249,9 +256,9 @@ void MPU6500_SampleDrift(void)
 {
     static u16 cnt = 0;
     static Drift_t drift = { 0, 0, 0, 0, 0, 0 };
-    u8 buf[14];
+    u8 __INDIRECT_CALL_PARAMETER_TYPE buf[14];
 
-    mpu6500_func.read(ACCEL_XOUT_H, buf, sizeof(buf));
+    mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
 
     drift.ax += (s16)MAKEWORD(buf[0], buf[1]);
     drift.ay += (s16)MAKEWORD(buf[2], buf[3]);
@@ -273,19 +280,19 @@ void MPU6500_SampleDrift(void)
         drift.gy /= (s32)DriftSample_AMOUNT;
         drift.gz /= (s32)DriftSample_AMOUNT;
 
-        mpu6500_func.write(XA_OFFSET_H, HIBYTE(drift.ax));
-        mpu6500_func.write(XA_OFFSET_L, LOBYTE(drift.ax));
-        mpu6500_func.write(YA_OFFSET_H, HIBYTE(drift.ay));
-        mpu6500_func.write(YA_OFFSET_L, LOBYTE(drift.ay));
-        mpu6500_func.write(ZA_OFFSET_H, HIBYTE(drift.az));
-        mpu6500_func.write(ZA_OFFSET_L, LOBYTE(drift.az));
+        mpu6500_write(XA_OFFSET_H, HIBYTE(drift.ax));
+        mpu6500_write(XA_OFFSET_L, LOBYTE(drift.ax));
+        mpu6500_write(YA_OFFSET_H, HIBYTE(drift.ay));
+        mpu6500_write(YA_OFFSET_L, LOBYTE(drift.ay));
+        mpu6500_write(ZA_OFFSET_H, HIBYTE(drift.az));
+        mpu6500_write(ZA_OFFSET_L, LOBYTE(drift.az));
         
-        mpu6500_func.write(XG_OFFSET_H, HIBYTE(drift.gx));
-        mpu6500_func.write(XG_OFFSET_L, LOBYTE(drift.gx));
-        mpu6500_func.write(YG_OFFSET_H, HIBYTE(drift.gy));
-        mpu6500_func.write(YG_OFFSET_L, LOBYTE(drift.gy));
-        mpu6500_func.write(ZG_OFFSET_H, HIBYTE(drift.gz));
-        mpu6500_func.write(ZG_OFFSET_L, LOBYTE(drift.gz));
+        mpu6500_write(XG_OFFSET_H, HIBYTE(drift.gx));
+        mpu6500_write(XG_OFFSET_L, LOBYTE(drift.gx));
+        mpu6500_write(YG_OFFSET_H, HIBYTE(drift.gy));
+        mpu6500_write(YG_OFFSET_L, LOBYTE(drift.gy));
+        mpu6500_write(ZG_OFFSET_H, HIBYTE(drift.gz));
+        mpu6500_write(ZG_OFFSET_L, LOBYTE(drift.gz));
 
         MPU6500_SET_BIT(MPU6500_State, MPU6500_DriftSampled_BIT);
 

@@ -8,6 +8,7 @@
 #include "dht11.h"
 #include "key_SLD.h"
 #include "led.h"
+#include "debug.h"
 
 volatile BOOL TaskExeFlag = 0;
 
@@ -18,7 +19,7 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      8
+#define TASK_TOTAL      7
 
 Task_t Task[TASK_TOTAL] =
 {
@@ -28,10 +29,11 @@ Task_t Task[TASK_TOTAL] =
 
     { 20/5, 0, Motor_Task },
     { 100/5, 0, Dht11_Task },
-    { 60/5, 0, Comm_SendTask },
-    { 5/5, 0, sys_uart_recv_task_5ms },
+    { 500/5, 0, Debug_Log_Task },
+    // { 60/5, 0, Comm_SendTask },
+    // { 5/5, 0, sys_uart_recv_task_5ms },
 
-    { 500/5, 0, led_task_50ms },
+    { 25/5, 0, led_task_25ms },
 };
 
 void TaskExe(void)

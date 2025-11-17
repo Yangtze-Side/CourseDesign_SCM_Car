@@ -12,7 +12,9 @@
 
 //<<AICUBE_USER_DEFINE_BEGIN>>
 // 在此添加用户宏定义  
-#define USE_MPU6500             0
+#define USE_MPU6500             1
+
+#define __INDIRECT_CALL_PARAMETER_TYPE
 //<<AICUBE_USER_DEFINE_END>>
 
 

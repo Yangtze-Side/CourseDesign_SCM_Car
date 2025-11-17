@@ -13,7 +13,7 @@ static volatile u32 sys_tick;          	// System tick variable, increases in Sy
 u8 xdata UART1_SendBuf[UART1_SendBuf_SIZE];
 u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
 
-UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, 0, 0 };
+UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, UART1_SendBuf_SIZE, 0, 0 };
 UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 };
 
 static void uart_recv_handler(UART_Recv_t *recv);

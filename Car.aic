@@ -402,7 +402,7 @@
 		<SPIPort>0</SPIPort>
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
-		<SPIClockMode>0</SPIClockMode>
+		<SPIClockMode>3</SPIClockMode>
 		<SPIClockDivider>3</SPIClockDivider>
 		<IntPriority>0</IntPriority>
 	</SPI>
