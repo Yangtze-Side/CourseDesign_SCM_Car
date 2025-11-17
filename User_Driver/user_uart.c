@@ -94,7 +94,7 @@ void UART_Recv_ITHandler(UART_Recv_t *recv)
 	{
 		recv->Start = FALSE;
 		// Receiving completes for the buffer is full.
-		if (uart_recv_cb) uart_recv_cb(recv);
+		if (uart_recv_cb != NULL) uart_recv_cb(recv);
 	}
 }
 
@@ -112,7 +112,7 @@ void UART_Recv_Task_5ms(UART_Recv_t *recv)
 			recv->Start = FALSE;
 			recv->Timeout = 0;
 			// Receiving completes for time's up.
-			if (uart_recv_cb) uart_recv_cb(recv);
+			if (uart_recv_cb != NULL) uart_recv_cb(recv);
 		}
 	}
 }

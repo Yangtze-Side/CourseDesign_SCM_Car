@@ -42,7 +42,7 @@ void main(void)
 
     //<<AICUBE_USER_MAIN_CODE_BEGIN>>
     // 在此添加主函数中运行一次的用户代码  
-    proj_init();
+    // proj_init();
     //<<AICUBE_USER_MAIN_CODE_END>>
 
     while (1)

@@ -104,10 +104,10 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
     //<<AICUBE_USER_TIMER0_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
     
-    static u8 cnt = 0;
-    if (++cnt >= 5)
+    static u8 t0_cnt = 0;
+    if (++t0_cnt >= 5)
     {
-        cnt = 0;
+        t0_cnt = 0;
         // 5ms TODO
         SET_TaskExeFlag();
     }

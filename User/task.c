@@ -19,21 +19,21 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      3
 
-Task_t Task[TASK_TOTAL] =
+Task_t xdata Task[TASK_TOTAL] =
 {
-    { 30/5, 0, US_Task_30ms },
-    { 20/5, 0, KeySLD_Task },
+    // { 30/5, 0, US_Task_30ms },
+    // { 20/5, 0, KeySLD_Task },
     { 5/5, 0, IMU_Update },
 
-    { 20/5, 0, Motor_Task },
-    { 100/5, 0, Dht11_Task },
+    // { 20/5, 0, Motor_Task },
+    // { 100/5, 0, Dht11_Task },
     { 500/5, 0, Debug_Log_Task },
     // { 60/5, 0, Comm_SendTask },
-    // { 5/5, 0, sys_uart_recv_task_5ms },
+    { 1, 0, sys_uart_recv_task_5ms },
 
-    { 25/5, 0, led_task_25ms },
+    // { 25/5, 0, led_task_25ms },
 };
 
 void TaskExe(void)
@@ -41,7 +41,7 @@ void TaskExe(void)
     u8 i = 0;
     for (; i < TASK_TOTAL; i++)
     {
-        if (++Task[i].count >= Task[i].period)
+        if (++Task[i].count > Task[i].period)
         {
             Task[i].count = 0;
             if (Task[i].taskHook != NULL)

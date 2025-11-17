@@ -48,7 +48,7 @@ BOOL Comm_GetLinkStatus(void)
  */
 void Comm_StartParse(u8 DatBuf[64], u8 len)
 {
-    memcpy(Comm_DatBuf, DatBuf, len);
+    memcpy(Comm_DatBuf, DatBuf, min(len, 64));
     Comm_ParseFlag = 1;
 }
 

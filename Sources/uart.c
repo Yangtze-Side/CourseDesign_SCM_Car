@@ -66,7 +66,7 @@ void UART1_ISR(void) interrupt UART1_VECTOR
     if (UART1_CheckRxFlag())            //判断串口接收中断
     {
         UART1_ClearRxFlag();            //清除串口接收中断标志
-        UART_Recv_ITHandler(&uart1_rx);
+        // UART_Recv_ITHandler(&uart1_rx);
     }
     //<<AICUBE_USER_UART1_ISR_CODE1_END>>
 }
