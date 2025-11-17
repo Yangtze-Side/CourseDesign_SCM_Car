@@ -196,7 +196,7 @@ u8 MPU6500_Init(void)
 
     if (mpu6500_write(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
 
-    // mpu6500_read(WHO_AM_I, &res, 1);
+    mpu6500_read(WHO_AM_I, &res, 1);
     if (res != WHO_AM_I_VAL) return FAILED;
     MPU6500_SET_BIT(MPU6500_State, MPU6500_CommunicationOK_BIT);
 
@@ -207,10 +207,6 @@ u8 MPU6500_Init(void)
     if (mpu_set_accel_fsr(MPU6500_ACCEL_FSR) == FAILED) return FAILED;
     if (mpu_set_gyro_fsr(MPU6500_GYRO_FSR) == FAILED) return FAILED;
     if (mpu_set_dlpf(SampleRate_Hz >> 1) == FAILED) return FAILED;
-    // if (mpu_set_dlpf(200) == FAILED) return FAILED;
-
-    // if (mpu6500_write(INT_PIN_CONFIG, INT_PIN_CONFIG_VAL) == FAILED) return FAILED;
-    // if (mpu6500_write(INT_ENABLE, INT_ENABLE_VAL) == FAILED) return FAILED;
 
     MPU6500_SET_BIT(MPU6500_State, MPU6500_Initialized_BIT);
     return SUCCESS;
