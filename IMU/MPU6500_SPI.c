@@ -221,24 +221,24 @@ void MPU6500_ReadData(void)
 {
     volatile u8 __INDIRECT_CALL_PARAMETER_TYPE buf[14];
     volatile s16 tmp;
-    // mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
+    mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
 
-    // tmp = (s16)MAKEWORD(buf[0], buf[1]);
-    // MPU6500_Data.accx = ACCEL_Trans(tmp);
-    // tmp = (s16)MAKEWORD(buf[2], buf[3]);
-    // MPU6500_Data.accy = ACCEL_Trans(tmp);
-    // tmp = (s16)MAKEWORD(buf[4], buf[5]);
-    // MPU6500_Data.accz = ACCEL_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[0], buf[1]);
+    MPU6500_Data.accx = ACCEL_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[2], buf[3]);
+    MPU6500_Data.accy = ACCEL_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[4], buf[5]);
+    MPU6500_Data.accz = ACCEL_Trans(tmp);
     
-    // tmp = (s16)MAKEWORD(buf[6], buf[7]);
-    // MPU6500_Data.temp = TEMP_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[6], buf[7]);
+    MPU6500_Data.temp = TEMP_Trans(tmp);
 
-    // tmp = (s16)MAKEWORD(buf[8], buf[9]);
-    // MPU6500_Data.gyrox = GYRO_Trans(tmp);
-    // tmp = (s16)MAKEWORD(buf[10], buf[11]);
-    // MPU6500_Data.gyroy = GYRO_Trans(tmp);
-    // tmp = (s16)MAKEWORD(buf[12], buf[13]);
-    // MPU6500_Data.gyroz = GYRO_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[8], buf[9]);
+    MPU6500_Data.gyrox = GYRO_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[10], buf[11]);
+    MPU6500_Data.gyroy = GYRO_Trans(tmp);
+    tmp = (s16)MAKEWORD(buf[12], buf[13]);
+    MPU6500_Data.gyroz = GYRO_Trans(tmp);
 }
 
 
