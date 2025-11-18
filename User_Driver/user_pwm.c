@@ -7,7 +7,6 @@
  */
 void User_PWM_Init(void)
 {
-    EnableAccessXFR();
     PWM_Disable();
 
     PWM_CLK_SYSCLK();
@@ -58,7 +57,6 @@ void User_PWM_Init(void)
     PWMF_Pin = 0;
 
     PWM_Enable();
-    DisableAccessXFR();
 }
 
 /**
@@ -68,7 +66,6 @@ void User_PWM_Init(void)
  */
 void User_PWMA_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC2Output();
@@ -84,7 +81,6 @@ void User_PWMA_SetWidth(u16 Width)
         PWM_SetC2T2Point(Width);
         PWM_EnableC2Output();
     }
-    DisableAccessXFR();
 }
 
 /**
@@ -94,7 +90,6 @@ void User_PWMA_SetWidth(u16 Width)
  */
 void User_PWMB_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC3Output();
@@ -110,7 +105,6 @@ void User_PWMB_SetWidth(u16 Width)
         PWM_SetC3T2Point(Width);
         PWM_EnableC3Output();
     }
-    DisableAccessXFR();
 }
 
 /**
@@ -120,7 +114,6 @@ void User_PWMB_SetWidth(u16 Width)
  */
 void User_PWMC_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC4Output();
@@ -136,7 +129,6 @@ void User_PWMC_SetWidth(u16 Width)
         PWM_SetC4T2Point(Width);
         PWM_EnableC4Output();
     }
-    DisableAccessXFR();
 }
 
 /**
@@ -146,7 +138,6 @@ void User_PWMC_SetWidth(u16 Width)
  */
 void User_PWMD_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC5Output();
@@ -162,7 +153,6 @@ void User_PWMD_SetWidth(u16 Width)
         PWM_SetC5T2Point(Width);
         PWM_EnableC5Output();
     }
-    DisableAccessXFR();
 }
 
 /**
@@ -172,7 +162,6 @@ void User_PWMD_SetWidth(u16 Width)
  */
 void User_PWME_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC6Output();
@@ -188,7 +177,6 @@ void User_PWME_SetWidth(u16 Width)
         PWM_SetC6T2Point(Width);
         PWM_EnableC6Output();
     }
-    DisableAccessXFR();
 }
 
 /**
@@ -198,7 +186,6 @@ void User_PWME_SetWidth(u16 Width)
  */
 void User_PWMF_SetWidth(u16 Width)
 {
-    EnableAccessXFR();
     if (Width >= PWM_PulseWidth_MAX)
     {
         PWM_DisableC7Output();
@@ -214,5 +201,4 @@ void User_PWMF_SetWidth(u16 Width)
         PWM_SetC7T2Point(Width);
         PWM_EnableC7Output();
     }
-    DisableAccessXFR();
 }

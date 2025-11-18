@@ -2,7 +2,7 @@
 #include "user_uart.h"
 #include "system.h"				// 没办法，函数指针不让用，只能把外人拉进屋说话了
 
-#define UART_RecvCallback		uart_recv_handler
+#define UART_RecvCallback(recv)			uart_recv_handler(recv)
 
 static BOOL UART_RecvOverFlag = FALSE;
 

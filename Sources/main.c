@@ -103,7 +103,6 @@ void SYS_Init(void)
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
     // 在此添加用户初始化代码  
-    DisableAccessXFR();
     //<<AICUBE_USER_INITIAL_CODE_END>>
 
     EnableGlobalInt();                  //使能全局中断

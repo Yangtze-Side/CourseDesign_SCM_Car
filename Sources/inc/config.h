@@ -73,10 +73,6 @@ void delay_ms(uint16_t ms);
 
 //<<AICUBE_USER_EXTERNAL_DECLARE_BEGIN>>
 // 在此添加用户外部函数和外部变量声明  
-
-#define EAXFR_MSK                       BIT7
-#define DisableAccessXFR()              CLR_REG_BIT(P_SW2, EAXFR_MSK)
-
 //<<AICUBE_USER_EXTERNAL_DECLARE_END>>
 
 
