@@ -42,7 +42,7 @@ void main(void)
 
     //<<AICUBE_USER_MAIN_CODE_BEGIN>>
     // 在此添加主函数中运行一次的用户代码  
-    // proj_init();
+    proj_init();
     //<<AICUBE_USER_MAIN_CODE_END>>
 
     while (1)
@@ -103,6 +103,7 @@ void SYS_Init(void)
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
     // 在此添加用户初始化代码  
+    DisableAccessXFR();
     //<<AICUBE_USER_INITIAL_CODE_END>>
 
     EnableGlobalInt();                  //使能全局中断

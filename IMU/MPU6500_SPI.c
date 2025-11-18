@@ -99,13 +99,9 @@ typedef enum mpu_lpf_t
  */
 typedef struct Drift_t
 {
-    s32 ax;
-    s32 ay;
-    s32 az;
-
-    s32 gx;
-    s32 gy;
-    s32 gz;
+    float gx;
+    float gy;
+    float gz;
 } Drift_t;
 
 /*-------------------------------- Variables ---------------------------------*/
@@ -114,8 +110,7 @@ typedef struct Drift_t
 u8 MPU6500_State = 0x00;
 IMU_Data_t MPU6500_Data = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 static float acc_trans_factor = ACCEL_8G_TRANSFACTOR, gyro_trans_factor = GYRO_1000DPS_TRANSFACTOR;
-// static MPU6500_SPI_WriteFunc_t mpu6500_write;
-// static MPU6500_SPI_ReadFunc_t mpu6500_read;
+static Drift_t drift = { 0.0f, 0.0f, 0.0f };
 
 /*-------------------------------- Private Functions ---------------------------------*/
 
@@ -131,7 +126,7 @@ static u8 mpu_set_accel_fsr(MPU6500_AccelFsr fsr)
         case MPU6500_Accel_8g: acc_trans_factor = ACCEL_8G_TRANSFACTOR; break;
         case MPU6500_Accel_16g: acc_trans_factor = ACCEL_16G_TRANSFACTOR; break;
 
-        default: acc_trans_factor = ACCEL_8G_TRANSFACTOR; break;
+        default: break;
     }
     return SUCCESS;
 }
@@ -148,7 +143,7 @@ static u8 mpu_set_gyro_fsr(MPU6500_GyroFsr fsr)
         case MPU6500_Gyro_1000dps: gyro_trans_factor = GYRO_1000DPS_TRANSFACTOR; break;
         case MPU6500_Gyro_2000dps: gyro_trans_factor = GYRO_2000DPS_TRANSFACTOR; break;
 
-        default: gyro_trans_factor = GYRO_1000DPS_TRANSFACTOR; break;
+        default: break;
     }
     return SUCCESS;
 }
@@ -185,14 +180,9 @@ static u8 mpu_set_dlpf(u16 lpf)
  * 
  * @param sFunc MPU6500_Func_t structure.
  */
-// u8 MPU6500_Init(MPU6500_Func_t *sFunc)
-// u8 MPU6500_Init(MPU6500_SPI_WriteFunc_t write, MPU6500_SPI_ReadFunc_t read)
 u8 MPU6500_Init(void)
 {
     u8 __INDIRECT_CALL_PARAMETER_TYPE res;
-    // mpu6500_func = *sFunc;
-    // mpu6500_write = write;       // nmlgbd 写函数指针也报错
-    // mpu6500_read = read;
 
     if (mpu6500_write(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
 
@@ -223,22 +213,26 @@ void MPU6500_ReadData(void)
     s16 tmp;
     mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
 
-    tmp = (s16)MAKEWORD(buf[0], buf[1]);
+    tmp = (s16)MAKEWORD(buf[1], buf[0]);
     MPU6500_Data.accx = ACCEL_Trans(tmp);
-    tmp = (s16)MAKEWORD(buf[2], buf[3]);
+    tmp = (s16)MAKEWORD(buf[3], buf[2]);
     MPU6500_Data.accy = ACCEL_Trans(tmp);
-    tmp = (s16)MAKEWORD(buf[4], buf[5]);
+    tmp = (s16)MAKEWORD(buf[5], buf[4]);
     MPU6500_Data.accz = ACCEL_Trans(tmp);
     
-    tmp = (s16)MAKEWORD(buf[6], buf[7]);
+    tmp = (s16)MAKEWORD(buf[7], buf[6]);
     MPU6500_Data.temp = TEMP_Trans(tmp);
 
-    tmp = (s16)MAKEWORD(buf[8], buf[9]);
+    tmp = (s16)MAKEWORD(buf[9], buf[8]);
     MPU6500_Data.gyrox = GYRO_Trans(tmp);
-    tmp = (s16)MAKEWORD(buf[10], buf[11]);
+    tmp = (s16)MAKEWORD(buf[11], buf[10]);
     MPU6500_Data.gyroy = GYRO_Trans(tmp);
-    tmp = (s16)MAKEWORD(buf[12], buf[13]);
+    tmp = (s16)MAKEWORD(buf[13], buf[12]);
     MPU6500_Data.gyroz = GYRO_Trans(tmp);
+
+    MPU6500_Data.gyrox += drift.gx;
+    MPU6500_Data.gyroy += drift.gy;
+    MPU6500_Data.gyroz += drift.gz;
 }
 
 
@@ -251,44 +245,24 @@ void MPU6500_ReadData(void)
 void MPU6500_SampleDrift(void)
 {
     static u16 cnt = 0;
-    static Drift_t drift = { 0, 0, 0, 0, 0, 0 };
-    u8 __INDIRECT_CALL_PARAMETER_TYPE buf[14];
+    u8 __INDIRECT_CALL_PARAMETER_TYPE buf[6];
 
-    mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
+    mpu6500_read(GYRO_XOUT_H, buf, sizeof(buf));
 
-    drift.ax += (s16)MAKEWORD(buf[0], buf[1]);
-    drift.ay += (s16)MAKEWORD(buf[2], buf[3]);
-    drift.az += (s16)MAKEWORD(buf[4], buf[5]);
-    drift.gx += (s16)MAKEWORD(buf[8], buf[9]);
-    drift.gy += (s16)MAKEWORD(buf[10], buf[11]);
-    drift.gz += (s16)MAKEWORD(buf[12], buf[13]);
+    drift.gx -= (float)(s16)MAKEWORD(buf[1], buf[0]);
+    drift.gy -= (float)(s16)MAKEWORD(buf[3], buf[2]);
+    drift.gz -= (float)(s16)MAKEWORD(buf[5], buf[4]);
 
     if (++cnt >= DriftSample_AMOUNT)
     {
-        // When sample process is over, push the drift value to MPU6500,
-        // MPU6500 will apply zero-drifting bias to sensor data automatically.
         cnt = 0;
         
-        drift.ax /= (s32)DriftSample_AMOUNT;
-        drift.ay /= (s32)DriftSample_AMOUNT;
-        drift.az /= (s32)DriftSample_AMOUNT;
-        drift.gx /= (s32)DriftSample_AMOUNT;
-        drift.gy /= (s32)DriftSample_AMOUNT;
-        drift.gz /= (s32)DriftSample_AMOUNT;
-
-        mpu6500_write(XA_OFFSET_H, HIBYTE(drift.ax));
-        mpu6500_write(XA_OFFSET_L, LOBYTE(drift.ax));
-        mpu6500_write(YA_OFFSET_H, HIBYTE(drift.ay));
-        mpu6500_write(YA_OFFSET_L, LOBYTE(drift.ay));
-        mpu6500_write(ZA_OFFSET_H, HIBYTE(drift.az));
-        mpu6500_write(ZA_OFFSET_L, LOBYTE(drift.az));
-        
-        mpu6500_write(XG_OFFSET_H, HIBYTE(drift.gx));
-        mpu6500_write(XG_OFFSET_L, LOBYTE(drift.gx));
-        mpu6500_write(YG_OFFSET_H, HIBYTE(drift.gy));
-        mpu6500_write(YG_OFFSET_L, LOBYTE(drift.gy));
-        mpu6500_write(ZG_OFFSET_H, HIBYTE(drift.gz));
-        mpu6500_write(ZG_OFFSET_L, LOBYTE(drift.gz));
+        drift.gx /= (float)DriftSample_AMOUNT;
+        drift.gy /= (float)DriftSample_AMOUNT;
+        drift.gz /= (float)DriftSample_AMOUNT;
+        drift.gx = GYRO_Trans(drift.gx);
+        drift.gy = GYRO_Trans(drift.gy);
+        drift.gz = GYRO_Trans(drift.gz);
 
         MPU6500_SET_BIT(MPU6500_State, MPU6500_DriftSampled_BIT);
 

@@ -72,7 +72,7 @@ void MPU6500_SampleDrift(void);
 #define MPU6500_GYRO_FSR                MPU6500_Gyro_1000dps
 #define SampleRate_Hz                   200
 
-#define mpu6500_write                   imu_spi_write
-#define mpu6500_read                    imu_spi_read
+#define mpu6500_write(reg, dat)         imu_spi_write(reg, dat)
+#define mpu6500_read(reg, buf, len)     imu_spi_read(reg, buf, len)
 
 #endif // !__MPU6500_SPI_H

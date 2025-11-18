@@ -1,11 +1,11 @@
 
 #include "imu_app.h"
 #include "user_def.h"
-#include "user_spi.h"
+#include "user_driver.h"
 #include "system.h"
 
 // extern IWDG_HandleTypeDef hiwdg;
-EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f };
 
 
 /**
@@ -54,25 +54,16 @@ void IMU_Init(void)
 #if USE_MPU6500
     u8 retry = 10;
 
-    // MPU6500_Func_t sfunc;
-    // sfunc.write = imu_spi_write;
-    // sfunc.read = imu_spi_read;
-
-    // while (MPU6500_Init(&sfunc) == FAILED)
-    // {
-    //     if (--retry == 0)
-    //     {
-    //         MPU6500_SET_BIT(MPU6500_State, MPU6500_InitFailed_BIT);
-    //         break;
-    //     }
-    //     Sys_Delay(20);
-    //     // HAL_IWDG_Refresh(&hiwdg);       // Clear the watch dog counter
-    // }
-    // MPU6500_Init(imu_spi_write, imu_spi_read);
-    MPU6500_Init();
-    
-#else
-    return;
+    while (MPU6500_Init() == FAILED)
+    {
+        if (--retry == 0)
+        {
+            MPU6500_SET_BIT(MPU6500_State, MPU6500_InitFailed_BIT);
+            break;
+        }
+        Sys_Delay(20);
+        // HAL_IWDG_Refresh(&hiwdg);       // Clear the watch dog counter
+    }
 #endif
 }
 
@@ -92,7 +83,7 @@ void IMU_Update(void)
         {
             MPU6500_ReadData();                                     // Load data to 'MPU6500_Data'
             EulerAngleUpdate_Quat(&EulerAngle, &MPU6500_Data);      // Work out euler angle.
-            EulerAngle_AddBias(&EulerAngle);                        // Add bias value.
+            /* EulerAngle_AddBias(&EulerAngle);                        // Add bias value. */
         }
         else
         {
