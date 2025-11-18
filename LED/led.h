@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-void led_task_50ms(void);
+void led_task_25ms(void);
 
 #endif // !__LED_H

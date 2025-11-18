@@ -36,7 +36,7 @@ void SPI_Init(void)
     SPI_MasterMode();                   //设置SPI为主机模式
     SPI_IgnoreSS();                     //忽略SS脚
     SPI_DataMSB();                      //设置SPI数据顺序为MSB (高位在前)
-    SPI_SetMode0();                     //设置SPI工作模式0 (CPOL=0, CPHA=0)
+    SPI_SetMode3();                     //设置SPI工作模式3 (CPOL=1, CPHA=1)
     SPI_SetClockDivider32();            //设置SPI时钟分频（SYSCLK/32）
 
     SPI_Enable();                       //使能SPI功能

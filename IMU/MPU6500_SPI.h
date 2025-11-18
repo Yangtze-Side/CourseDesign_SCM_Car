@@ -4,16 +4,18 @@
 #include "config.h"
 #include "imu_def.h"
 
+#include "imu_app.h"
+
 /*--------------------------------------- Exported Typedefs ---------------------------------------*/
 
-typedef u8 (*MPU6500_SPI_WriteFunc)(u8 reg, u8 dat);
-typedef u8 (*MPU6500_SPI_ReadFunc) (u8 reg, u8 xdata * pdat, u16 size);
+// typedef u8 (*MPU6500_SPI_WriteFunc_t)(u8 reg, u8 dat);
+// typedef u8 (*MPU6500_SPI_ReadFunc_t) (u8 reg, u8 __INDIRECT_CALL_PARAMETER_TYPE *pdat, u16 size);
 
-typedef struct MPU6500_Func_t
-{
-    MPU6500_SPI_WriteFunc write;
-    MPU6500_SPI_ReadFunc  read;
-} MPU6500_Func_t;
+// typedef struct MPU6500_Func_t
+// {
+//     MPU6500_SPI_WriteFunc write;
+//     MPU6500_SPI_ReadFunc  read;
+// } MPU6500_Func_t;
 
 
 // Full scale rage selection
@@ -56,7 +58,9 @@ typedef enum MPU6500_GyroFsr
 extern u8 MPU6500_State;
 extern IMU_Data_t MPU6500_Data;
 
-u8   MPU6500_Init(MPU6500_Func_t *sFunc);
+// u8   MPU6500_Init(MPU6500_Func_t *sFunc);
+// u8   MPU6500_Init(MPU6500_SPI_WriteFunc_t write, MPU6500_SPI_ReadFunc_t read);
+u8   MPU6500_Init(void);
 void MPU6500_ReadData(void);
 void MPU6500_SampleDrift(void);
 
@@ -68,5 +72,7 @@ void MPU6500_SampleDrift(void);
 #define MPU6500_GYRO_FSR                MPU6500_Gyro_1000dps
 #define SampleRate_Hz                   200
 
+#define mpu6500_write(reg, dat)         imu_spi_write(reg, dat)
+#define mpu6500_read(reg, buf, len)     imu_spi_read(reg, buf, len)
 
 #endif // !__MPU6500_SPI_H

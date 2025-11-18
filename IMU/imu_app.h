@@ -12,7 +12,10 @@
 
 extern EulerAngle_t EulerAngle;
 
-u8   IMU_Init(void);
+u8 imu_spi_write(u8 reg, u8 dat);
+u8 imu_spi_read(u8 reg, u8 __INDIRECT_CALL_PARAMETER_TYPE *buf, u16 len);
+
+void IMU_Init(void);
 void IMU_Update(void);
 
 #endif // !__IMU_APP_H
