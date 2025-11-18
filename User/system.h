@@ -14,8 +14,8 @@
 
 /*-------------------------------- Exported Variables -------------------------------*/
 
-extern u8 xdata UART_RecvBuf[UART1_RecvBuf_SIZE];
-extern u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
+extern u8 UART_RecvBuf[UART1_RecvBuf_SIZE];
+extern u8 UART1_RecvBuf[UART1_RecvBuf_SIZE];
 
 extern UART_Send_t uart1_tx;
 extern UART_Recv_t uart1_rx;
@@ -27,6 +27,7 @@ void proj_init(void);
 void user_printf(const char *f, ...);
 
 void sys_uart_recv_task_5ms(void);
+void uart_recv_handler(UART_Recv_t *recv);
 
 void Sys_Delay(u32 ms);
 void Sys_IncTick(void);

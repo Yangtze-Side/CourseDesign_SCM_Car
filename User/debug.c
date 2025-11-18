@@ -5,5 +5,6 @@
 
 void Debug_Log_Task(void)
 {
-    user_printf("[IMU] Pitch: %d, Roll: %d, Yaw: %d\r\n", (int)EulerAngle.pitch, (int)EulerAngle.roll, (int)(EulerAngle.yaw));
+    // user_printf("[IMU] Pitch: %.6f, Roll: %.6f, Yaw: %.6f\r\n", EulerAngle.pitch, EulerAngle.roll, EulerAngle.yaw);
+    // P10 ^= 1;
 }

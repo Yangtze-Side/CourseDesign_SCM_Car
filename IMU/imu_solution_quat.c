@@ -33,7 +33,7 @@ void EulerAngleUpdate_Quat(EulerAngle_t *euler, IMU_Data_t *dat)
     float ax = dat->accx;
     float ay = dat->accy;
     float az = dat->accz;
-    float gx = DEG_TO_RAD(dat->gyrox); // 转为rad/s;
+    float gx = DEG_TO_RAD(dat->gyrox);   // 转为rad/s;
     float gy = DEG_TO_RAD(dat->gyroy);
     float gz = DEG_TO_RAD(dat->gyroz);
 

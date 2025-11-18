@@ -100,5 +100,4 @@ void Dht11_Task(void)
 	}
 
     DHT11_W(0);
-    P10 ^= 1;
 }
