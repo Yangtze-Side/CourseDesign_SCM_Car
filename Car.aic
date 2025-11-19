@@ -228,7 +228,7 @@
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
 		<TimerClock>24000000</TimerClock>
-		<Clock12T>0</Clock12T>
+		<Clock12T>1</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
@@ -266,7 +266,7 @@
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
 		<TimerClock>24000000</TimerClock>
-		<Clock12T>0</Clock12T>
+		<Clock12T>1</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
@@ -285,7 +285,7 @@
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
 		<TimerClock>24000000</TimerClock>
-		<Clock12T>0</Clock12T>
+		<Clock12T>1</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
@@ -415,7 +415,7 @@
 		<CounterInitial>0</CounterInitial>
 		<IntPriority>0</IntPriority>
 		<EnableCCFInt_0>0</EnableCCFInt_0>
-		<PCAMode_0>4</PCAMode_0>
+		<PCAMode_0>2</PCAMode_0>
 		<PCAReload_0>0</PCAReload_0>
 		<PCAMatch_0>0</PCAMatch_0>
 		<CAPEdge_0>0</CAPEdge_0>

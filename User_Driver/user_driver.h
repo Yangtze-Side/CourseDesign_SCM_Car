@@ -5,5 +5,6 @@
 #include "user_uart.h"
 #include "user_spi.h"
 #include "user_pca.h"
+#include "user_tim.h"
 
 #endif // !__USER_DRIVER_H
