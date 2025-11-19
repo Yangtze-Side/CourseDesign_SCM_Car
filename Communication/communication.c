@@ -121,5 +121,5 @@ void Comm_SendTask(void)
     *(float*)(dat + 11) = US_Data.B;
     *(float*)(dat + 15) = US_Data.L;
     *(float*)(dat + 19) = US_Data.R;
-    UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+    UART_Send_Start(&uart2_tx, dat, sizeof(dat));
 }

@@ -8,17 +8,17 @@
 
 #define Sys_MAX_DELAY                       ( 0xffffffff )
 
-#define UART1_SendBuf_SIZE		            128
-#define UART1_RecvBuf_SIZE		            64
+#define UART2_SendBuf_SIZE		            128
+#define UART2_RecvBuf_SIZE		            64
 
 
 /*-------------------------------- Exported Variables -------------------------------*/
 
-extern u8 UART_RecvBuf[UART1_RecvBuf_SIZE];
-extern u8 UART1_RecvBuf[UART1_RecvBuf_SIZE];
+extern u8 UART2_SendBuf[UART2_SendBuf_SIZE];
+extern u8 UART2_RecvBuf[UART2_RecvBuf_SIZE];
 
-extern UART_Send_t uart1_tx;
-extern UART_Recv_t uart1_rx;
+extern UART_Send_t uart2_tx;
+extern UART_Recv_t uart2_rx;
 
 
 /*-------------------------------- Exported Functions -------------------------------*/

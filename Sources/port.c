@@ -31,8 +31,8 @@
 ////////////////////////////////////////
 void PORT0_Init(void)
 {
-    SetP0nInitLevelHigh(PIN_5 | PIN_4 | PIN_3 | PIN_2 | PIN_1 | PIN_0); //设置P0.5,P0.4,P0.3,P0.2,P0.1,P0.0初始化电平
-    SetP0nInitLevelLow(PIN_7 | PIN_6);  //设置P0.7,P0.6初始化电平
+    SetP0nInitLevelHigh(PIN_6 | PIN_4); //设置P0.6,P0.4初始化电平
+    SetP0nInitLevelLow(PIN_7 | PIN_5 | PIN_3 | PIN_2 | PIN_1 | PIN_0); //设置P0.7,P0.5,P0.3,P0.2,P0.1,P0.0初始化电平
     SetP0nPushPullMode(PIN_ALL);        //设置P0为推挽输出模式
 
     //<<AICUBE_USER_PORT0_INITIAL_BEGIN>>
@@ -47,9 +47,10 @@ void PORT0_Init(void)
 ////////////////////////////////////////
 void PORT1_Init(void)
 {
-    SetP1nInitLevelHigh(PIN_ALL);       //设置P1初始化电平
-    SetP1nQuasiMode(PIN_6 | PIN_1 | PIN_0); //设置P1.6,P1.1,P1.0为准双向口模式
-    SetP1nPushPullMode(PIN_7 | PIN_5 | PIN_3 | PIN_2); //设置P1.7,P1.5,P1.3,P1.2为推挽输出模式
+    SetP1nInitLevelHigh(PIN_5 | PIN_4 | PIN_3 | PIN_2 | PIN_1 | PIN_0); //设置P1.5,P1.4,P1.3,P1.2,P1.1,P1.0初始化电平
+    SetP1nInitLevelLow(PIN_7 | PIN_6);  //设置P1.7,P1.6初始化电平
+    SetP1nQuasiMode(PIN_2 | PIN_0);     //设置P1.2,P1.0为准双向口模式
+    SetP1nPushPullMode(PIN_7 | PIN_6 | PIN_5 | PIN_3 | PIN_1); //设置P1.7,P1.6,P1.5,P1.3,P1.1为推挽输出模式
     SetP1nHighZInputMode(PIN_4);        //设置P1.4为高阻输入模式
 
     //<<AICUBE_USER_PORT1_INITIAL_BEGIN>>
@@ -64,8 +65,8 @@ void PORT1_Init(void)
 ////////////////////////////////////////
 void PORT2_Init(void)
 {
-    SetP2nInitLevelHigh(PIN_6 | PIN_5 | PIN_4 | PIN_0); //设置P2.6,P2.5,P2.4,P2.0初始化电平
-    SetP2nInitLevelLow(PIN_7 | PIN_3 | PIN_2 | PIN_1); //设置P2.7,P2.3,P2.2,P2.1初始化电平
+    SetP2nInitLevelHigh(PIN_6 | PIN_0); //设置P2.6,P2.0初始化电平
+    SetP2nInitLevelLow(PIN_7 | PIN_5 | PIN_4 | PIN_3 | PIN_2 | PIN_1); //设置P2.7,P2.5,P2.4,P2.3,P2.2,P2.1初始化电平
     SetP2nQuasiMode(PIN_6 | PIN_0);     //设置P2.6,P2.0为准双向口模式
     SetP2nPushPullMode(PIN_7 | PIN_5 | PIN_4 | PIN_3 | PIN_2 | PIN_1); //设置P2.7,P2.5,P2.4,P2.3,P2.2,P2.1为推挽输出模式
 
@@ -82,7 +83,8 @@ void PORT2_Init(void)
 void PORT3_Init(void)
 {
     SetP3nInitLevelHigh(PIN_ALL);       //设置P3初始化电平
-    SetP3nQuasiMode(PIN_ALL);           //设置P3为准双向口模式
+    SetP3nQuasiMode(PIN_7 | PIN_6 | PIN_5 | PIN_3 | PIN_2 | PIN_1 | PIN_0); //设置P3.7,P3.6,P3.5,P3.3,P3.2,P3.1,P3.0为准双向口模式
+    SetP3nPushPullMode(PIN_4);          //设置P3.4为推挽输出模式
 
     //<<AICUBE_USER_PORT3_INITIAL_BEGIN>>
     // 在此添加用户初始化代码  
@@ -96,7 +98,8 @@ void PORT3_Init(void)
 ////////////////////////////////////////
 void PORT4_Init(void)
 {
-    SetP4nInitLevelHigh(PIN_ALL);       //设置P4初始化电平
+    SetP4nInitLevelHigh(PIN_7 | PIN_6 | PIN_3 | PIN_0); //设置P4.7,P4.6,P4.3,P4.0初始化电平
+    SetP4nInitLevelLow(PIN_5 | PIN_4 | PIN_2 | PIN_1); //设置P4.5,P4.4,P4.2,P4.1初始化电平
     SetP4nQuasiMode(PIN_7 | PIN_6 | PIN_3 | PIN_0); //设置P4.7,P4.6,P4.3,P4.0为准双向口模式
     SetP4nPushPullMode(PIN_5 | PIN_4 | PIN_2 | PIN_1); //设置P4.5,P4.4,P4.2,P4.1为推挽输出模式
 

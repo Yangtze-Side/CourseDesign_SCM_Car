@@ -479,6 +479,16 @@
               <FileType>5</FileType>
               <FilePath>.\User_Driver\user_uart.h</FilePath>
             </File>
+            <File>
+              <FileName>user_pca.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_pca.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_pca.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_pca.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -50,6 +50,27 @@ void TIMER0_Init(void)
 }
 
 ////////////////////////////////////////
+// 定时器1初始化函数
+// 入口参数: 无
+// 函数返回: 无
+////////////////////////////////////////
+void TIMER1_Init(void)
+{
+#define T1_RELOAD               (65536 - (float)SYSCLK / 12 * 0 / 1000000)
+
+    TIMER1_TimerMode();                 //设置定时器1为定时模式
+    TIMER1_12TMode();                   //设置定时器1为12T模式
+    TIMER1_Mode0();                     //设置定时器1为模式0 (16位自动重载模式)
+    TIMER1_DisableGateINT1();           //禁止定时器1门控
+    TIMER1_SetReload16(T1_RELOAD);      //设置定时器1的16位重载值
+    TIMER1_Run();                       //定时器1开始运行
+
+    //<<AICUBE_USER_TIMER1_INITIAL_BEGIN>>
+    // 在此添加用户初始化代码  
+    //<<AICUBE_USER_TIMER1_INITIAL_END>>
+}
+
+////////////////////////////////////////
 // 定时器2初始化函数
 // 入口参数: 无
 // 函数返回: 无
@@ -88,9 +109,26 @@ void TIMER3_Init(void)
 
     //<<AICUBE_USER_TIMER3_INITIAL_BEGIN>>
     // 在此添加用户初始化代码  
-    TIMER3_Stop();
-    TIMER3_SetReload16(0);
     //<<AICUBE_USER_TIMER3_INITIAL_END>>
+}
+
+////////////////////////////////////////
+// 定时器4初始化函数
+// 入口参数: 无
+// 函数返回: 无
+////////////////////////////////////////
+void TIMER4_Init(void)
+{
+#define T4_RELOAD               (65536 - (float)SYSCLK / 12 * 0 / 1000)
+
+    TIMER4_TimerMode();                 //设置定时器4为定时模式
+    TIMER4_12TMode();                   //设置定时器4为12T模式
+    TIMER4_SetReload16(T4_RELOAD);      //设置定时器4的16位重载值
+    TIMER4_Run();                       //定时器4开始运行
+
+    //<<AICUBE_USER_TIMER4_INITIAL_BEGIN>>
+    // 在此添加用户初始化代码  
+    //<<AICUBE_USER_TIMER4_INITIAL_END>>
 }
 
 

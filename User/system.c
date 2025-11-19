@@ -10,11 +10,11 @@
 static volatile u32 sys_tick;          	// System tick variable, increases in SysTick interrupt.
                                     	// And the increase frequency is 1 KHz.
 
-u8 UART1_SendBuf[UART1_SendBuf_SIZE];
-u8 UART1_RecvBuf[UART1_RecvBuf_SIZE];
+u8 UART2_SendBuf[UART2_SendBuf_SIZE];
+u8 UART2_RecvBuf[UART2_RecvBuf_SIZE];
 
-UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, UART1_SendBuf_SIZE, 0, 0 };
-UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 };
+UART_Send_t uart2_tx = { UART2, FALSE, UART2_SendBuf, UART2_SendBuf_SIZE, 0, 0 };
+UART_Recv_t uart2_rx = { UART2, FALSE, UART2_RecvBuf, UART2_RecvBuf_SIZE, 0, 0 };
 
 
 /*---------------------------------------- User Determine --------------------------------------*/
@@ -25,6 +25,7 @@ UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 }
  */
 void proj_init(void)
 {
+	User_PCA_Init();
 	Motion_Control_Init();
 	User_PWM_Init();
 	IMU_Init();
@@ -39,21 +40,21 @@ void uart_recv_handler(UART_Recv_t *recv)
 {
 	if (recv->Index == UART1)
 	{
-		Comm_StartParse(UART1_RecvBuf, recv->Cnt);
+		Comm_StartParse(UART2_RecvBuf, recv->Cnt);
 	}
 }
 
 void sys_uart_recv_task_5ms(void)
 {
-	UART_Recv_Task_5ms(&uart1_rx);
+	UART_Recv_Task_5ms(&uart2_rx);
 }
 
 /*---------------------------------------- System Functions --------------------------------------*/
 
 /*---------------------- User Printf ---------------------*/
 
-#define PRINTF_BUF                      UART1_SendBuf
-#define PRINTF_HANDLE                   uart1_tx
+#define PRINTF_BUF                      UART2_SendBuf
+#define PRINTF_HANDLE                   uart2_tx
 
 /**
  * @brief User-defined printf function, whose usage is the same as printf.

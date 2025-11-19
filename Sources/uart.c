@@ -27,48 +27,48 @@
 
 
 ////////////////////////////////////////
-// 串口1初始化函数
+// 串口2初始化函数
 // 入口参数: 无
 // 函数返回: 无
 ////////////////////////////////////////
-void UART1_Init(void)
+void UART2_Init(void)
 {
-    UART1_SwitchP1617();                //设置串口数据端口: RxD (P1.6), TxD (P1.7)
+    UART2_SwitchP1011();                //设置串口数据端口: RxD2 (P1.0), TxD2 (P1.1)
 
-    UART1_Timer2BRT();                  //选择定时器2作为串口1波特率发生器
+//  UART2_Timer2BRT();                  //串口2固定选择定时器2作为波特率发生器
 
-    UART1_EnableRx();                   //使能串口1接收数据
-    UART1_Mode1();                      //设置串口1为模式1 (8位数据可变波特率)
-    UART1_SetIntPriority(0);            //设置中断为低优先级
-    UART1_EnableInt();                  //使能串口1中断
+    UART2_EnableRx();                   //使能串口2接收数据
+    UART2_Mode0();                      //设置串口2为模式0 (8位数据可变波特率)
+    UART2_SetIntPriority(0);            //设置中断为低优先级
+    UART2_EnableInt();                  //使能串口2中断
 
-    //<<AICUBE_USER_UART1_INITIAL_BEGIN>>
+    //<<AICUBE_USER_UART2_INITIAL_BEGIN>>
     // 在此添加用户初始化代码  
-    //<<AICUBE_USER_UART1_INITIAL_END>>
+    //<<AICUBE_USER_UART2_INITIAL_END>>
 }
 
 
 ////////////////////////////////////////
-// 串口1中断服务程序
+// 串口2中断服务程序
 // 入口参数: 无
 // 函数返回: 无
 ////////////////////////////////////////
-void UART1_ISR(void) interrupt UART1_VECTOR
+void UART2_ISR(void) interrupt UART2_VECTOR
 {
-    //<<AICUBE_USER_UART1_ISR_CODE1_BEGIN>>
+    //<<AICUBE_USER_UART2_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
-    if (UART1_CheckTxFlag())            //判断串口发送中断
+    if (UART2_CheckTxFlag())            //判断串口发送中断
     {
-        UART1_ClearTxFlag();            //清除串口发送中断标志
-        UART_Send_ITHandler(&uart1_tx);
+        UART2_ClearTxFlag();            //清除串口发送中断标志
+        UART_Send_ITHandler(&uart2_tx);
     }
 
-    if (UART1_CheckRxFlag())            //判断串口接收中断
+    if (UART2_CheckRxFlag())            //判断串口接收中断
     {
-        UART1_ClearRxFlag();            //清除串口接收中断标志
-        UART_Recv_ITHandler(&uart1_rx);
+        UART2_ClearRxFlag();            //清除串口接收中断标志
+        UART_Recv_ITHandler(&uart2_rx);
     }
-    //<<AICUBE_USER_UART1_ISR_CODE1_END>>
+    //<<AICUBE_USER_UART2_ISR_CODE1_END>>
 }
 
 

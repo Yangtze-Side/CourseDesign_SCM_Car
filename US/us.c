@@ -3,10 +3,11 @@
 
 #define US_vSound_cmPERus               (340e-4f)
 #define US_CNT2Dist_Factor              (US_vSound_cmPERus / 4.0f)      // fosc = 24M, psc = 12, CNT val step is 0.5 us
-#define US_Cnt2Dist_cm(cnt)             ((cnt) * US_CNT2Dist_Factor)
+#define US_Cnt2Dist_cm(cnt)             (((u16)(cnt)) * US_CNT2Dist_Factor)
 
-US_Data_t US_Data = { 0, 0, 0, 0 };
-static u8 us_state = 0;
+US_Data_t  US_Data = { 0.0f, 0.0f, 0.0f, 0.0f };
+static u8  us_state = 0;
+static u16 US_Timer_CountStart = 0;
 
 
 /**
@@ -20,9 +21,8 @@ void US_Task_30ms(void)
         case 0:
         {
 US_TASK_CASE0:
-            US_Timer_Clear();
             US_F_StartSignal();
-            US_Timer_Start();
+            US_Timer_CountStart = US_Timer_ReadCounter();
             us_state = 1;       // state1: is measuring
         } break;
 
@@ -30,15 +30,13 @@ US_TASK_CASE0:
         {
             // If us_state is still 1 after 30 ms, the distance must greater than 5m.
             US_Data.F = US_DATA_MAX_cm;
-            US_Timer_Stop();
             us_state = 2;
         }   // without a break, start next mesurement immediatly
 
         case 2:
         {
-            US_Timer_Clear();
             US_B_StartSignal();
-            US_Timer_Start();
+            US_Timer_CountStart = US_Timer_ReadCounter();
             us_state = 3;       // state3: is measuring
         } break;
 
@@ -46,15 +44,13 @@ US_TASK_CASE0:
         {
             // If us_state is still 3 after 30 ms, the distance must greater than 5m.
             US_Data.F = US_DATA_MAX_cm;
-            US_Timer_Stop();
             us_state = 4;
         }   // without a break, start next mesurement immediatly
 
         case 4:
         {
-            US_Timer_Clear();
             US_L_StartSignal();
-            US_Timer_Start();
+            US_Timer_CountStart = US_Timer_ReadCounter();
             us_state = 5;       // state5: is measuring
         } break;
 
@@ -62,15 +58,13 @@ US_TASK_CASE0:
         {
             // If us_state is still 5 after 30 ms, the distance must greater than 5m.
             US_Data.F = US_DATA_MAX_cm;
-            US_Timer_Stop();
             us_state = 6;
         }   // without a break, start next mesurement immediatly
 
         case 6:
         {
-            US_Timer_Clear();
             US_R_StartSignal();
-            US_Timer_Start();
+            US_Timer_CountStart = US_Timer_ReadCounter();
             us_state = 7;       // state7: is measuring
         } break;
 
@@ -78,7 +72,6 @@ US_TASK_CASE0:
         {
             // If us_state is still 7 after 30 ms, the distance must greater than 5m.
             US_Data.F = US_DATA_MAX_cm;
-            US_Timer_Stop();
             us_state = 0;
             goto US_TASK_CASE0;     // start next mesurement immediatly
         } break;
@@ -96,8 +89,7 @@ void US_F_INT_Handler(void)
 {
     if (us_state == 1)
     {
-        US_Timer_Stop();
-        US_Data.F = US_Cnt2Dist_cm(US_Timer_ReadCounter());
+        US_Data.F = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
         us_state = 2;
     }
 }
@@ -110,8 +102,7 @@ void US_B_INT_Handler(void)
 {
     if (us_state == 3)
     {
-        US_Timer_Stop();
-        US_Data.B = US_Cnt2Dist_cm(US_Timer_ReadCounter());
+        US_Data.B = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
         us_state = 4;
     }
 }
@@ -124,8 +115,7 @@ void US_L_INT_Handler(void)
 {
     if (us_state == 5)
     {
-        US_Timer_Stop();
-        US_Data.L = US_Cnt2Dist_cm(US_Timer_ReadCounter());
+        US_Data.L = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
         us_state = 6;
     }
 }
@@ -138,8 +128,7 @@ void US_R_INT_Handler(void)
 {
     if (us_state == 7)
     {
-        US_Timer_Stop();
-        US_Data.R = US_Cnt2Dist_cm(US_Timer_ReadCounter());
+        US_Data.R = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
         us_state = 0;
     }
 }

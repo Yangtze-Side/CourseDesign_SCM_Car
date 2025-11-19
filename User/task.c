@@ -67,6 +67,7 @@ void TaskExe(void)
         IMU_Update();
         Motor_Task();
         Dht11_Task();
+        Debug_Log_Task();
         Comm_SendTask();
         sys_uart_recv_task_5ms();
         led_task_25ms();

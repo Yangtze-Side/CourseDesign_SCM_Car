@@ -2,6 +2,7 @@
 #define __US_H
 
 #include "config.h"
+#include "user_driver.h"
 
 // 这些引脚初始化的时候要给 0
 #define US_F_Pin                        P41
@@ -14,10 +15,7 @@
 #define US_L_StartSignal()              { US_L_Pin = 1; delay_us(12); US_L_Pin = 0; }
 #define US_R_StartSignal()              { US_R_Pin = 1; delay_us(12); US_R_Pin = 0; }
 
-#define US_Timer_Start()                TIMER3_Run()
-#define US_Timer_Stop()                 TIMER3_Stop()
-#define US_Timer_Clear()                (T3H = 0, T3L = 0)
-#define US_Timer_ReadCounter()          MAKEWORD(T3L, T3H)
+#define US_Timer_ReadCounter()          User_PCA_GetCounter()
 
 #define US_DATA_MAX_cm                  520.0f        // distance max (cm)
 

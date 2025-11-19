@@ -44,6 +44,11 @@
 
 
 #define MT5                     P05
+#define BUZZ3                   P06
+#define LED1                    P07
+#define MT4                     P16
+#define LED2                    P17
+#define BUZZ1                   P34
 #define UST0                    P41
 #define UST1                    P42
 #define UST2                    P44
@@ -56,7 +61,7 @@
 #define MT1                     P01
 #define MT2                     P02
 #define MT3                     P03
-#define MT4                     P04
+#define BUZZ2                   P04
 
 
 #include "port.h"

@@ -15,7 +15,7 @@
 //<<AICUBE_USER_DEFINE_END>>
 
 
-void UART1_Init(void);
+void UART2_Init(void);
 
 
 

@@ -46,19 +46,19 @@
 		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
 		<PortMD_0>1</PortMD_0>
-		<PortLevel_0>1</PortLevel_0>
+		<PortLevel_0>0</PortLevel_0>
 		<PortMD_1>1</PortMD_1>
-		<PortLevel_1>1</PortLevel_1>
+		<PortLevel_1>0</PortLevel_1>
 		<PortMD_2>1</PortMD_2>
-		<PortLevel_2>1</PortLevel_2>
+		<PortLevel_2>0</PortLevel_2>
 		<PortMD_3>1</PortMD_3>
-		<PortLevel_3>1</PortLevel_3>
+		<PortLevel_3>0</PortLevel_3>
 		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
 		<PortMD_5>1</PortMD_5>
-		<PortLevel_5>1</PortLevel_5>
+		<PortLevel_5>0</PortLevel_5>
 		<PortMD_6>1</PortMD_6>
-		<PortLevel_6>0</PortLevel_6>
+		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>1</PortMD_7>
 		<PortLevel_7>0</PortLevel_7>
 	</PORT0>
@@ -67,9 +67,9 @@
 		<IntPriority>0</IntPriority>
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
-		<PortMD_1>0</PortMD_1>
+		<PortMD_1>1</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>1</PortMD_2>
+		<PortMD_2>0</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
 		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
@@ -77,10 +77,10 @@
 		<PortLevel_4>1</PortLevel_4>
 		<PortMD_5>1</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
-		<PortMD_6>0</PortMD_6>
-		<PortLevel_6>1</PortLevel_6>
+		<PortMD_6>1</PortMD_6>
+		<PortLevel_6>0</PortLevel_6>
 		<PortMD_7>1</PortMD_7>
-		<PortLevel_7>1</PortLevel_7>
+		<PortLevel_7>0</PortLevel_7>
 	</PORT1>
 	<PORT2>
 		<PeriEnable>1</PeriEnable>
@@ -94,9 +94,9 @@
 		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>0</PortLevel_3>
 		<PortMD_4>1</PortMD_4>
-		<PortLevel_4>1</PortLevel_4>
+		<PortLevel_4>0</PortLevel_4>
 		<PortMD_5>1</PortMD_5>
-		<PortLevel_5>1</PortLevel_5>
+		<PortLevel_5>0</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>1</PortMD_7>
@@ -113,7 +113,7 @@
 		<PortLevel_2>1</PortLevel_2>
 		<PortMD_3>0</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
+		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
 		<PortMD_5>0</PortMD_5>
 		<PortLevel_5>1</PortLevel_5>
@@ -128,15 +128,15 @@
 		<PortMD_0>0</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
 		<PortMD_1>1</PortMD_1>
-		<PortLevel_1>1</PortLevel_1>
+		<PortLevel_1>0</PortLevel_1>
 		<PortMD_2>1</PortMD_2>
-		<PortLevel_2>1</PortLevel_2>
+		<PortLevel_2>0</PortLevel_2>
 		<PortMD_3>0</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
 		<PortMD_4>1</PortMD_4>
-		<PortLevel_4>1</PortLevel_4>
+		<PortLevel_4>0</PortLevel_4>
 		<PortMD_5>1</PortMD_5>
-		<PortLevel_5>1</PortLevel_5>
+		<PortLevel_5>0</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>0</PortMD_7>
@@ -222,21 +222,21 @@
 		<IntPriority>1</IntPriority>
 	</TIMER0>
 	<TIMER1>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>100</TimerInterval>
+		<TimerInterval>0</TimerInterval>
 		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerReload>0</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
+		<CLKOPort>0</CLKOPort>
 		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER1>
@@ -274,12 +274,12 @@
 		<TimerUnit>0</TimerUnit>
 		<TimerReload>0</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
+		<CLKOPort>0</CLKOPort>
 		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER3>
 	<TIMER4>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
@@ -289,16 +289,16 @@
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>1</TimerInterval>
+		<TimerInterval>0</TimerInterval>
 		<TimerUnit>1</TimerUnit>
-		<TimerReload>2000</TimerReload>
+		<TimerReload>0</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
-		<EnableInt>1</EnableInt>
+		<CLKOPort>0</CLKOPort>
+		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER4>
 	<UART1>
-		<PeriEnable>1</PeriEnable>
+		<PeriEnable>0</PeriEnable>
 		<UartREN>1</UartREN>
 		<EnableInt>1</EnableInt>
 		<LinkPrintf>0</LinkPrintf>
@@ -306,19 +306,19 @@
 		<BaudGenerator>1</BaudGenerator>
 		<UartBit>0</UartBit>
 		<UartBaudrate>115200</UartBaudrate>
-		<UartPort>2</UartPort>
+		<UartPort>-1</UartPort>
 		<IntPriority>0</IntPriority>
 	</UART1>
 	<UART2>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<UartREN>1</UartREN>
-		<EnableInt>0</EnableInt>
+		<EnableInt>1</EnableInt>
 		<LinkPrintf>0</LinkPrintf>
 		<ModbusCRC16>0</ModbusCRC16>
 		<BaudGenerator>0</BaudGenerator>
 		<UartBit>0</UartBit>
-		<UartBaudrate>9600</UartBaudrate>
-		<UartPort>-1</UartPort>
+		<UartBaudrate>115200</UartBaudrate>
+		<UartPort>0</UartPort>
 		<IntPriority>0</IntPriority>
 	</UART2>
 	<UART3>
@@ -415,7 +415,7 @@
 		<CounterInitial>0</CounterInitial>
 		<IntPriority>0</IntPriority>
 		<EnableCCFInt_0>0</EnableCCFInt_0>
-		<PCAMode_0>2</PCAMode_0>
+		<PCAMode_0>4</PCAMode_0>
 		<PCAReload_0>0</PCAReload_0>
 		<PCAMatch_0>0</PCAMatch_0>
 		<CAPEdge_0>0</CAPEdge_0>
@@ -475,7 +475,7 @@
 		<PWMT2Point_6>500</PWMT2Point_6>
 		<PWMIntMode_6>0</PWMIntMode_6>
 		<EnablePWMOutput_7>0</EnablePWMOutput_7>
-		<PWMPort_7>1</PWMPort_7>
+		<PWMPort_7>0</PWMPort_7>
 		<PWMInitLevel_7>0</PWMInitLevel_7>
 		<PWMT1Point_7>200</PWMT1Point_7>
 		<PWMT2Point_7>500</PWMT2Point_7>
@@ -483,28 +483,36 @@
 	</EPWM>
 	<PINMAP>
 		<PinCount>256</PinCount>
-		<Pin03Map>2</Pin03Map>
+		<Pin03Map>1</Pin03Map>
 		<Pin04Map>2</Pin04Map>
+		<Pin09Map>4</Pin09Map>
+		<Pin10Map>4</Pin10Map>
 		<Pin12Map>2</Pin12Map>
 		<Pin13Map>2</Pin13Map>
 		<Pin14Map>2</Pin14Map>
 		<Pin15Map>2</Pin15Map>
-		<Pin16Map>2</Pin16Map>
-		<Pin17Map>2</Pin17Map>
+		<Pin17Map>8</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
 		<Pin27Map>2</Pin27Map>
 		<Pin29Map>1</Pin29Map>
 		<Pin30Map>1</Pin30Map>
+		<Pin31Map>2</Pin31Map>
 		<Pin35Map>1</Pin35Map>
 		<Pin36Map>1</Pin36Map>
 		<Pin46Map>2</Pin46Map>
 		<Pin47Map>2</Pin47Map>
 		<Pin48Map>2</Pin48Map>
 		<Pin52Map>1</Pin52Map>
+		<Pin63Map>1</Pin63Map>
 	</PINMAP>
 	<PINALIAS>
 		<Pin02Alias>MT5</Pin02Alias>
+		<Pin03Alias>BUZZ3</Pin03Alias>
+		<Pin04Alias>LED1</Pin04Alias>
+		<Pin16Alias>MT4</Pin16Alias>
+		<Pin17Alias>LED2</Pin17Alias>
+		<Pin31Alias>BUZZ1</Pin31Alias>
 		<Pin41Alias>UST0</Pin41Alias>
 		<Pin42Alias>UST1</Pin42Alias>
 		<Pin44Alias>UST2</Pin44Alias>
@@ -517,6 +525,6 @@
 		<Pin60Alias>MT1</Pin60Alias>
 		<Pin61Alias>MT2</Pin61Alias>
 		<Pin62Alias>MT3</Pin62Alias>
-		<Pin63Alias>MT4</Pin63Alias>
+		<Pin63Alias>BUZZ2</Pin63Alias>
 	</PINALIAS>
 </Project>
