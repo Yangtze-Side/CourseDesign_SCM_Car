@@ -7,6 +7,8 @@
 
 
 static u8 sine_index = 0;
+static u8 led1_flash_cnt1 = 0;
+static u8 led1_flash_cnt2 = 0;
 
 
 /**
@@ -16,20 +18,32 @@ static u8 sine_index = 0;
  */
 static void led_1_task(void)
 {
-    if (Motor_IsEnabled())
+    if (led1_flash_cnt1)
     {
-        if (Comm_GetLinkStatus())
+        if (--led1_flash_cnt2 == 0)
         {
-            User_PWME_SetWidth(PWM_PulseWidth_MAX);
-        }
-        else
-        {
-            User_PWME_SetWidth(SineTable[sine_index]);
+            --led1_flash_cnt1;
+            led1_flash_cnt2 = 6;
+            LED1 ^= 1;
         }
     }
     else
     {
-        User_PWME_SetWidth(0);
+        if (Motor_IsEnabled())
+        {
+            if (Comm_GetLinkStatus())
+            {
+                User_PWME_SetWidth(PWM_PulseWidth_MAX);
+            }
+            else
+            {
+                User_PWME_SetWidth(SineTable[sine_index]);
+            }
+        }
+        else
+        {
+            User_PWME_SetWidth(0);
+        }
     }
 }
 
@@ -57,6 +71,16 @@ static void led_2_task(void)
     }
 }
 
+/**
+ * @brief Starts led1 flash process.
+ * 
+ */
+void LED1_Flash(void)
+{
+    led1_flash_cnt1 = 5;
+    led1_flash_cnt2 = 6;
+    User_PWME_SetWidth(0);
+}
 
 void led_task_25ms(void)
 {

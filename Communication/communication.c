@@ -19,6 +19,11 @@ Comm_GravModeData_t Comm_GravModeData = { 0.0f, 0.0f, 0.0f };
 u8 Comm_MotorMode = Motor_State_OFF;
 
 
+void Comm_Init(void)
+{
+    Comm_Linked = Comm_GetLinkStatusPinLevel();
+}
+
 /**
  * @brief Change BT link status when the LINKED pin level changes.
  * 
@@ -82,7 +87,6 @@ void Comm_ParseTask(void)
                     Comm_GravModeData.vx = *(float*)(Comm_DatBuf + 3);
                     Comm_GravModeData.vy = *(float*)(Comm_DatBuf + 7);
                     Comm_GravModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
-                    Motion_Control_GravPIClear();
                 } break;
 
                 case COMM_CMD_ACMode:
@@ -93,7 +97,6 @@ void Comm_ParseTask(void)
                 case COMM_CMD_AFMode:
                 {
                     Comm_MotorMode = Motor_State_AUTOFOLLOW;
-                    Motion_Control_AFPIDClear();
                 } break;
             }
         }

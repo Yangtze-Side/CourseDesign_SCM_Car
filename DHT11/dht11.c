@@ -5,7 +5,7 @@
 #define DHT11_HIGH	            1
 #define DHT11_LOW		        0
 
-#define DHT11_TIMEOUT_ms        5
+#define DHT11_TIMEOUT_ms        3
 
 
 DHT11_Data_t DHT11_Data;

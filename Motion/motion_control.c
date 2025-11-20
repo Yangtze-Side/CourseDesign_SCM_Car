@@ -14,6 +14,16 @@
 #include "imu_app.h"
 #include "us.h"
 #include "communication.h"
+#include "music_header.h"
+#include "led.h"
+
+
+/*------------------------------------------ User Determine -----------------------------------------*/
+
+#define AC_Stuck_CALLBACK()                         app_music_start(4)
+#define AC_OutOfStuck_CALLBACK()                    app_music_stop()
+
+/*--------------------------------------- Contants & Variables --------------------------------------*/
 
 #define G_PI_Kp                                 0.0f
 #define G_PI_Ki                                 0.0f
@@ -52,8 +62,22 @@ void Motion_Control_Init(void)
  */
 void Motion_Control_SetState(void)
 {
+    static u8 Last_State = Motor_State_OFF;
+    u8 Now_State;
+    
     if (Motor_IsEnabled()) Motor_SetState(Comm_MotorMode);
     else Motor_SetState(Motor_State_OFF);
+    
+    Now_State = Motor_GetState();
+    if (Now_State != Last_State)
+    {
+        switch (Now_State)
+        {
+            case Motor_State_GRAVITY: Motion_Control_GravPIClear(); break;
+            case Motor_State_AUTOFOLLOW: Motion_Control_AFPIDClear(); break;
+        }
+        LED1_Flash();
+    }
 }
 
 /*-------------------------------------------- Joystick Mode -------------------------------------------*/
@@ -176,6 +200,39 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
 BOOL Motion_IsACStucked(void)
 {
     return Motion_AC_Stuck;
+}
+
+#define Motion_Control_AC_StuckCnt_THRES        20
+#define Motion_Control_AC_OutOfStuckCnt_THRES   20
+
+/**
+ * @brief 四面楚歌时唱歌。
+ * @note  当四面楚歌持续一段时间以后唱歌，解除一段时间后停止。
+ * 
+ */
+void Motion_Control_AC_SingWhenStuck(void)
+{
+    static u8 stuck_cnt = 0;
+    static u8 out_of_stuck_cnt = 0;
+
+    if (Motion_AC_Stuck)
+    {
+        out_of_stuck_cnt = 0;
+        if (++stuck_cnt >= Motion_Control_AC_StuckCnt_THRES)
+        {
+            stuck_cnt = 0;
+            AC_Stuck_CALLBACK();
+        }
+    }
+    else
+    {
+        stuck_cnt = 0;
+        if (++out_of_stuck_cnt >= Motion_Control_AC_OutOfStuckCnt_THRES)
+        {
+            out_of_stuck_cnt = 0;
+            AC_OutOfStuck_CALLBACK();
+        }
+    }
 }
 
 
