@@ -23,7 +23,7 @@ typedef struct MotorSpeed_t
 /*--------------------------------- Variables & Funcs ------------------------------*/
 
 // Motor control state, indicate which mode is taken control of motors.
-static u8   MotorState = Motor_State_OFF;
+static u8   MotorState   = Motor_State_OFF;
 static BOOL Motor_Enable = FALSE;
 
 static void Car_SpeedTransform(CarSpeed_t *cs, MotorSpeed_t *ms);

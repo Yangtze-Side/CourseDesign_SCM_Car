@@ -778,7 +778,7 @@
 #define PCA_InitCounter()               PCA_SetCounter(0)
 
 #define PCA_SetCnReload(n, v)           CCAP##n##L = LOBYTE(v); \
-                                        CCAP##n##H = HIBYTE(v)      // 告诉逆碟这里为什么写个 LOBYTE
+                                        CCAP##n##H = LOBYTE(v)
 
 #define PCA_SetCnMatch(n, v)            (CCAP##n##L = LOBYTE(v), CCAP##n##H = HIBYTE(v))
 

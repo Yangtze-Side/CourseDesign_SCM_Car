@@ -78,6 +78,7 @@ void Motion_Control_SetState(void)
         }
         LED1_Flash();
     }
+    Last_State = Now_State;
 }
 
 /*-------------------------------------------- Joystick Mode -------------------------------------------*/
