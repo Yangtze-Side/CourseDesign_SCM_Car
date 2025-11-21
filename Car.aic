@@ -85,7 +85,7 @@
 	<PORT2>
 		<PeriEnable>1</PeriEnable>
 		<IntPriority>0</IntPriority>
-		<PortMD_0>0</PortMD_0>
+		<PortMD_0>1</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
 		<PortMD_1>1</PortMD_1>
 		<PortLevel_1>0</PortLevel_1>
@@ -135,8 +135,8 @@
 		<PortLevel_3>1</PortLevel_3>
 		<PortMD_4>1</PortMD_4>
 		<PortLevel_4>0</PortLevel_4>
-		<PortMD_5>1</PortMD_5>
-		<PortLevel_5>0</PortLevel_5>
+		<PortMD_5>0</PortMD_5>
+		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>0</PortMD_7>
@@ -516,11 +516,11 @@
 		<Pin41Alias>UST0</Pin41Alias>
 		<Pin42Alias>UST1</Pin42Alias>
 		<Pin44Alias>UST2</Pin44Alias>
-		<Pin45Alias>KEY</Pin45Alias>
+		<Pin45Alias>UST3</Pin45Alias>
 		<Pin49Alias>MT6</Pin49Alias>
 		<Pin50Alias>MT7</Pin50Alias>
 		<Pin51Alias>DHT11</Pin51Alias>
-		<Pin57Alias>UST3</Pin57Alias>
+		<Pin57Alias>KEY</Pin57Alias>
 		<Pin59Alias>MT0</Pin59Alias>
 		<Pin60Alias>MT1</Pin60Alias>
 		<Pin61Alias>MT2</Pin61Alias>

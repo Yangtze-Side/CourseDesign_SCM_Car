@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#define GET_KEY_NOW()               (P20)     // 当前按键的值
+#define GET_KEY_NOW()               (KEY)     // 当前按键的值
 
 void KeySLD_Task(void);
 

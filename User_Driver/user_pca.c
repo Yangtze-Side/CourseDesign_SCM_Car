@@ -67,7 +67,7 @@ u16 User_PCA_M0_GetPeriod(void)
  */
 void User_PCA_M0_ITHandler(void)
 {
-    u16 tmpreload = User_PCA_GetCounter() + CCPA0_Period;
+    u16 tmpreload = MAKEWORD(CL, CH) + CCPA0_Period;
     PCA_SetC0Reload(tmpreload);      // 设置 PCA 模块 0 装载值
 
     // TODO

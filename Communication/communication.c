@@ -7,6 +7,7 @@
 #include "system.h"
 #include "dht11.h"
 #include "algorithm.h"
+#include "music_header.h"
 
 #define COMM_DATBUF_SIZE        64
 
@@ -98,6 +99,11 @@ void Comm_ParseTask(void)
                 {
                     Comm_MotorMode = Motor_State_AUTOFOLLOW;
                 } break;
+
+                // case COMM_CMD_Music:
+                // {
+                //     app_music_start(Comm_DatBuf[3]);
+                // } break;
             }
         }
     }
@@ -110,19 +116,21 @@ void Comm_ParseTask(void)
  */
 void Comm_SendTask(void)
 {
-	u8 dat[23];
+	u8 dat[COMM_CMD_DHT11Data_LEN];
     if (Comm_Linked == FALSE) return;
 
-	dat[0] = COMM_BYTE0;
-	dat[1] = COMM_BYTE1;
+	dat[0] = COMM_HEAD_BYTE0;
+	dat[1] = COMM_HEAD_BYTE1;
 	dat[2] = COMM_CMD_DHT11Data;
     dat[3] = DHT11_Data.temp_int;
     dat[4] = DHT11_Data.temp_deci;
     dat[5] = DHT11_Data.humi_int;
     dat[6] = DHT11_Data.humi_deci;
-    *(float*)(dat + 7) = US_Data.F;
+    *(float*)(dat + 7)  = US_Data.F;
     *(float*)(dat + 11) = US_Data.B;
     *(float*)(dat + 15) = US_Data.L;
     *(float*)(dat + 19) = US_Data.R;
+    dat[23] = COMM_TAIL_BYTE0;
+    dat[24] = COMM_TAIL_BYTE1;
     UART_Send_Start(&uart2_tx, dat, sizeof(dat));
 }

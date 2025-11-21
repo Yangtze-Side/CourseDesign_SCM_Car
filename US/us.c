@@ -3,7 +3,11 @@
 
 #define US_vSound_cmPERus               (340e-4f)
 #define US_CNT2Dist_Factor              (US_vSound_cmPERus / 4.0f)      // fosc = 24M, psc = 12, CNT val step is 0.5 us
-#define US_Cnt2Dist_cm(cnt)             (((u16)(cnt)) * US_CNT2Dist_Factor)
+#define US_Cnt2Dist_cm(cnt, dist)       {                       \
+    float disttmp = ((u16)(cnt)) * US_CNT2Dist_Factor;          \
+    disttmp < 40.0f ? (disttmp = 0.0f) : (disttmp -= 40.0f);    \
+    (dist) = disttmp;                                           \
+}
 
 US_Data_t  US_Data = { 0.0f, 0.0f, 0.0f, 0.0f };
 static u8  us_state = 0;
@@ -89,7 +93,7 @@ void US_F_INT_Handler(void)
 {
     if (us_state == 1)
     {
-        US_Data.F = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
+        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.F);
         us_state = 2;
     }
 }
@@ -102,7 +106,7 @@ void US_B_INT_Handler(void)
 {
     if (us_state == 3)
     {
-        US_Data.B = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
+        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.B);
         us_state = 4;
     }
 }
@@ -115,7 +119,7 @@ void US_L_INT_Handler(void)
 {
     if (us_state == 5)
     {
-        US_Data.L = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
+        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.L);
         us_state = 6;
     }
 }
@@ -128,7 +132,7 @@ void US_R_INT_Handler(void)
 {
     if (us_state == 7)
     {
-        US_Data.R = US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart);
+        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.R);
         us_state = 0;
     }
 }

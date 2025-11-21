@@ -21,7 +21,7 @@
  * 
  * @param m 音乐结构体
  */
-static void MusicNoteSet(const Music_t *m, MusicControl_t *c)
+static void MusicNoteSet(const Music_t *m, MusicControl_t *c) reentrant
 {
     c->curr_note_time = CurrNote(m, c).pulse * Pulse_To_Period_FACTOR;
 

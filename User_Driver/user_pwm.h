@@ -8,8 +8,8 @@
 #define PWMC_Pin                            P22     // Motor
 #define PWMD_Pin                            P23     // Motor
 
-#define PWME_Pin                            P07     // LED
-#define PWMF_Pin                            P06     // LED
+#define PWME_Pin                            LED1     // LED
+#define PWMF_Pin                            LED2     // LED
 
 #define PWM_CLK_DIVIDER                     12      // PWM clock divider (0 ~ 15)
 #define PWM_PERIOD                          2000    // PWM period (0 ~ 32767)

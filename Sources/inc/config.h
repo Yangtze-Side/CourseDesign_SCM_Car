@@ -52,11 +52,11 @@
 #define UST0                    P41
 #define UST1                    P42
 #define UST2                    P44
-#define KEY                     P20
+#define UST3                    P20
 #define MT6                     P24
 #define MT7                     P25
 #define DHT11                   P26
-#define UST3                    P45
+#define KEY                     P45
 #define MT0                     P00
 #define MT1                     P01
 #define MT2                     P02

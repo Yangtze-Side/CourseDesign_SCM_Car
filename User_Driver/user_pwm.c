@@ -43,7 +43,7 @@ void User_PWM_Init(void)
     PWM_SetC6T2Point(1);                //使能PWM6翻转点2的计数值
     PWM_DisableC6Output();              //不使能PWM6通道输出
 
-    PWM_C7_SwitchP06();                 //设置PWM7端口: PWM7 (P0.6)
+    PWM_C7_SwitchP17();                 //设置PWM7端口: PWM7 (P1.7)
     PWM_InitialC7Low();                 //设置PWM7通道初始电平为低电平
     PWM_SetC7T1Point(0);                //使能PWM7翻转点1的计数值
     PWM_SetC7T2Point(1);                //使能PWM7翻转点2的计数值

@@ -27,7 +27,7 @@ void User_TIM_SetARR(u8 TIMx, u16 arr)
  * @param TIMx The timer
  * @param cmd  ENABLE or DISABLE
  */
-void User_TIM_CLKOCmd(u8 TIMx, BOOL cmd)
+void User_TIM_CLKOCmd(u8 TIMx, u8 cmd) reentrant
 {
     switch (TIMx)
     {

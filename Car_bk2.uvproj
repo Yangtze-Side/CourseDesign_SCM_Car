@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication;.\DHT11;.\Key;.\LED</IncludePath>
+              <IncludePath>.\Sources\inc;.\User;.\User_Driver;.\User_Lib;.\Motion;.\IMU;.\Algorithm;.\US;.\Communication;.\DHT11;.\Key;.\LED;.\Music;.\Music\MusicScore</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -488,6 +488,16 @@
               <FileName>user_pca.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User_Driver\user_pca.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_tim.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -668,6 +678,116 @@
               <FileName>led.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\LED\led.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Music</GroupName>
+          <Files>
+            <File>
+              <FileName>freq_table.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\freq_table.c</FilePath>
+            </File>
+            <File>
+              <FileName>freq_table.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\freq_table.h</FilePath>
+            </File>
+            <File>
+              <FileName>music.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\music.c</FilePath>
+            </File>
+            <File>
+              <FileName>music.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\music.h</FilePath>
+            </File>
+            <File>
+              <FileName>music_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\music_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>music_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\music_app.h</FilePath>
+            </File>
+            <File>
+              <FileName>music_header.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\music_header.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Music/Score</GroupName>
+          <Files>
+            <File>
+              <FileName>HeadToFutureTogether.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\HeadToFutureTogether.c</FilePath>
+            </File>
+            <File>
+              <FileName>HeadToFutureTogether.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\HeadToFutureTogether.h</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Chord1_Melody.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\ING_Chord1_Melody.c</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Chord1_Melody.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\ING_Chord1_Melody.h</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Chord2_Melody.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\ING_Chord2_Melody.c</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Chord2_Melody.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\ING_Chord2_Melody.h</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Main_Melody.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\ING_Main_Melody.c</FilePath>
+            </File>
+            <File>
+              <FileName>ING_Main_Melody.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\ING_Main_Melody.h</FilePath>
+            </File>
+            <File>
+              <FileName>MusicScore.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\MusicScore.h</FilePath>
+            </File>
+            <File>
+              <FileName>Rainbow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\Rainbow.c</FilePath>
+            </File>
+            <File>
+              <FileName>Rainbow.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\Rainbow.h</FilePath>
+            </File>
+            <File>
+              <FileName>ShanhuHai.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\ShanhuHai.c</FilePath>
+            </File>
+            <File>
+              <FileName>ShanhuHai.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\ShanhuHai.h</FilePath>
             </File>
           </Files>
         </Group>

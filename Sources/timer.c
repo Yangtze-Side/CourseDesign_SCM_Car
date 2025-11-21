@@ -33,7 +33,7 @@
 ////////////////////////////////////////
 void TIMER0_Init(void)
 {
-#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000)
+#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000) //定时周期1毫秒
 
     TIMER0_TimerMode();                 //设置定时器0为定时模式
     TIMER0_12TMode();                   //设置定时器0为12T模式
@@ -56,7 +56,7 @@ void TIMER0_Init(void)
 ////////////////////////////////////////
 void TIMER1_Init(void)
 {
-#define T1_RELOAD               (65536 - (float)SYSCLK * 0 / 1000000)
+#define T1_RELOAD               (65536 - (float)SYSCLK * 0 / 1000000) //定时周期0微秒
 
     TIMER1_TimerMode();                 //设置定时器1为定时模式
     TIMER1_1TMode();                    //设置定时器1为1T模式
@@ -100,7 +100,7 @@ void TIMER2_Init(void)
 ////////////////////////////////////////
 void TIMER3_Init(void)
 {
-#define T3_RELOAD               (65536 - (float)SYSCLK * 0 / 1000000)
+#define T3_RELOAD               (65536 - (float)SYSCLK * 0 / 1000000) //定时周期0微秒
 
     TIMER3_TimerMode();                 //设置定时器3为定时模式
     TIMER3_1TMode();                    //设置定时器3为1T模式
@@ -119,7 +119,7 @@ void TIMER3_Init(void)
 ////////////////////////////////////////
 void TIMER4_Init(void)
 {
-#define T4_RELOAD               (65536 - (float)SYSCLK * 0 / 1000)
+#define T4_RELOAD               (65536 - (float)SYSCLK * 0 / 1000) //定时周期0毫秒
 
     TIMER4_TimerMode();                 //设置定时器4为定时模式
     TIMER4_1TMode();                    //设置定时器4为1T模式
