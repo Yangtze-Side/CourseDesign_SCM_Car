@@ -4,6 +4,8 @@
 
 static volatile u16 CCPA0_Period = User_PCA_CCPA0_PERIOD_DEFAULT_5MS;
 
+#define User_PCA_SetCnReload(n, v)      { CCAP##n##L = LOBYTE(v); CCAP##n##H = HIBYTE(v); }
+#define User_PCA_SetC0Reload(v)         User_PCA_SetCnReload(0, (v))
 
 /**
  * @brief PCA counter initialization.
@@ -18,7 +20,7 @@ void User_PCA_Init(void)
 
     PCA_DisableC0();                // 失能 PCA 模块 0
     PCA_SetCnAs16BitTimerMode(0);   // 设置 PCA 模块 0 为软件定时器模式
-    PCA_SetC0Reload(CCPA0_Period);  // 设置 PCA 模块 0 装载值
+    User_PCA_SetC0Reload(CCPA0_Period);  // 设置 PCA 模块 0 装载值
     PCA_EnableCCF0Int();            // 使能 PCA 模块 0 中断
 
     PCA_IdleContinue();             // 空闲模式仍然计数
@@ -68,7 +70,7 @@ u16 User_PCA_M0_GetPeriod(void)
 void User_PCA_M0_ITHandler(void)
 {
     u16 tmpreload = MAKEWORD(CL, CH) + CCPA0_Period;
-    PCA_SetC0Reload(tmpreload);      // 设置 PCA 模块 0 装载值
+    User_PCA_SetC0Reload(tmpreload);      // 设置 PCA 模块 0 装载值
 
     // TODO
     app_music_task();

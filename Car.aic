@@ -319,7 +319,7 @@
 		<UartBit>0</UartBit>
 		<UartBaudrate>115200</UartBaudrate>
 		<UartPort>0</UartPort>
-		<IntPriority>0</IntPriority>
+		<IntPriority>1</IntPriority>
 	</UART2>
 	<UART3>
 		<PeriEnable>0</PeriEnable>

@@ -39,7 +39,7 @@ void UART2_Init(void)
 
     UART2_EnableRx();                   //使能串口2接收数据
     UART2_Mode0();                      //设置串口2为模式0 (8位数据可变波特率)
-    UART2_SetIntPriority(0);            //设置中断为低优先级
+    UART2_SetIntPriority(1);            //设置中断为高优先级
     UART2_EnableInt();                  //使能串口2中断
 
     //<<AICUBE_USER_UART2_INITIAL_BEGIN>>
