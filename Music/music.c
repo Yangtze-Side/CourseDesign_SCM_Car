@@ -21,7 +21,34 @@
  * 
  * @param m 音乐结构体
  */
-static void MusicNoteSet(const Music_t *m, MusicControl_t *c) reentrant
+static void MusicNoteSet(const Music_t *m, MusicControl_t *c)
+{
+    c->curr_note_time = CurrNote(m, c).pulse * Pulse_To_Period_FACTOR;
+
+    if (c->curr_note_time == 0)
+    {
+        // An Exception Occured.
+        MusicStop(c);
+        return;
+    }
+
+    if (CurrNote(m, c).pitch == PITCH_REST)
+    {
+        Tim_ForceHigh(c);
+    }
+    else
+    {
+        TIM_SetAutoReload(c->timIndex, Get_Freq(CurrNote(m, c).pitch));
+        Tim_Compare(c);
+    }
+}
+
+/**
+ * @brief 根据 MusicControl 中的指针，加载当前音符的时长和音调。
+ * 
+ * @param m 音乐结构体
+ */
+static void MusicNoteSet_IT(const Music_t *m, MusicControl_t *c)
 {
     c->curr_note_time = CurrNote(m, c).pulse * Pulse_To_Period_FACTOR;
 
@@ -93,7 +120,7 @@ void MusicStart(const Music_t *m, MusicControl_t *c)
 
     c->pnote = 0;
     c->pmelody = 0;
-    MusicNoteSet(m, c);
+    MusicNoteSet_IT(m, c);
     c->state = Music_PLAY;
 }
 

@@ -26,56 +26,62 @@ void US_Task_30ms(void)
         {
 US_TASK_CASE0:
             US_F_StartSignal();
-            US_Timer_CountStart = US_Timer_ReadCounter();
-            us_state = 1;       // state1: is measuring
+            // US_Timer_CountStart = US_Timer_ReadCounter();
+            us_state = 1;       // state1: ready to receive a rising edge
         } break;
 
         case 1:
-        {
-            // If us_state is still 1 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX_cm;
-            us_state = 2;
-        }   // without a break, start next mesurement immediatly
-
+        // No rising edge
         case 2:
+        // No falling edge
         {
-            US_B_StartSignal();
-            US_Timer_CountStart = US_Timer_ReadCounter();
-            us_state = 3;       // state3: is measuring
-        } break;
+            US_Data.F = US_DATA_MAX_cm;
+            us_state = 3;
+        }   // without a break, start next mesurement immediatly
 
         case 3:
+        // received an integral protocal
         {
-            // If us_state is still 3 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX_cm;
-            us_state = 4;
-        }   // without a break, start next mesurement immediatly
-
-        case 4:
-        {
-            US_L_StartSignal();
-            US_Timer_CountStart = US_Timer_ReadCounter();
-            us_state = 5;       // state5: is measuring
+            US_B_StartSignal();
+            // US_Timer_CountStart = US_Timer_ReadCounter();
+            us_state = 4;       // state4: ready to receive a rising edge
         } break;
 
+        case 4:
+        // No rising edge
         case 5:
+        // No falling edge
         {
-            // If us_state is still 5 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX_cm;
+            US_Data.B = US_DATA_MAX_cm;
             us_state = 6;
         }   // without a break, start next mesurement immediatly
 
         case 6:
+        // received an integral protocal
         {
-            US_R_StartSignal();
+            US_L_StartSignal();
             US_Timer_CountStart = US_Timer_ReadCounter();
-            us_state = 7;       // state7: is measuring
+            us_state = 7;       // state5: is measuring
         } break;
 
         case 7:
         {
+            // If us_state is still 5 after 30 ms, the distance must greater than 5m.
+            US_Data.L = US_DATA_MAX_cm;
+            us_state = 8;
+        }   // without a break, start next mesurement immediatly
+
+        case 8:
+        {
+            US_R_StartSignal();
+            US_Timer_CountStart = US_Timer_ReadCounter();
+            us_state = 9;       // state7: is measuring
+        } break;
+
+        case 9:
+        {
             // If us_state is still 7 after 30 ms, the distance must greater than 5m.
-            US_Data.F = US_DATA_MAX_cm;
+            US_Data.R = US_DATA_MAX_cm;
             us_state = 0;
             goto US_TASK_CASE0;     // start next mesurement immediatly
         } break;
@@ -91,10 +97,15 @@ US_TASK_CASE0:
  */
 void US_F_INT_Handler(void)
 {
-    if (us_state == 1)
+    if (us_state == 1 && ECHOF == 1)
+    {
+        US_Timer_CountStart = US_Timer_ReadCounter();
+        us_state = 2;
+    }
+    else if (us_state == 2 && ECHOF == 0)
     {
         US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.F);
-        us_state = 2;
+        us_state = 3;
     }
 }
 
@@ -104,10 +115,15 @@ void US_F_INT_Handler(void)
  */
 void US_B_INT_Handler(void)
 {
-    if (us_state == 3)
+    if (us_state == 4 && ECHOB == 1)
+    {
+        US_Timer_CountStart = US_Timer_ReadCounter();
+        us_state = 5;
+    }
+    else if (us_state == 5 && ECHOB == 0)
     {
         US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.B);
-        us_state = 4;
+        us_state = 6;
     }
 }
 
@@ -117,10 +133,10 @@ void US_B_INT_Handler(void)
  */
 void US_L_INT_Handler(void)
 {
-    if (us_state == 5)
+    if (us_state == 7)
     {
         US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.L);
-        us_state = 6;
+        us_state = 8;
     }
 }
 
@@ -130,7 +146,7 @@ void US_L_INT_Handler(void)
  */
 void US_R_INT_Handler(void)
 {
-    if (us_state == 7)
+    if (us_state == 9)
     {
         US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.R);
         us_state = 0;

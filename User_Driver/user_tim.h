@@ -12,6 +12,6 @@
 #define TIM4_CLKO_PIN       P06
 
 void User_TIM_SetARR(u8 TIMx, u16 arr);
-void User_TIM_CLKOCmd(u8 TIMx, u8 cmd) reentrant;
+void User_TIM_CLKOCmd(u8 TIMx, u8 cmd);
 
 #endif // !__USER_TIM_H

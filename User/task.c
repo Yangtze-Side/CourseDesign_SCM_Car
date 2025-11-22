@@ -19,7 +19,7 @@ typedef struct
     const void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      8
+#define TASK_TOTAL      7
 
 Task_t Task[TASK_TOTAL] =
 {
@@ -28,7 +28,7 @@ Task_t Task[TASK_TOTAL] =
     { 5/5, 0, IMU_Update },
 
     { 20/5, 0, Motor_Task },
-    { 100/5, 0, Dht11_Task },
+    // { 20/5, 0, Dht11_Task },     // 安排在中断里执行
     // { 500/5, 0, Debug_Log_Task },
     { 60/5, 0, Comm_SendTask },
     { 5/5, 0, sys_uart_recv_task_5ms },
@@ -66,7 +66,7 @@ void TaskExe(void)
         KeySLD_Task();
         IMU_Update();
         Motor_Task();
-        Dht11_Task();
+        // Dht11_Task();
         Debug_Log_Task();
         Comm_SendTask();
         sys_uart_recv_task_5ms();

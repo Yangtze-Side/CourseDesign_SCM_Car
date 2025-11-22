@@ -100,10 +100,10 @@ void Comm_ParseTask(void)
                     Comm_MotorMode = Motor_State_AUTOFOLLOW;
                 } break;
 
-                // case COMM_CMD_Music:
-                // {
-                //     app_music_start(Comm_DatBuf[3]);
-                // } break;
+                case COMM_CMD_MusicStart:
+                {
+                    app_music_start(Comm_DatBuf[3]);
+                } break;
             }
         }
     }

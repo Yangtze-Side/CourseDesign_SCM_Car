@@ -5,15 +5,10 @@
 #include "user_driver.h"
 
 // 这些引脚初始化的时候要给 0
-#define US_F_Pin                        UST0
-#define US_B_Pin                        UST1
-#define US_L_Pin                        UST2
-#define US_R_Pin                        UST3
-
-#define US_F_StartSignal()              { US_F_Pin = 1; delay_us(12); US_F_Pin = 0; }
-#define US_B_StartSignal()              { US_B_Pin = 1; delay_us(12); US_B_Pin = 0; }
-#define US_L_StartSignal()              { US_L_Pin = 1; delay_us(12); US_L_Pin = 0; }
-#define US_R_StartSignal()              { US_R_Pin = 1; delay_us(12); US_R_Pin = 0; }
+#define US_F_StartSignal()              { UST0 = 1; delay_us(12); UST0 = 0; }
+#define US_B_StartSignal()              { UST1 = 1; delay_us(12); UST1 = 0; }
+#define US_L_StartSignal()              { UST2 = 1; delay_us(12); UST2 = 0; }
+#define US_R_StartSignal()              { UST3 = 1; delay_us(12); UST3 = 0; }
 
 #define US_Timer_ReadCounter()          User_PCA_GetCounter()
 

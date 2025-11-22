@@ -48,7 +48,12 @@
 #define LED1                    P07
 #define MT4                     P16
 #define LED2                    P17
+#define ECHOF                   P32
+#define ECHOB                   P33
 #define BUZZ1                   P34
+#define BTLINK                  P35
+#define ECHOL                   P36
+#define ECHOR                   P37
 #define UST0                    P41
 #define UST1                    P42
 #define UST2                    P44

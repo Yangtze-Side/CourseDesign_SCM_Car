@@ -34,7 +34,7 @@
 void EXTI0_Init(void)
 {
     INT0_FallingRisingInt();            //设置外部中断为边沿中断 (上升沿+下降沿)
-    INT0_SetIntPriority(0);             //设置中断为低优先级
+    INT0_SetIntPriority(1);             //设置中断为高优先级
     INT0_EnableInt();                   //使能外部中断
 
     //<<AICUBE_USER_EXTI0_INITIAL_BEGIN>>
@@ -49,8 +49,8 @@ void EXTI0_Init(void)
 ////////////////////////////////////////
 void EXTI1_Init(void)
 {
-    INT1_FallingInt();                  //设置外部中断为下降沿中断
-    INT1_SetIntPriority(0);             //设置中断为低优先级
+    INT1_FallingRisingInt();            //设置外部中断为边沿中断 (上升沿+下降沿)
+    INT1_SetIntPriority(1);             //设置中断为高优先级
     INT1_EnableInt();                   //使能外部中断
 
     //<<AICUBE_USER_EXTI1_INITIAL_BEGIN>>
@@ -84,20 +84,6 @@ void EXTI3_Init(void)
     //<<AICUBE_USER_EXTI3_INITIAL_BEGIN>>
     // 在此添加用户初始化代码  
     //<<AICUBE_USER_EXTI3_INITIAL_END>>
-}
-
-////////////////////////////////////////
-// 外部中断INT4初始化函数
-// 入口参数: 无
-// 函数返回: 无
-////////////////////////////////////////
-void EXTI4_Init(void)
-{
-    INT4_EnableInt();                   //使能外部中断
-
-    //<<AICUBE_USER_EXTI4_INITIAL_BEGIN>>
-    // 在此添加用户初始化代码  
-    //<<AICUBE_USER_EXTI4_INITIAL_END>>
 }
 
 
@@ -151,19 +137,6 @@ void EXTI3_ISR(void) interrupt INT3_VECTOR
     // 在此添加中断函数用户代码  
     US_L_INT_Handler();
     //<<AICUBE_USER_EXTI3_ISR_CODE1_END>>
-}
-
-////////////////////////////////////////
-// 外部中断INT4中断服务程序
-// 入口参数: 无
-// 函数返回: 无
-////////////////////////////////////////
-void EXTI4_ISR(void) interrupt INT4_VECTOR
-{
-    //<<AICUBE_USER_EXTI4_ISR_CODE1_BEGIN>>
-    // 在此添加中断函数用户代码  
-    US_R_INT_Handler();
-    //<<AICUBE_USER_EXTI4_ISR_CODE1_END>>
 }
 
 

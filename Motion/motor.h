@@ -8,14 +8,14 @@
 #define Car_Speed_MIN                       -100.0f
 #define Car_Speed_MAX                       100.0f
 
-#define MOTORA_DIR1_Pin                     P00
-#define MOTORA_DIR2_Pin                     P01
-#define MOTORB_DIR1_Pin                     P02
-#define MOTORB_DIR2_Pin                     P03
-#define MOTORC_DIR1_Pin                     P04
-#define MOTORC_DIR2_Pin                     P05
-#define MOTORD_DIR1_Pin                     P24
-#define MOTORD_DIR2_Pin                     P25
+#define MOTORA_DIR1_Pin                     MT0
+#define MOTORA_DIR2_Pin                     MT1
+#define MOTORB_DIR1_Pin                     MT2
+#define MOTORB_DIR2_Pin                     MT3
+#define MOTORC_DIR1_Pin                     MT4
+#define MOTORC_DIR2_Pin                     MT5
+#define MOTORD_DIR1_Pin                     MT6
+#define MOTORD_DIR2_Pin                     MT7
 
 #define Motor_State_OFF                     0       // Motor is off
 #define Motor_State_JOYSTICK                1       // Control by joystick (user implement)

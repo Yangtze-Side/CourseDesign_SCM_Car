@@ -39,7 +39,7 @@ void proj_init(void)
  */
 void uart_recv_handler(UART_Recv_t *recv)
 {
-	if (recv->Index == UART1)
+	if (recv->Index == UART2)
 	{
 		Comm_StartParse(UART2_RecvBuf, recv->Cnt);
 	}
@@ -49,6 +49,8 @@ void sys_uart_recv_task_5ms(void)
 {
 	UART_Recv_Task_5ms(&uart2_rx);
 }
+
+
 
 
 /*---------------------------------------- System Functions --------------------------------------*/

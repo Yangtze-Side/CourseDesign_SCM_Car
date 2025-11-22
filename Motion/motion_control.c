@@ -76,7 +76,7 @@ void Motion_Control_SetState(void)
             case Motor_State_GRAVITY: Motion_Control_GravPIClear(); break;
             case Motor_State_AUTOFOLLOW: Motion_Control_AFPIDClear(); break;
         }
-        LED1_Flash();
+        if (Now_State != Motor_State_OFF) LED1_Flash();
     }
     Last_State = Now_State;
 }

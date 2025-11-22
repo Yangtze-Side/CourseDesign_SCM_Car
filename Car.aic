@@ -219,7 +219,7 @@
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
 		<EnableInt>1</EnableInt>
-		<IntPriority>0</IntPriority>
+		<IntPriority>1</IntPriority>
 	</TIMER0>
 	<TIMER1>
 		<PeriEnable>1</PeriEnable>
@@ -349,13 +349,13 @@
 		<PeriEnable>1</PeriEnable>
 		<EnableInt>1</EnableInt>
 		<IntType>0</IntType>
-		<IntPriority>0</IntPriority>
+		<IntPriority>1</IntPriority>
 	</EXTI0>
 	<EXTI1>
 		<PeriEnable>1</PeriEnable>
 		<EnableInt>1</EnableInt>
-		<IntType>1</IntType>
-		<IntPriority>0</IntPriority>
+		<IntType>0</IntType>
+		<IntPriority>1</IntPriority>
 	</EXTI1>
 	<EXTI2>
 		<PeriEnable>1</PeriEnable>
@@ -370,7 +370,7 @@
 		<IntPriority>0</IntPriority>
 	</EXTI3>
 	<EXTI4>
-		<PeriEnable>1</PeriEnable>
+		<PeriEnable>0</PeriEnable>
 		<EnableInt>1</EnableInt>
 		<IntType>0</IntType>
 		<IntPriority>0</IntPriority>
@@ -494,7 +494,6 @@
 		<Pin17Map>8</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
-		<Pin27Map>2</Pin27Map>
 		<Pin29Map>1</Pin29Map>
 		<Pin30Map>1</Pin30Map>
 		<Pin31Map>2</Pin31Map>
@@ -512,7 +511,12 @@
 		<Pin04Alias>LED1</Pin04Alias>
 		<Pin16Alias>MT4</Pin16Alias>
 		<Pin17Alias>LED2</Pin17Alias>
+		<Pin29Alias>ECHOF</Pin29Alias>
+		<Pin30Alias>ECHOB</Pin30Alias>
 		<Pin31Alias>BUZZ1</Pin31Alias>
+		<Pin34Alias>BTLINK</Pin34Alias>
+		<Pin35Alias>ECHOL</Pin35Alias>
+		<Pin36Alias>ECHOR</Pin36Alias>
 		<Pin41Alias>UST0</Pin41Alias>
 		<Pin42Alias>UST1</Pin42Alias>
 		<Pin44Alias>UST2</Pin44Alias>

@@ -100,7 +100,6 @@ void SYS_Init(void)
     EXTI1_Init();                       //INT1初始化
     EXTI2_Init();                       //INT2初始化
     EXTI3_Init();                       //INT3初始化
-    EXTI4_Init();                       //INT4初始化
     SPI_Init();                         //SPI初始化
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
