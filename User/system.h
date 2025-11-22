@@ -11,6 +11,9 @@
 #define UART2_SendBuf_SIZE		            128
 #define UART2_RecvBuf_SIZE		            64
 
+#define IAP_CONTR_SWBS_MSK                  BIT6
+#define IAP_CONTR_SWRST_MSK                 BIT5
+#define Software_ResetToISP()              SET_REG_BIT(IAP_CONTR, IAP_CONTR_SWBS_MSK | IAP_CONTR_SWRST_MSK)
 
 /*-------------------------------- Exported Variables -------------------------------*/
 

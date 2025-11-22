@@ -14,6 +14,7 @@
  */
 #include "key_SLD.h"
 #include "motion.h"
+#include "system.h"
 
 /*------------------------------------------- User Determine -------------------------------------------*/
 
@@ -39,7 +40,8 @@ static void Key_ShortPress(void)
 
 static void Key_LongPress(void)
 {
-    ;
+    // 直接复位，准备下载程序
+    Software_ResetToISP();
 }
 
 static void Key_DoublePress(void)
