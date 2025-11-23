@@ -118,6 +118,12 @@ void Comm_ParseTask(void)
                     app_music_stop();
                     LED1_Flash();
                 } break;
+
+                case COMM_CMD_MusicResume:
+                {
+                    app_music_resume();
+                    LED1_Flash();
+                } break;
             }
         }
     }
