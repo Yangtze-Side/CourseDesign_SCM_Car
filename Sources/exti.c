@@ -96,7 +96,7 @@ void EXTI0_ISR(void) interrupt INT0_VECTOR
 {
     //<<AICUBE_USER_EXTI0_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
-    Comm_SetLinkStatus(Comm_GetLinkStatusPinLevel());
+    US_F_INT_Handler();
     //<<AICUBE_USER_EXTI0_ISR_CODE1_END>>
 }
 
@@ -109,7 +109,7 @@ void EXTI1_ISR(void) interrupt INT1_VECTOR
 {
     //<<AICUBE_USER_EXTI1_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
-    US_F_INT_Handler();
+    US_B_INT_Handler();
     //<<AICUBE_USER_EXTI1_ISR_CODE1_END>>
 }
 
@@ -122,7 +122,7 @@ void EXTI2_ISR(void) interrupt INT2_VECTOR
 {
     //<<AICUBE_USER_EXTI2_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
-    US_B_INT_Handler();
+    US_L_INT_Handler();
     //<<AICUBE_USER_EXTI2_ISR_CODE1_END>>
 }
 
@@ -135,7 +135,7 @@ void EXTI3_ISR(void) interrupt INT3_VECTOR
 {
     //<<AICUBE_USER_EXTI3_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
-    US_L_INT_Handler();
+    US_R_INT_Handler();
     //<<AICUBE_USER_EXTI3_ISR_CODE1_END>>
 }
 

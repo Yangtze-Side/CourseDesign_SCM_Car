@@ -25,14 +25,14 @@ void Comm_Init(void)
     Comm_Linked = Comm_GetLinkStatusPinLevel();
 }
 
+
 /**
- * @brief Change BT link status when the LINKED pin level changes.
+ * @brief Detect bt link status and write it to Comm_Linked.
  * 
- * @param status new satus (TRUE/FALSE)
  */
-void Comm_SetLinkStatus(BOOL status)
+void Comm_DetectLinkStatusTask(void)
 {
-    Comm_Linked = status;
+    Comm_Linked = BTLINK;
 }
 
 

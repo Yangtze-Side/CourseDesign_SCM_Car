@@ -31,13 +31,13 @@
 #define G_PI_IntDis                             0.0f
 #define G_PI_UMax                               0.0f
 
-#define AF_PID_Kp                               0.0f
-#define AF_PID_Ki                               0.0f
-#define AF_PID_Kd                               0.0f
-#define AF_PID_IntMax                           0.0f
-#define AF_PID_IntDis                           0.0f
-#define AF_PID_DeMax                            0.0f
-#define AF_PID_UMax                             0.0f
+#define AF_PID_Kp                               1.0f
+#define AF_PID_Ki                               0.04f
+#define AF_PID_Kd                               2.0f
+#define AF_PID_IntMax                           500.0f
+#define AF_PID_IntDis                           10.0f
+#define AF_PID_DeMax                            20.0f
+#define AF_PID_UMax                             100.0f
 
 static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
 static PosPID_t af_pid;         // auto follow mode pid controller
@@ -124,13 +124,15 @@ void Motion_Control_GravPIClear(void)
 /*-------------------------------------------- Auto Cruise -------------------------------------------*/
 
 #define AC_CarSpeed_Default             (50.0f)
-#define AC_DistThres_cm                 (30.0f)
+#define AC_DistThres1_cm                (30.0f)
+#define AC_DistThres2_cm                (40.0f)
 #define AC_Stuck_vW                     (30.0f)
 #define AC_CarDir_None                  0
 #define AC_CarDir_Front                 1
-#define AC_CarDir_Back                  2
-#define AC_CarDir_Left                  3
-#define AC_CarDir_Right                 4
+#define AC_CarDir_Right                 2
+#define AC_CarDir_Back                  3
+#define AC_CarDir_Left                  4
+#define AC_IncInqIndex(idx)             (++(idx) > 3 ? (idx) = 0 : (idx))
 
 
 static u8 AC_CarDir = AC_CarDir_Front;
@@ -156,30 +158,80 @@ static void Motion_Auto_Go(CarSpeed_t *cs, u8 dir)
  */
 void Motion_Control_AutoCruise(CarSpeed_t *cs)
 {
+#if 0
+    u8 inq_index = 0xff;
+    u8 inq_total = 3;
+    switch (AC_CarDir)
+    {
+        case AC_CarDir_Front:
+        {
+            if (US_Data.F < AC_DistThres1_cm) inq_index = 1;
+        } break;
+        case AC_CarDir_Right:
+        {
+            if (US_Data.R < AC_DistThres1_cm) inq_index = 2;
+        } break;
+        case AC_CarDir_Back:
+        {
+            if (US_Data.B < AC_DistThres1_cm) inq_index = 3;
+        } break;
+        case AC_CarDir_Left:
+        {
+            if (US_Data.L < AC_DistThres1_cm) inq_index = 0;
+        } break;
+        case AC_CarDir_None:
+        {
+            inq_index = 0;
+            inq_total = 4;
+        } break;
+    }
+    if (inq_index != 0xff)
+    {
+        u8 new_dir = 0;
+        BOOL dir_exist = FALSE;
+        u8 i = 0;
+        float dist[4];
+        dist[0] = US_Data.F;
+        dist[1] = US_Data.R;
+        dist[2] = US_Data.B;
+        dist[3] = US_Data.L;
+        for (; i < inq_total; AC_IncInqIndex(inq_index), i++)
+        {
+            if (dist[inq_index] > AC_DistThres2_cm)
+            {
+                new_dir = inq_index + 1;
+                dir_exist = TRUE;
+                break;
+            }
+        }
+        Motion_Auto_Go(cs, new_dir);
+        Motion_AC_Stuck = dir_exist;
+    }
+#else
     // If the distance of current direction is defficient or the car has stucked
-    if ((AC_CarDir == AC_CarDir_Front && US_Data.F < AC_DistThres_cm) ||
-        (AC_CarDir == AC_CarDir_Back  && US_Data.B < AC_DistThres_cm) ||
-        (AC_CarDir == AC_CarDir_Left  && US_Data.L < AC_DistThres_cm) ||
-        (AC_CarDir == AC_CarDir_Right && US_Data.R < AC_DistThres_cm) ||
+    if ((AC_CarDir == AC_CarDir_Front && US_Data.F < AC_DistThres1_cm) ||
+        (AC_CarDir == AC_CarDir_Back  && US_Data.B < AC_DistThres1_cm) ||
+        (AC_CarDir == AC_CarDir_Left  && US_Data.L < AC_DistThres1_cm) ||
+        (AC_CarDir == AC_CarDir_Right && US_Data.R < AC_DistThres1_cm) ||
         (AC_CarDir == AC_CarDir_None))
     {
         // Go to direction where distance is sufficient
-        if (US_Data.F > AC_DistThres_cm)
+        if (US_Data.F > AC_DistThres2_cm)
         {
             Motion_Auto_Go(cs, AC_CarDir_Front);
             Motion_AC_Stuck = FALSE;
         }
-        else if (US_Data.R > AC_DistThres_cm)
+        else if (US_Data.R > AC_DistThres2_cm)
         {
             Motion_Auto_Go(cs, AC_CarDir_Right);
             Motion_AC_Stuck = FALSE;
         }
-        else if (US_Data.B > AC_DistThres_cm)
+        else if (US_Data.B > AC_DistThres2_cm)
         {
             Motion_Auto_Go(cs, AC_CarDir_Back);
             Motion_AC_Stuck = FALSE;
         }
-        else if (US_Data.L > AC_DistThres_cm)
+        else if (US_Data.L > AC_DistThres2_cm)
         {
             Motion_Auto_Go(cs, AC_CarDir_Left);
             Motion_AC_Stuck = FALSE;
@@ -191,6 +243,7 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
             Motion_AC_Stuck = TRUE;
         }
     }
+#endif
 }
 
 /**

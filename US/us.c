@@ -3,9 +3,13 @@
 
 #define US_vSound_cmPERus               (340e-4f)
 #define US_CNT2Dist_Factor              (US_vSound_cmPERus / 4.0f)      // fosc = 24M, psc = 12, CNT val step is 0.5 us
-#define US_Cnt2Dist_cm(cnt, dist)       {                       \
+#define US_Cnt2Dist_cm_LR(cnt, dist)    {                       \
     float disttmp = ((u16)(cnt)) * US_CNT2Dist_Factor;          \
     disttmp < 40.0f ? (disttmp = 0.0f) : (disttmp -= 40.0f);    \
+    (dist) = disttmp;                                           \
+}
+#define US_Cnt2Dist_cm_FB(cnt, dist)    {                       \
+    float disttmp = ((u16)(cnt)) * US_CNT2Dist_Factor;          \
     (dist) = disttmp;                                           \
 }
 
@@ -104,7 +108,7 @@ void US_F_INT_Handler(void)
     }
     else if (us_state == 2 && ECHOF == 0)
     {
-        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.F);
+        US_Cnt2Dist_cm_FB(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.F);
         us_state = 3;
     }
 }
@@ -122,7 +126,7 @@ void US_B_INT_Handler(void)
     }
     else if (us_state == 5 && ECHOB == 0)
     {
-        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.B);
+        US_Cnt2Dist_cm_FB(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.B);
         us_state = 6;
     }
 }
@@ -135,7 +139,7 @@ void US_L_INT_Handler(void)
 {
     if (us_state == 7)
     {
-        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.L);
+        US_Cnt2Dist_cm_LR(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.L);
         us_state = 8;
     }
 }
@@ -148,7 +152,7 @@ void US_R_INT_Handler(void)
 {
     if (us_state == 9)
     {
-        US_Cnt2Dist_cm(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.R);
+        US_Cnt2Dist_cm_LR(US_Timer_ReadCounter() - US_Timer_CountStart, US_Data.R);
         us_state = 0;
     }
 }

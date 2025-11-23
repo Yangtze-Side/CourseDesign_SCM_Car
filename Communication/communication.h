@@ -30,7 +30,7 @@ void Comm_StartParse(u8 DatBuf[64], u8 len);
 void Comm_ParseTask(void);
 void Comm_SendTask(void);
 
-void Comm_SetLinkStatus(BOOL status);
+void Comm_DetectLinkStatusTask(void);
 BOOL Comm_GetLinkStatus(void);
 
 #endif // !__COMMUNICATION_H
