@@ -3,28 +3,6 @@
 
 #include "user_math.h"
 
-/*------------------------------------------- PI ------------------------------------------*/
-
-// 位置式 PI
-typedef struct PosPI_t {
-    float e;            // 误差
-    float e_int;        // 误差积分
-
-    float Kp;           // 比例系数
-    float Ki;           // 积分系数
-
-    float e_int_max;    // 积分限幅（正数）
-    float e_int_dis;    // 积分失能（正数）
-    float u_max;        // 输出限幅（正数）
-
-    float u;            // 输出
-} PosPI_t;
-
-void PosPI_Init(PosPI_t *pi, float kp, float ki, float intMax, float intDis, float uMax);
-void PosPI_Update(PosPI_t *pi, float ek);
-void PosPI_Clear(PosPI_t *pi);
-
-
 /*------------------------------------------- PID ------------------------------------------*/
 
 // 微分先行的位置式 PID
@@ -50,6 +28,28 @@ void PosPID_Update(PosPID_t *pid, float ek);
 void PosPID_Clear(PosPID_t *pid);
 
 #if 0
+
+/*------------------------------------------- PI ------------------------------------------*/
+
+// 位置式 PI
+typedef struct PosPI_t {
+    float e;            // 误差
+    float e_int;        // 误差积分
+
+    float Kp;           // 比例系数
+    float Ki;           // 积分系数
+
+    float e_int_max;    // 积分限幅（正数）
+    float e_int_dis;    // 积分失能（正数）
+    float u_max;        // 输出限幅（正数）
+
+    float u;            // 输出
+} PosPI_t;
+
+void PosPI_Init(PosPI_t *pi, float kp, float ki, float intMax, float intDis, float uMax);
+void PosPI_Update(PosPI_t *pi, float ek);
+void PosPI_Clear(PosPI_t *pi);
+
 
 /*------------------------------------------- PD ------------------------------------------*/
 

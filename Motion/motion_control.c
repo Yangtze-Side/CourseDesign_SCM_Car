@@ -24,21 +24,23 @@
 
 /*--------------------------------------- Contants & Variables --------------------------------------*/
 
-#define G_PI_Kp                                 0.0f
-#define G_PI_Ki                                 0.0f
-#define G_PI_IntMax                             0.0f
-#define G_PI_IntDis                             0.0f
-#define G_PI_UMax                               0.0f
+#define G_PID_Kp                                2.40f
+#define G_PID_Ki                                0.05f
+#define G_PID_Kd                                4.2f
+#define G_PID_IntMax                            50.0f
+#define G_PID_IntDis                            5.0f
+#define G_PID_DeMax                             20.0f
+#define G_PID_UMax                              100.0f
 
-#define AF_PID_Kp                               1.0f
-#define AF_PID_Ki                               0.04f
-#define AF_PID_Kd                               2.0f
-#define AF_PID_IntMax                           500.0f
-#define AF_PID_IntDis                           10.0f
-#define AF_PID_DeMax                            20.0f
+#define AF_PID_Kp                               5.3f
+#define AF_PID_Ki                               0.050f
+#define AF_PID_Kd                               4.20f
+#define AF_PID_IntMax                           50.0f
+#define AF_PID_IntDis                           5.0f
+#define AF_PID_DeMax                            30.0f
 #define AF_PID_UMax                             100.0f
 
-PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
+PosPID_t g_pid;          // yaw loop pid controller of gravity control mode
 PosPID_t af_pid;         // auto follow mode pid controller
 static BOOL Motion_AC_Stuck = FALSE;
 static BOOL Motion_AF_Alone = FALSE;
@@ -51,7 +53,7 @@ static BOOL Motion_AF_Alone = FALSE;
  */
 void Motion_Control_Init(void)
 {
-    PosPI_Init(&g_pi, G_PI_Kp, G_PI_Ki, G_PI_IntMax, G_PI_IntDis, G_PI_UMax);
+    PosPID_Init(&g_pid, G_PID_Kp, G_PID_Ki, G_PID_Kd, G_PID_IntMax, G_PID_IntDis, G_PID_DeMax, G_PID_UMax);
     PosPID_Init(&af_pid, AF_PID_Kp, AF_PID_Ki, AF_PID_Kd, AF_PID_IntMax, AF_PID_IntDis, AF_PID_DeMax, AF_PID_UMax);
 }
 
@@ -72,7 +74,7 @@ void Motion_Control_SetState(void)
     {
         switch (Now_State)
         {
-            case Motor_State_GRAVITY: Motion_Control_GravPIClear(); break;
+            case Motor_State_GRAVITY: Motion_Control_GravPIDClear(); break;
             case Motor_State_AUTOFOLLOW: Motion_Control_AFPIDClear(); break;
         }
         if (Now_State != Motor_State_OFF) LED1_Flash();
@@ -103,20 +105,20 @@ void Motion_Control_ByJoystick(CarSpeed_t *cs)
  */
 void Motion_Control_ByGravity(CarSpeed_t *cs)
 {
-    PosPI_Update(&g_pi, Comm_GravModeData.target_yaw - EulerAngle.yaw);
+    PosPID_Update(&g_pid, Comm_GravModeData.target_yaw - EulerAngle.yaw);
 
     cs->x = Comm_GravModeData.vx;
     cs->y = Comm_GravModeData.vy;
-    cs->w = g_pi.u;
+    cs->w = g_pid.u;
 }
 
 /**
- * @brief Clear data of gravity mode pi controller.
+ * @brief Clear data of gravity mode pid controller.
  * 
  */
-void Motion_Control_GravPIClear(void)
+void Motion_Control_GravPIDClear(void)
 {
-    PosPI_Clear(&g_pi);
+    PosPID_Clear(&g_pid);
 }
 
 

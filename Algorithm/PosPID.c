@@ -111,7 +111,6 @@ void PosPD_Update(PosPD_t *pd, float ek, float delta_e)
     pd->u = pd->Kp * pd->e + pd->Kd * delta_e;
     LimAbsAsgn(pd->u, pd->u_max);    // 输出限幅
 }
-#endif
 
 /*------------------------------------------- PI ------------------------------------------*/
 
@@ -173,3 +172,4 @@ void PosPI_Clear(PosPI_t *pi)
     pi->e = 0.0f;
     pi->e_int = 0.0f;
 }
+#endif

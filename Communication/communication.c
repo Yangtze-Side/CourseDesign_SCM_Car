@@ -13,6 +13,13 @@
 
 #define COMM_DATBUF_SIZE        64
 
+#define GPID_Kp_STEP            0.02f
+#define GPID_Ki_STEP            0.002f
+#define GPID_Kd_STEP            0.2f
+#define AFPID_Kp_STEP           0.2f
+#define AFPID_Ki_STEP           0.002f
+#define AFPID_Kd_STEP           0.2f
+
 static BOOL Comm_ParseFlag = FALSE;
 static u8  Comm_DatBuf[64];
 static BOOL Comm_Linked = FALSE;
@@ -125,6 +132,19 @@ void Comm_ParseTask(void)
                     app_music_resume();
                     LED1_Flash();
                 } break;
+
+                case COMM_CMD_GPIDkpAdd: g_pid.Kp += GPID_Kp_STEP; break;
+                case COMM_CMD_GPIDkpDec: g_pid.Kp -= GPID_Kp_STEP; break;
+                case COMM_CMD_GPIDkiAdd: g_pid.Ki += GPID_Ki_STEP; break;
+                case COMM_CMD_GPIDkiDec: g_pid.Ki -= GPID_Ki_STEP; break;
+                case COMM_CMD_GPIDkdAdd: g_pid.Kd += GPID_Kd_STEP; break;
+                case COMM_CMD_GPIDkdDec: g_pid.Kd -= GPID_Kd_STEP; break;
+                case COMM_CMD_AFPIDkpAdd: af_pid.Kp += AFPID_Kp_STEP; break;
+                case COMM_CMD_AFPIDkpDec: af_pid.Kp -= AFPID_Kp_STEP; break;
+                case COMM_CMD_AFPIDkiAdd: af_pid.Ki += AFPID_Ki_STEP; break;
+                case COMM_CMD_AFPIDkiDec: af_pid.Ki -= AFPID_Ki_STEP; break;
+                case COMM_CMD_AFPIDkdAdd: af_pid.Kd += AFPID_Kd_STEP; break;
+                case COMM_CMD_AFPIDkdDec: af_pid.Kd -= AFPID_Kd_STEP; break;
             }
         }
     }
@@ -151,12 +171,13 @@ void Comm_SendTask(void)
     *(float*)(dat + 11) = US_Data.B;
     *(float*)(dat + 15) = US_Data.L;
     *(float*)(dat + 19) = US_Data.R;
-    *(float*)(dat + 23) = g_pi.Kp;
-    *(float*)(dat + 27) = g_pi.Ki;
-    *(float*)(dat + 31) = af_pid.Kp;
-    *(float*)(dat + 35) = af_pid.Ki;
-    *(float*)(dat + 39) = af_pid.Kd;
-    dat[43] = COMM_TAIL_BYTE0;
-    dat[44] = COMM_TAIL_BYTE1;
+    *(float*)(dat + 23) = g_pid.Kp;
+    *(float*)(dat + 27) = g_pid.Ki;
+    *(float*)(dat + 31) = g_pid.Kd;
+    *(float*)(dat + 35) = af_pid.Kp;
+    *(float*)(dat + 39) = af_pid.Ki;
+    *(float*)(dat + 43) = af_pid.Kd;
+    dat[47] = COMM_TAIL_BYTE0;
+    dat[48] = COMM_TAIL_BYTE1;
     UART_Send_Start(&uart2_tx, dat, sizeof(dat));
 }
