@@ -137,6 +137,8 @@ void Motion_Control_GravPIDClear(void)
 
 
 static u8 AC_CarDir = AC_CarDir_Front;
+void Motion_Control_AC_SingWhenStuck(void);
+
 
 static void Motion_Auto_Go(CarSpeed_t *cs, u8 dir)
 {
@@ -159,7 +161,7 @@ static void Motion_Auto_Go(CarSpeed_t *cs, u8 dir)
  */
 void Motion_Control_AutoCruise(CarSpeed_t *cs)
 {
-#if 0
+#if 1
     u8 inq_index = 0xff;
     u8 inq_total = 3;
     switch (AC_CarDir)
@@ -244,7 +246,13 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
             Motion_AC_Stuck = TRUE;
         }
     }
-#endif
+    else
+    {
+        Motion_Auto_Go(cs, AC_CarDir);
+        Motion_AC_Stuck = FALSE;
+    }
+    #endif
+    Motion_Control_AC_SingWhenStuck();
 }
 
 /**
