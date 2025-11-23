@@ -8,6 +8,7 @@
 #include "dht11.h"
 #include "algorithm.h"
 #include "music_header.h"
+#include "led.h"
 
 #define COMM_DATBUF_SIZE        64
 
@@ -103,6 +104,19 @@ void Comm_ParseTask(void)
                 case COMM_CMD_MusicStart:
                 {
                     app_music_start(Comm_DatBuf[3]);
+                    LED1_Flash();
+                } break;
+
+                case COMM_CMD_MusicPause:
+                {
+                    app_music_pause();
+                    LED1_Flash();
+                } break;
+
+                case COMM_CMD_MusicStop:
+                {
+                    app_music_stop();
+                    LED1_Flash();
                 } break;
             }
         }
