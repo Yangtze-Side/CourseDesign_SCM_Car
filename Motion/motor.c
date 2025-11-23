@@ -20,6 +20,25 @@ typedef struct MotorSpeed_t
 // transform motor_speed into pulse width
 #define Speed2Width(x)          ( (u16) ((x) / Motor_Speed_MAX * (float)PWM_PERIOD) )
 
+#define Motor_SetPinIn(ms, _ch)  \
+{   \
+    if ((ms)->_ch > 0)    \
+    {   \
+        MotorPin(_ch, 1) = Bit_SET;    \
+        MotorPin(_ch, 2) = Bit_RESET;  \
+    }   \
+    else if ((ms)->_ch < 0)   \
+    {   \
+        MotorPin(_ch, 1) = Bit_RESET;  \
+        MotorPin(_ch, 2) = Bit_SET;    \
+    }   \
+    else    \
+    {   \
+        MotorPin(_ch, 1) = Bit_RESET;  \
+        MotorPin(_ch, 2) = Bit_RESET;  \
+    }   \
+}
+
 /*--------------------------------- Variables & Funcs ------------------------------*/
 
 // Motor control state, indicate which mode is taken control of motors.
@@ -149,75 +168,19 @@ static void Motor_SpeedUpdate(MotorSpeed_t *ms)
     LimAsgn(ms->C, Motor_Speed_MIN, Motor_Speed_MAX);
     LimAsgn(ms->D, Motor_Speed_MIN, Motor_Speed_MAX);
 
-    if (ms->A < 0.0f)
-    {
-        MOTORA_DIR1_Pin = 0;
-        MOTORA_DIR2_Pin = 1;
-    }
-    else if (ms->A > 0.0f)
-    {
-        MOTORA_DIR1_Pin = 1;
-        MOTORA_DIR2_Pin = 0;
-    }
-    else
-    {
-        MOTORA_DIR1_Pin = 0;
-        MOTORA_DIR2_Pin = 0;
-    }
+    Motor_SetPinIn(ms, A);
     spdtmp = ABS(ms->A);
     User_PWMA_SetWidth(Speed2Width(spdtmp));
 
-    if (ms->B < 0.0f)
-    {
-        MOTORB_DIR1_Pin = 0;
-        MOTORB_DIR2_Pin = 1;
-    }
-    else if (ms->B > 0.0f)
-    {
-        MOTORB_DIR1_Pin = 1;
-        MOTORB_DIR2_Pin = 0;
-    }
-    else
-    {
-        MOTORB_DIR1_Pin = 0;
-        MOTORB_DIR2_Pin = 0;
-    }
+    Motor_SetPinIn(ms, B);
     spdtmp = ABS(ms->B);
     User_PWMB_SetWidth(Speed2Width(spdtmp));
 
-    if (ms->C < 0.0f)
-    {
-        MOTORC_DIR1_Pin = 0;
-        MOTORC_DIR2_Pin = 1;
-    }
-    else if (ms->C > 0.0f)
-    {
-        MOTORC_DIR1_Pin = 1;
-        MOTORC_DIR2_Pin = 0;
-    }
-    else
-    {
-        MOTORC_DIR1_Pin = 0;
-        MOTORC_DIR2_Pin = 0;
-    }
+    Motor_SetPinIn(ms, C);
     spdtmp = ABS(ms->C);
     User_PWMC_SetWidth(Speed2Width(spdtmp));
 
-    if (ms->D < 0.0f)
-    {
-        MOTORD_DIR1_Pin = 0;
-        MOTORD_DIR2_Pin = 1;
-    }
-    else if (ms->D > 0.0f)
-    {
-        MOTORD_DIR1_Pin = 1;
-        MOTORD_DIR2_Pin = 0;
-    }
-    else
-    {
-        MOTORD_DIR1_Pin = 0;
-        MOTORD_DIR2_Pin = 0;
-    }
+    Motor_SetPinIn(ms, D);
     spdtmp = ABS(ms->D);
     User_PWMD_SetWidth(Speed2Width(spdtmp));
 }
