@@ -9,6 +9,7 @@
 #include "algorithm.h"
 #include "music_header.h"
 #include "led.h"
+#include "motion_control.h"
 
 #define COMM_DATBUF_SIZE        64
 
@@ -141,7 +142,7 @@ void Comm_SendTask(void)
 
 	dat[0] = COMM_HEAD_BYTE0;
 	dat[1] = COMM_HEAD_BYTE1;
-	dat[2] = COMM_CMD_DHT11Data;
+	dat[2] = COMM_CMD_CarData;
     dat[3] = DHT11_Data.temp_int;
     dat[4] = DHT11_Data.temp_deci;
     dat[5] = DHT11_Data.humi_int;
@@ -150,7 +151,12 @@ void Comm_SendTask(void)
     *(float*)(dat + 11) = US_Data.B;
     *(float*)(dat + 15) = US_Data.L;
     *(float*)(dat + 19) = US_Data.R;
-    dat[23] = COMM_TAIL_BYTE0;
-    dat[24] = COMM_TAIL_BYTE1;
+    *(float*)(dat + 23) = g_pi.Kp;
+    *(float*)(dat + 27) = g_pi.Ki;
+    *(float*)(dat + 31) = af_pid.Kp;
+    *(float*)(dat + 35) = af_pid.Ki;
+    *(float*)(dat + 39) = af_pid.Kd;
+    dat[43] = COMM_TAIL_BYTE0;
+    dat[44] = COMM_TAIL_BYTE1;
     UART_Send_Start(&uart2_tx, dat, sizeof(dat));
 }

@@ -2,6 +2,10 @@
 #define __MOTION_CONTROL_H
 
 #include "motor.h"
+#include "algorithm.h"
+
+extern PosPI_t g_pi;
+extern PosPID_t af_pid;
 
 void Motion_Control_Init(void);
 void Motion_Control_SetState(void);

@@ -10,7 +10,6 @@
  * 
  */
 #include "motion_control.h"
-#include "algorithm.h"
 #include "imu_app.h"
 #include "us.h"
 #include "communication.h"
@@ -39,8 +38,8 @@
 #define AF_PID_DeMax                            20.0f
 #define AF_PID_UMax                             100.0f
 
-static PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
-static PosPID_t af_pid;         // auto follow mode pid controller
+PosPI_t g_pi;            // yaw loop pi controller of gravity control mode
+PosPID_t af_pid;         // auto follow mode pid controller
 static BOOL Motion_AC_Stuck = FALSE;
 static BOOL Motion_AF_Alone = FALSE;
 
