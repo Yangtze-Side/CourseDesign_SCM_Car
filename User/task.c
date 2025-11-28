@@ -25,7 +25,7 @@ Task_t Task[TASK_TOTAL] =
 {
     { 30/5, 0, US_Task_30ms },
     { 20/5, 0, KeySLD_Task },
-    { 5/5, 0, IMU_Update },
+    { 10/5, 0, IMU_Update },
 
     { 20/5, 0, Motor_Task },
     { 20/5, 0, Comm_DetectLinkStatusTask },

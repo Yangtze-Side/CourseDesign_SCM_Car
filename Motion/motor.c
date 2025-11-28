@@ -130,28 +130,29 @@ void Motor_Task(void)
  */
 static void Car_SpeedTransform(CarSpeed_t *cs, MotorSpeed_t *ms)
 {
-    // Ensure that cs.x + cs.y <= 80
-    if ( ABS(cs->x) + ABS(cs->y) > 80.0f )
-    {
-        cs->x = (int16_t)(cs->x / (ABS(cs->x) + ABS(cs->y)) * 80.0f );
-        cs->y = ( cs->y < 0.0f ? (ABS(cs->x) - 80.0f) : (80.0f - ABS(cs->x)) );
-    }
+    LimAbsAsgn(cs->x, Car_Speed_MAX);
+    LimAbsAsgn(cs->y, Car_Speed_MAX);
+    LimAbsAsgn(cs->w, Car_Speed_MAX);
 
-    // Ensure that cs.x + cs.y + cs.w < 100
-    if (ABS(cs->w) > 20.0f)
-    {
-        float temp = 100.0f - ABS(cs->x) - ABS(cs->y);
-        if (ABS(cs->w) > temp)
-        {
-            if (cs->w < 0) temp = -temp;
-            cs->w = temp;
-        }
-    }
+    ms->A = cs->y - cs->x;
+    ms->B = cs->y + cs->x;
+    ms->C = cs->y + cs->x;
+    ms->D = cs->y - cs->x;
 
-    ms->A = cs->y - cs->x - cs->w;
-    ms->B = cs->y + cs->x + cs->w;
-    ms->C = cs->y + cs->x - cs->w;
-    ms->D = cs->y - cs->x + cs->w;
+    LimAbsAsgn(ms->A, Car_Speed_MAX);
+    LimAbsAsgn(ms->B, Car_Speed_MAX);
+    LimAbsAsgn(ms->C, Car_Speed_MAX);
+    LimAbsAsgn(ms->D, Car_Speed_MAX);
+
+    ms->A -= cs->w;
+    ms->B += cs->w;
+    ms->C -= cs->w;
+    ms->D += cs->w;
+
+    LimAbsAsgn(ms->A, Car_Speed_MAX);
+    LimAbsAsgn(ms->B, Car_Speed_MAX);
+    LimAbsAsgn(ms->C, Car_Speed_MAX);
+    LimAbsAsgn(ms->D, Car_Speed_MAX);
 }
 
 

@@ -9,5 +9,6 @@
 
 #include "Rainbow.h"
 #include "ShanhuHai.h"
+#include "GrainInEar.h"
 
 #endif // !__MUSIC_SCORE_H

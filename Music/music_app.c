@@ -12,7 +12,7 @@
 #define MUSIC3_TIM          TIM4
 
 #define MUSIC_MIN_NO        1
-#define MUSIC_MAX_NO        4
+#define MUSIC_MAX_NO        5
 
 
 #define Set_BeatTimer_Period(bpm)           \
@@ -50,6 +50,13 @@ const app_music_list_t app_music_list[] =
         /* .m2 = */ &Music_ShanhuHai_Main2,
         /* .m3 = */ NULL,
         /* .bpm = */ 74
+    },
+    {
+        /* .num = */ 5,
+        /* .m1 = */ &Music_GrainInEar,
+        /* .m2 = */ NULL,
+        /* .m3 = */ NULL,
+        /* .bpm = */ 96
     }
 };
 

@@ -789,6 +789,16 @@
               <FileType>5</FileType>
               <FilePath>.\Music\MusicScore\ShanhuHai.h</FilePath>
             </File>
+            <File>
+              <FileName>GrainInEar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Music\MusicScore\GrainInEar.c</FilePath>
+            </File>
+            <File>
+              <FileName>GrainInEar.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Music\MusicScore\GrainInEar.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -4,6 +4,11 @@
 #include "config.h"
 #include "music.h"
 
+/*---------------------------------------- Exported Defines --------------------------------------*/
+
+#define MUSIC_MIN_NO        1
+#define MUSIC_MAX_NO        5
+
 /*---------------------------------------- Exported Types --------------------------------------*/
 
 typedef enum app_music_state_t

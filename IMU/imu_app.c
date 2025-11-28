@@ -7,7 +7,6 @@
 // extern IWDG_HandleTypeDef hiwdg;
 EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f };
 
-
 /**
  * @brief IMU write data to a specific register by SPI.
  * 
