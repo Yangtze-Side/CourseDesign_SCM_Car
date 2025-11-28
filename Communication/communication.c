@@ -41,7 +41,7 @@ void Comm_Init(void)
  */
 void Comm_DetectLinkStatusTask(void)
 {
-    Comm_Linked = BTLINK;
+    Comm_Linked = Comm_GetLinkStatusPinLevel();
 }
 
 

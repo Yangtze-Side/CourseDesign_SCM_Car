@@ -3,8 +3,7 @@
 
 #include "config.h"
 
-#define Comm_LinkStatus_PIN             P32
-#define Comm_GetLinkStatusPinLevel()    (Comm_LinkStatus_PIN)
+#define Comm_GetLinkStatusPinLevel()    (BTLINK)
 
 typedef struct Comm_JoysModeData_t
 {

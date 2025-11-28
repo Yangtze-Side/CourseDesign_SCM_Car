@@ -111,9 +111,9 @@ void app_music_task(void)
         }
     }
 
-    MusicTask(app_music_control.list[app_music_control.pnum].m1, &app_music_control.ctrl[0]);
-    MusicTask(app_music_control.list[app_music_control.pnum].m2, &app_music_control.ctrl[1]);
-    MusicTask(app_music_control.list[app_music_control.pnum].m3, &app_music_control.ctrl[2]);
+    MusicTask(Curr_List().m1, &app_music_control.ctrl[0]);
+    MusicTask(Curr_List().m2, &app_music_control.ctrl[1]);
+    MusicTask(Curr_List().m3, &app_music_control.ctrl[2]);
 
     // Determine the condition of termination
     if (app_music_control.ctrl[0].state == Music_STOP &&
@@ -160,9 +160,9 @@ app_music_start_status_t app_music_start(u8 number)
         MusicStop(&app_music_control.ctrl[1]);
         MusicStop(&app_music_control.ctrl[2]);
 
-        if (Curr_List().m1 != NULL) MusicStart(Curr_List().m1, &app_music_control.ctrl[0]);
-        if (Curr_List().m2 != NULL) MusicStart(Curr_List().m2, &app_music_control.ctrl[1]);
-        if (Curr_List().m3 != NULL) MusicStart(Curr_List().m3, &app_music_control.ctrl[2]);
+        /* if (Curr_List().m1 != NULL) */ MusicStart(Curr_List().m1, &app_music_control.ctrl[0]);
+        /* if (Curr_List().m2 != NULL) */ MusicStart(Curr_List().m2, &app_music_control.ctrl[1]);
+        /* if (Curr_List().m3 != NULL) */ MusicStart(Curr_List().m3, &app_music_control.ctrl[2]);
         
         app_music_control.state = APP_MUSIC_PLAY;
     }
