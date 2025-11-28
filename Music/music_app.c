@@ -46,9 +46,9 @@ const app_music_list_t app_music_list[] =
     },
     {
         /* .num = */ 4,
+        /* .m3 = */ NULL,
         /* .m1 = */ &Music_ShanhuHai_Main1,
         /* .m2 = */ &Music_ShanhuHai_Main2,
-        /* .m3 = */ NULL,
         /* .bpm = */ 74
     },
     {

@@ -103,7 +103,7 @@ void MusicTask(const Music_t *m, MusicControl_t *c)
     }
 
     // Pulse PULSE_1_4 and longer rests at the last time period.
-    else if (c->curr_note_time == 1 && CurrNote(m, c).pulse >= PULSE_1_4)
+    else if (c->curr_note_time == 1 && CurrNote(m, c).pulse >= PULSE_1_8)
     {
         // REST
         Tim_ForceHigh(c);

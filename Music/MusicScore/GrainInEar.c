@@ -167,16 +167,16 @@ static code Note_t M6[] =
     PITCH_G5, PULSE_1_2,
 
     PITCH_F6, 3,
-    PITCH_G6, 3,
+    PITCH_G6, 2,
     PITCH_F6, 2,
     PITCH_E6, 3,
-    PITCH_F6, 3,
+    PITCH_F6, 2,
     PITCH_E6, 2,
     PITCH_D6, 3,
-    PITCH_E6, 3,
+    PITCH_E6, 2,
     PITCH_D6, 2,
-    PITCH_C6, PULSE_1_4,
-    PITCH_REST, PULSE_1_4,
+    PITCH_C6, PULSE_1_4 + 1,    // 少 1
+    PITCH_REST, PULSE_1_4,      // 少 1
 };
 
 static code Note_t M7[] =
