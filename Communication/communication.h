@@ -12,6 +12,13 @@ typedef struct Comm_JoysModeData_t
     float vw;
 } Comm_JoysModeData_t;
 
+typedef struct Comm_EncoderModeData_t
+{
+    float vx;
+    float vy;
+    float target_yaw;
+} Comm_EncoderModeData_t;
+
 typedef struct Comm_GravModeData_t
 {
     float vx;
@@ -20,6 +27,7 @@ typedef struct Comm_GravModeData_t
 } Comm_GravModeData_t;
 
 extern Comm_JoysModeData_t Comm_JoysModeData;
+extern Comm_EncoderModeData_t Comm_EncoderModeData;
 extern Comm_GravModeData_t Comm_GravModeData;
 extern u8 Comm_MotorMode;
 
