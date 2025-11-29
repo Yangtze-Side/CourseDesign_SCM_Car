@@ -181,7 +181,7 @@ static code Note_t M6[] =
 
 static code Note_t M7[] =
 {
-    {PITCH_A4, PULSE_2},
+    {PITCH_B4, PULSE_2},
 };
 
 static code Melody_t Music1[] =
