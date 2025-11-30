@@ -108,7 +108,7 @@ void Motion_Control_ByJoystick(CarSpeed_t *cs)
  */
 void Motion_Control_ByGravity(CarSpeed_t *cs)
 {
-    PosPID_Update(&g_pid, Comm_GravModeData.target_yaw - EulerAngle.yaw);
+    PosPID_Update(&g_pid, Lim_Ang_180(Comm_GravModeData.target_yaw - EulerAngle.yaw));
 
     cs->x = Comm_GravModeData.vx;
     cs->y = Comm_GravModeData.vy;
@@ -128,7 +128,7 @@ void Motion_Control_GravPIDClear(void)
 
 void Motion_Control_ByEncoder(CarSpeed_t *cs)
 {
-    PosPID_Update(&enc_pid, Comm_EncoderModeData.target_yaw - EulerAngle.yaw);
+    PosPID_Update(&enc_pid, Lim_Ang_180(Comm_EncoderModeData.target_yaw - EulerAngle.yaw));
 
     cs->x = Comm_EncoderModeData.vx;
     cs->y = Comm_EncoderModeData.vy;
