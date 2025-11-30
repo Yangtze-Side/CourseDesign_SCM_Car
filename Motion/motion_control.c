@@ -191,18 +191,22 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
         case AC_CarDir_Front:
         {
             if (US_Data.F < AC_DistThres1_cm) inq_index = 1;
+            else Motion_Auto_Go(cs, AC_CarDir_Front);
         } break;
         case AC_CarDir_Right:
         {
             if (US_Data.R < AC_DistThres1_cm) inq_index = 2;
+            else Motion_Auto_Go(cs, AC_CarDir_Right);
         } break;
         case AC_CarDir_Back:
         {
             if (US_Data.B < AC_DistThres1_cm) inq_index = 3;
+            else Motion_Auto_Go(cs, AC_CarDir_Back);
         } break;
         case AC_CarDir_Left:
         {
             if (US_Data.L < AC_DistThres1_cm) inq_index = 0;
+            else Motion_Auto_Go(cs, AC_CarDir_Left);
         } break;
         case AC_CarDir_None:
         {
@@ -230,7 +234,7 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
             }
         }
         Motion_Auto_Go(cs, new_dir);
-        Motion_AC_Stuck = dir_exist;
+        Motion_AC_Stuck = !dir_exist;
     }
 #else
     // If the distance of current direction is defficient or the car has stucked
@@ -273,7 +277,7 @@ void Motion_Control_AutoCruise(CarSpeed_t *cs)
         Motion_Auto_Go(cs, AC_CarDir);
         Motion_AC_Stuck = FALSE;
     }
-    #endif
+#endif
     Motion_Control_AC_SingWhenStuck();
 }
 
