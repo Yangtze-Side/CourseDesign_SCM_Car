@@ -24,6 +24,7 @@
 #define Motor_State_GRAVITY                 2       // Control by gravity  (user implement)
 #define Motor_State_AUTOCRUISE              3       // Auto cruise mode    (user implement)
 #define Motor_State_AUTOFOLLOW              4       // Auto follow mode    (user implement)
+#define Motor_State_ENCODER                 5       // Control by encoder  (user implement)
 
 
 /*--------------------------------- Exported TypeDefs ------------------------------*/

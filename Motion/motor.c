@@ -98,6 +98,12 @@ void Motor_Task(void)
             Car_SpeedTransform(&CarSpeed, &MotorSpeed);
         } break;
         
+        case Motor_State_ENCODER:
+        {
+            Motion_Control_ByEncoder(&CarSpeed);
+            Car_SpeedTransform(&CarSpeed, &MotorSpeed);
+        } break;
+
         case Motor_State_GRAVITY:
         {
             Motion_Control_ByGravity(&CarSpeed);

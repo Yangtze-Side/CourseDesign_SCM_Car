@@ -11,11 +11,13 @@ void Motion_Control_Init(void);
 void Motion_Control_SetState(void);
 
 void Motion_Control_ByJoystick(CarSpeed_t *cs);
+void Motion_Control_ByEncoder(CarSpeed_t *cs);
 void Motion_Control_ByGravity(CarSpeed_t *cs);
 void Motion_Control_AutoCruise(CarSpeed_t *cs);
 void Motion_Control_AutoFollow(CarSpeed_t *cs);
 
 void Motion_Control_GravPIDClear(void);
+void Motion_Control_EncoderPIDClear(void);
 void Motion_Control_AFPIDClear(void);
 
 BOOL Motion_IsACStucked(void);

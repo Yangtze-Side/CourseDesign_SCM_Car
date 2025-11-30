@@ -40,8 +40,9 @@
 #define AF_PID_DeMax                            30.0f
 #define AF_PID_UMax                             100.0f
 
-PosPID_t g_pid;          // yaw loop pid controller of gravity control mode
-PosPID_t af_pid;         // auto follow mode pid controller
+PosPID_t g_pid;            // yaw loop pid controller of gravity control mode
+PosPID_t enc_pid;          // yaw loop pid controller of encoder control mode
+PosPID_t af_pid;           // auto follow mode pid controller
 static BOOL Motion_AC_Stuck = FALSE;
 static BOOL Motion_AF_Alone = FALSE;
 
@@ -54,6 +55,7 @@ static BOOL Motion_AF_Alone = FALSE;
 void Motion_Control_Init(void)
 {
     PosPID_Init(&g_pid, G_PID_Kp, G_PID_Ki, G_PID_Kd, G_PID_IntMax, G_PID_IntDis, G_PID_DeMax, G_PID_UMax);
+    PosPID_Init(&enc_pid, G_PID_Kp, G_PID_Ki, G_PID_Kd, G_PID_IntMax, G_PID_IntDis, G_PID_DeMax, G_PID_UMax);
     PosPID_Init(&af_pid, AF_PID_Kp, AF_PID_Ki, AF_PID_Kd, AF_PID_IntMax, AF_PID_IntDis, AF_PID_DeMax, AF_PID_UMax);
 }
 
@@ -75,6 +77,7 @@ void Motion_Control_SetState(void)
         switch (Now_State)
         {
             case Motor_State_GRAVITY: Motion_Control_GravPIDClear(); break;
+            case Motor_State_ENCODER: Motion_Control_EncoderPIDClear(); break;
             case Motor_State_AUTOFOLLOW: Motion_Control_AFPIDClear(); break;
         }
         if (Now_State != Motor_State_OFF) LED1_Flash();
@@ -105,7 +108,7 @@ void Motion_Control_ByJoystick(CarSpeed_t *cs)
  */
 void Motion_Control_ByGravity(CarSpeed_t *cs)
 {
-    PosPID_Update(&g_pid, Comm_GravModeData.target_yaw - EulerAngle.yaw);
+    PosPID_Update(&g_pid, Lim_Ang_180(Comm_GravModeData.target_yaw - EulerAngle.yaw));
 
     cs->x = Comm_GravModeData.vx;
     cs->y = Comm_GravModeData.vy;
@@ -121,6 +124,25 @@ void Motion_Control_GravPIDClear(void)
     PosPID_Clear(&g_pid);
 }
 
+/*-------------------------------------------- Encoder Control -------------------------------------------*/
+
+void Motion_Control_ByEncoder(CarSpeed_t *cs)
+{
+    PosPID_Update(&enc_pid, Lim_Ang_180(Comm_EncoderModeData.target_yaw - EulerAngle.yaw));
+
+    cs->x = Comm_EncoderModeData.vx;
+    cs->y = Comm_EncoderModeData.vy;
+    cs->w = enc_pid.u;
+}
+
+/**
+ * @brief Clear data of encoder mode pid controller.
+ * 
+ */
+void Motion_Control_EncoderPIDClear(void)
+{
+    PosPID_Clear(&enc_pid);
+}
 
 /*-------------------------------------------- Auto Cruise -------------------------------------------*/
 

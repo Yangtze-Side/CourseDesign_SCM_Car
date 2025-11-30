@@ -25,6 +25,7 @@ static u8  Comm_DatBuf[64];
 static BOOL Comm_Linked = FALSE;
 
 Comm_JoysModeData_t Comm_JoysModeData = { 0.0f, 0.0f, 0.0f };
+Comm_EncoderModeData_t Comm_EncoderModeData = { 0.0f, 0.0f, 0.0f };
 Comm_GravModeData_t Comm_GravModeData = { 0.0f, 0.0f, 0.0f };
 u8 Comm_MotorMode = Motor_State_OFF;
 
@@ -89,6 +90,14 @@ void Comm_ParseTask(void)
                     Comm_JoysModeData.vx = *(float*)(Comm_DatBuf + 3);
                     Comm_JoysModeData.vy = *(float*)(Comm_DatBuf + 7);
                     Comm_JoysModeData.vw = *(float*)(Comm_DatBuf + 11);
+                } break;
+
+                case COMM_CMD_EncoderMode:
+                {
+                    Comm_MotorMode = Motor_State_ENCODER;
+                    Comm_EncoderModeData.vx = *(float*)(Comm_DatBuf + 3);
+                    Comm_EncoderModeData.vy = *(float*)(Comm_DatBuf + 7);
+                    Comm_EncoderModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
                 } break;
                 
                 case COMM_CMD_GravMode:
