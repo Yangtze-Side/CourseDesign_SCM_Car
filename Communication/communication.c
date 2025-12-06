@@ -10,6 +10,7 @@
 #include "music_header.h"
 #include "led.h"
 #include "motion_control.h"
+#include "imu_app.h"
 
 #define COMM_DATBUF_SIZE        64
 
@@ -186,7 +187,8 @@ void Comm_SendTask(void)
     *(float*)(dat + 35) = af_pid.Kp;
     *(float*)(dat + 39) = af_pid.Ki;
     *(float*)(dat + 43) = af_pid.Kd;
-    dat[47] = COMM_TAIL_BYTE0;
-    dat[48] = COMM_TAIL_BYTE1;
+    *(float*)(dat + 47) = EulerAngle.yaw;
+    dat[51] = COMM_TAIL_BYTE0;
+    dat[52] = COMM_TAIL_BYTE1;
     UART_Send_Start(&uart2_tx, dat, sizeof(dat));
 }

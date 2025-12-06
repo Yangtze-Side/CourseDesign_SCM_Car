@@ -25,17 +25,17 @@
 /*--------------------------------------- Contants & Variables --------------------------------------*/
 
 #define G_PID_Kp                                2.40f
-#define G_PID_Ki                                0.05f
+#define G_PID_Ki                                (50.0f / G_PID_IntMax)
 #define G_PID_Kd                                4.2f
-#define G_PID_IntMax                            50.0f
+#define G_PID_IntMax                            500.0f
 #define G_PID_IntDis                            5.0f
 #define G_PID_DeMax                             20.0f
 #define G_PID_UMax                              100.0f
 
 #define AF_PID_Kp                               5.3f
-#define AF_PID_Ki                               0.050f
+#define AF_PID_Ki                               (50.0f / AF_PID_IntMax)
 #define AF_PID_Kd                               4.20f
-#define AF_PID_IntMax                           50.0f
+#define AF_PID_IntMax                           500.0f
 #define AF_PID_IntDis                           5.0f
 #define AF_PID_DeMax                            30.0f
 #define AF_PID_UMax                             100.0f
