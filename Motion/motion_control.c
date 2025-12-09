@@ -25,19 +25,19 @@
 /*--------------------------------------- Contants & Variables --------------------------------------*/
 
 #define G_PID_Kp                                2.40f
-#define G_PID_Ki                                (50.0f / G_PID_IntMax)
-#define G_PID_Kd                                4.2f
-#define G_PID_IntMax                            500.0f
+#define G_PID_Ki                                (10.0f / G_PID_IntMax)
+#define G_PID_Kd                                (10.0f / G_PID_DeMax)
+#define G_PID_IntMax                            20.0f
 #define G_PID_IntDis                            5.0f
-#define G_PID_DeMax                             20.0f
+#define G_PID_DeMax                             10.0f
 #define G_PID_UMax                              100.0f
 
 #define AF_PID_Kp                               5.3f
-#define AF_PID_Ki                               (50.0f / AF_PID_IntMax)
-#define AF_PID_Kd                               4.20f
-#define AF_PID_IntMax                           500.0f
-#define AF_PID_IntDis                           5.0f
-#define AF_PID_DeMax                            30.0f
+#define AF_PID_Ki                               (20.0f / AF_PID_IntMax)
+#define AF_PID_Kd                               (30.0f / AF_PID_DeMax)
+#define AF_PID_IntMax                           8.0f
+#define AF_PID_IntDis                           2.0f
+#define AF_PID_DeMax                            10.0f
 #define AF_PID_UMax                             100.0f
 
 PosPID_t g_pid;            // yaw loop pid controller of gravity control mode

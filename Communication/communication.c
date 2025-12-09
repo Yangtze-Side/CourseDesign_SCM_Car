@@ -15,11 +15,11 @@
 #define COMM_DATBUF_SIZE        64
 
 #define GPID_Kp_STEP            0.02f
-#define GPID_Ki_STEP            0.002f
-#define GPID_Kd_STEP            0.2f
+#define GPID_Ki_STEP            0.1f
+#define GPID_Kd_STEP            0.1f
 #define AFPID_Kp_STEP           0.2f
-#define AFPID_Ki_STEP           0.002f
-#define AFPID_Kd_STEP           0.2f
+#define AFPID_Ki_STEP           0.1f
+#define AFPID_Kd_STEP           0.1f
 
 static BOOL Comm_ParseFlag = FALSE;
 static u8  Comm_DatBuf[64];
