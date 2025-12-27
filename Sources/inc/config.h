@@ -12,7 +12,8 @@
 
 //<<AICUBE_USER_DEFINE_BEGIN>>
 // 在此添加用户宏定义  
-#define CODE_SIMULATION         1
+
+#define CODE_SIMULATION         0   /* 下载到仿真的时候置 1，以适应必养的 Proteus */
 
 #define __INDIRECT_CALL_PARAMETER_TYPE
 
