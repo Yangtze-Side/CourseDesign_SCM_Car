@@ -2,7 +2,7 @@
 #include "user_pwm.h"
 
 /**
- * @brief Initialize PWM periperal. Determined by user.
+ * @brief Initialize PWM peripheral. Determined by user.
  * 
  */
 void User_PWM_Init(void)

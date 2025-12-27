@@ -50,7 +50,7 @@ u8 imu_spi_read(u8 reg, u8 __INDIRECT_CALL_PARAMETER_TYPE *buf, u16 len)
  */
 void IMU_Init(void)
 {
-#if USE_MPU6500
+#if !CODE_SIMULATION
     u8 retry = 10;
 
     while (MPU6500_Init() == FAILED)
@@ -75,7 +75,7 @@ void IMU_Init(void)
  */
 void IMU_Update(void)
 {
-#if USE_MPU6500
+#if !CODE_SIMULATION
     if (MPU6500_IsInitialized())
     {
         if (MPU6500_IsDriftSampled())
