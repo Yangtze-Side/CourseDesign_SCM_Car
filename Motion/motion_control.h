@@ -23,4 +23,6 @@ void Motion_Control_AFPIDClear(void);
 BOOL Motion_IsACStucked(void);
 BOOL Motion_IsAFAlone(void);
 
+void Motion_Control_PIDSaveToFlash(void);
+
 #endif // !__MOTION_CONTROL_H

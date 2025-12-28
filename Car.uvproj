@@ -499,6 +499,16 @@
               <FileType>5</FileType>
               <FilePath>.\User_Driver\user_tim.h</FilePath>
             </File>
+            <File>
+              <FileName>user_iap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Driver\user_iap.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_iap.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Driver\user_iap.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

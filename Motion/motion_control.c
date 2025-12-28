@@ -48,6 +48,35 @@ static BOOL Motion_AF_Alone = FALSE;
 
 /*-------------------------------------------- Functions -------------------------------------------*/
 
+static void Motion_Control_PIDReadFromFlash(void)
+{
+    u8 iap_pid_ok = 0;
+    u8 buftmp[IAP_PID_DATALEN];
+    IAP_ReadBytes(IAP_PID_OK_ADDR, &iap_pid_ok, 1);
+    if (iap_pid_ok != IAP_PID_OK_FLAG) return;
+    IAP_ReadBytes(IAP_PID_ADDR, buftmp, IAP_PID_DATALEN);
+    g_pid.Kp = *(float*)(buftmp + 0);
+    g_pid.Ki = *(float*)(buftmp + 4);
+    g_pid.Kd = *(float*)(buftmp + 8);
+    af_pid.Kp = *(float*)(buftmp + 12);
+    af_pid.Ki = *(float*)(buftmp + 16);
+    af_pid.Kd = *(float*)(buftmp + 20);
+}
+
+void Motion_Control_PIDSaveToFlash(void)
+{
+    u8 buftmp[IAP_PID_LEN];
+    *(float*)(buftmp + 0)  = g_pid.Kp;
+    *(float*)(buftmp + 4)  = g_pid.Ki;
+    *(float*)(buftmp + 8)  = g_pid.Kd;
+    *(float*)(buftmp + 12) = af_pid.Kp;
+    *(float*)(buftmp + 16) = af_pid.Ki;
+    *(float*)(buftmp + 20) = af_pid.Kd;
+    buftmp[IAP_PID_OK_OFFSET] = IAP_PID_OK_FLAG;
+    IAP_EraseSector(IAP_PID_ADDR);
+    IAP_ProgramBytes(IAP_PID_ADDR, buftmp, IAP_PID_LEN);
+}
+
 /**
  * @brief Do some initialization work.
  * 
@@ -57,6 +86,7 @@ void Motion_Control_Init(void)
     PosPID_Init(&g_pid, G_PID_Kp, G_PID_Ki, G_PID_Kd, G_PID_IntMax, G_PID_IntDis, G_PID_DeMax, G_PID_UMax);
     PosPID_Init(&enc_pid, G_PID_Kp, G_PID_Ki, G_PID_Kd, G_PID_IntMax, G_PID_IntDis, G_PID_DeMax, G_PID_UMax);
     PosPID_Init(&af_pid, AF_PID_Kp, AF_PID_Ki, AF_PID_Kd, AF_PID_IntMax, AF_PID_IntDis, AF_PID_DeMax, AF_PID_UMax);
+    Motion_Control_PIDReadFromFlash();
 }
 
 /**

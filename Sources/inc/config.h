@@ -17,6 +17,13 @@
 
 #define __INDIRECT_CALL_PARAMETER_TYPE
 
+#define IAP_PID_ADDR            0xD000  /* PID 参数存储地址。IAP15W4K61S4 的可读地址范围：0h ~ F3FFh */
+#define IAP_PID_DATALEN         24      /* PID 参数存储长度 */
+#define IAP_PID_OK_OFFSET       (IAP_PID_DATALEN)   /* PID 参数有效字节偏移 */
+#define IAP_PID_LEN             (IAP_PID_DATALEN + 1) /* PID 参数总长度 */
+#define IAP_PID_OK_ADDR         (IAP_PID_ADDR + IAP_PID_DATALEN)  /* PID 参数有效字节地址 */
+#define IAP_PID_OK_FLAG         0xA5    /* PID 参数有效标志 */
+
 //<<AICUBE_USER_DEFINE_END>>
 
 

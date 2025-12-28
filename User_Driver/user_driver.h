@@ -6,5 +6,6 @@
 #include "user_spi.h"
 #include "user_pca.h"
 #include "user_tim.h"
+#include "user_iap.h"
 
 #endif // !__USER_DRIVER_H

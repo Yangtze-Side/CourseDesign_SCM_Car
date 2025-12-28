@@ -77,86 +77,88 @@ void Comm_StartParse(u8 DatBuf[64], u8 len)
 void Comm_ParseTask(void)
 {
     if (Comm_Linked == FALSE) return;
+    if (Comm_ParseFlag == FALSE) return;
 
-    if (Comm_ParseFlag)
+    Comm_ParseFlag = 0;
+    if (!COMM_IsFrameHeadCorrect(Comm_DatBuf)) return;
+
+    switch (Comm_DatBuf[2])
     {
-        Comm_ParseFlag = 0;
-        if (COMM_IsFrameHeadCorrect(Comm_DatBuf))
+        case COMM_CMD_JoysMode:
         {
-            switch (Comm_DatBuf[2])
-            {
-                case COMM_CMD_JoysMode:
-                {
-                    Comm_MotorMode = Motor_State_JOYSTICK;
-                    Comm_JoysModeData.vx = *(float*)(Comm_DatBuf + 3);
-                    Comm_JoysModeData.vy = *(float*)(Comm_DatBuf + 7);
-                    Comm_JoysModeData.vw = *(float*)(Comm_DatBuf + 11);
-                } break;
+            Comm_MotorMode = Motor_State_JOYSTICK;
+            Comm_JoysModeData.vx = *(float*)(Comm_DatBuf + 3);
+            Comm_JoysModeData.vy = *(float*)(Comm_DatBuf + 7);
+            Comm_JoysModeData.vw = *(float*)(Comm_DatBuf + 11);
+        } break;
 
-                case COMM_CMD_EncoderMode:
-                {
-                    Comm_MotorMode = Motor_State_ENCODER;
-                    Comm_EncoderModeData.vx = *(float*)(Comm_DatBuf + 3);
-                    Comm_EncoderModeData.vy = *(float*)(Comm_DatBuf + 7);
-                    Comm_EncoderModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
-                } break;
-                
-                case COMM_CMD_GravMode:
-                {
-                    Comm_MotorMode = Motor_State_GRAVITY;
-                    Comm_GravModeData.vx = *(float*)(Comm_DatBuf + 3);
-                    Comm_GravModeData.vy = *(float*)(Comm_DatBuf + 7);
-                    Comm_GravModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
-                } break;
+        case COMM_CMD_EncoderMode:
+        {
+            Comm_MotorMode = Motor_State_ENCODER;
+            Comm_EncoderModeData.vx = *(float*)(Comm_DatBuf + 3);
+            Comm_EncoderModeData.vy = *(float*)(Comm_DatBuf + 7);
+            Comm_EncoderModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
+        } break;
+        
+        case COMM_CMD_GravMode:
+        {
+            Comm_MotorMode = Motor_State_GRAVITY;
+            Comm_GravModeData.vx = *(float*)(Comm_DatBuf + 3);
+            Comm_GravModeData.vy = *(float*)(Comm_DatBuf + 7);
+            Comm_GravModeData.target_yaw = *(float*)(Comm_DatBuf + 11);
+        } break;
 
-                case COMM_CMD_ACMode:
-                {
-                    Comm_MotorMode = Motor_State_AUTOCRUISE;
-                } break;
+        case COMM_CMD_ACMode:
+        {
+            Comm_MotorMode = Motor_State_AUTOCRUISE;
+        } break;
 
-                case COMM_CMD_AFMode:
-                {
-                    Comm_MotorMode = Motor_State_AUTOFOLLOW;
-                } break;
+        case COMM_CMD_AFMode:
+        {
+            Comm_MotorMode = Motor_State_AUTOFOLLOW;
+        } break;
 
-                case COMM_CMD_MusicStart:
-                {
-                    app_music_start(Comm_DatBuf[3]);
-                    LED1_Flash();
-                } break;
+        case COMM_CMD_MusicStart:
+        {
+            app_music_start(Comm_DatBuf[3]);
+            LED1_Flash();
+        } break;
 
-                case COMM_CMD_MusicPause:
-                {
-                    app_music_pause();
-                    LED1_Flash();
-                } break;
+        case COMM_CMD_MusicPause:
+        {
+            app_music_pause();
+            LED1_Flash();
+        } break;
 
-                case COMM_CMD_MusicStop:
-                {
-                    app_music_stop();
-                    LED1_Flash();
-                } break;
+        case COMM_CMD_MusicStop:
+        {
+            app_music_stop();
+            LED1_Flash();
+        } break;
 
-                case COMM_CMD_MusicResume:
-                {
-                    app_music_resume();
-                    LED1_Flash();
-                } break;
+        case COMM_CMD_MusicResume:
+        {
+            app_music_resume();
+            LED1_Flash();
+        } break;
 
-                case COMM_CMD_GPIDkpAdd: g_pid.Kp += GPID_Kp_STEP; break;
-                case COMM_CMD_GPIDkpDec: g_pid.Kp -= GPID_Kp_STEP; break;
-                case COMM_CMD_GPIDkiAdd: g_pid.Ki += GPID_Ki_STEP; break;
-                case COMM_CMD_GPIDkiDec: g_pid.Ki -= GPID_Ki_STEP; break;
-                case COMM_CMD_GPIDkdAdd: g_pid.Kd += GPID_Kd_STEP; break;
-                case COMM_CMD_GPIDkdDec: g_pid.Kd -= GPID_Kd_STEP; break;
-                case COMM_CMD_AFPIDkpAdd: af_pid.Kp += AFPID_Kp_STEP; break;
-                case COMM_CMD_AFPIDkpDec: af_pid.Kp -= AFPID_Kp_STEP; break;
-                case COMM_CMD_AFPIDkiAdd: af_pid.Ki += AFPID_Ki_STEP; break;
-                case COMM_CMD_AFPIDkiDec: af_pid.Ki -= AFPID_Ki_STEP; break;
-                case COMM_CMD_AFPIDkdAdd: af_pid.Kd += AFPID_Kd_STEP; break;
-                case COMM_CMD_AFPIDkdDec: af_pid.Kd -= AFPID_Kd_STEP; break;
-            }
-        }
+        case COMM_CMD_GPIDkpAdd: g_pid.Kp += GPID_Kp_STEP; break;
+        case COMM_CMD_GPIDkpDec: g_pid.Kp -= GPID_Kp_STEP; break;
+        case COMM_CMD_GPIDkiAdd: g_pid.Ki += GPID_Ki_STEP; break;
+        case COMM_CMD_GPIDkiDec: g_pid.Ki -= GPID_Ki_STEP; break;
+        case COMM_CMD_GPIDkdAdd: g_pid.Kd += GPID_Kd_STEP; break;
+        case COMM_CMD_GPIDkdDec: g_pid.Kd -= GPID_Kd_STEP; break;
+        case COMM_CMD_AFPIDkpAdd: af_pid.Kp += AFPID_Kp_STEP; break;
+        case COMM_CMD_AFPIDkpDec: af_pid.Kp -= AFPID_Kp_STEP; break;
+        case COMM_CMD_AFPIDkiAdd: af_pid.Ki += AFPID_Ki_STEP; break;
+        case COMM_CMD_AFPIDkiDec: af_pid.Ki -= AFPID_Ki_STEP; break;
+        case COMM_CMD_AFPIDkdAdd: af_pid.Kd += AFPID_Kd_STEP; break;
+        case COMM_CMD_AFPIDkdDec: af_pid.Kd -= AFPID_Kd_STEP; break;
+    }
+
+    if (Comm_DatBuf[2] >= COMM_CMD_GPIDkpAdd && Comm_DatBuf[2] <= COMM_CMD_AFPIDkdDec)
+    {
+        Motion_Control_PIDSaveToFlash();
     }
 }
 

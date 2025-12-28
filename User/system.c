@@ -25,6 +25,7 @@ UART_Recv_t uart2_rx = { UART2, FALSE, UART2_RecvBuf, UART2_RecvBuf_SIZE, 0, 0 }
  */
 void proj_init(void)
 {
+	IAP_Init();
 	Comm_Init();
 	User_PCA_Init();
 	Motion_Control_Init();
